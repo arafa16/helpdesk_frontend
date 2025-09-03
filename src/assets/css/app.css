@@ -37,7 +37,6 @@
 @import "simplebar/src/simplebar.css";
 @import "dropzone/dist/dropzone.css";
 @import "tabulator-tables/dist/css/tabulator.css";
-@import "tom-select/dist/css/tom-select.css";
 @import "zoom-vanilla.js/dist/zoom.css";
 @import "toastify-js/src/toastify.css";
 @import "highlight.js/styles/github.css";
@@ -66,7 +65,6 @@
 @import "./components/_tippy.css";
 @import "./components/_toastify.css";
 @import "./components/_zoom-vanilla.css";
-@import "./components/_tom-select.css";
 @import "./components/_ckeditor.css";
 @import "./components/_litepicker.css";
 @import "./components/_full-calendar.css";
