@@ -7,8 +7,6 @@ import {
   FormInline,
   FormTextarea,
 } from "../../base-components/Form";
-import TomSelect from "../../base-components/TomSelect";
-import { isNull } from "lodash";
 
 const CreateTicketForm = (props: any) => {
   const {
