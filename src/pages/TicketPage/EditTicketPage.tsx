@@ -37,6 +37,8 @@ const EditTicketPage = () => {
     gmap: "",
     eta: "",
     priority_level: "",
+    ticket_trouble_category_uuid: "",
+    trouble_category: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,6 +71,9 @@ const EditTicketPage = () => {
           gmap: data?.data?.ticket?.gmap,
           eta: data?.data?.ticket?.eta,
           priority_level: data?.data?.ticket?.priority_level,
+          ticket_trouble_category_uuid:
+            data?.data?.ticket?.ticket_trouble_category?.uuid,
+          trouble_description: data?.data?.ticket?.trouble_description,
         });
         setDatas(data?.data);
         dispatch(resetTicket());
@@ -136,7 +141,7 @@ const EditTicketPage = () => {
           <div className="font-medium">Cannot change ticket status</div>
         </div>
       </Notification>
-      <div className="mt-6 flex gap-2">
+      <div className="mt-6 flex justify-end gap-2">
         <Button
           variant="primary"
           type="button"
@@ -167,6 +172,7 @@ const EditTicketPage = () => {
           setFormData={setFormData}
           area={datas?.area}
           ticket_category={datas?.ticket_category}
+          ticket_trouble_category={datas?.ticket_trouble_category}
           ticket_access={datas?.ticket_access}
           executor={datas?.executor}
           customer={datas?.customer}

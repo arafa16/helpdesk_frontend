@@ -32,6 +32,8 @@ const CreateTicketPage = () => {
     gmap: "",
     eta: "",
     priority_level: "",
+    ticket_trouble_category_uuid: "",
+    trouble_description: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -116,7 +118,7 @@ const CreateTicketPage = () => {
 
   return (
     <>
-      <div className="mt-6 flex gap-2">
+      <div className="mt-6 flex justify-end gap-2">
         <Button
           variant="primary"
           type="button"
@@ -147,6 +149,7 @@ const CreateTicketPage = () => {
           setFormData={setFormData}
           area={datas?.area}
           ticket_category={datas?.ticket_category}
+          ticket_trouble_category={datas?.ticket_trouble_category}
           ticket_access={datas?.ticket_access}
           executor={datas?.executor}
           customer={datas?.customer}

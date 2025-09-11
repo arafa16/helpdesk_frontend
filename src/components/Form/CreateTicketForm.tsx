@@ -15,6 +15,7 @@ const CreateTicketForm = (props: any) => {
     customer,
     area,
     ticket_category,
+    ticket_trouble_category,
     ticket_access,
     executor,
     users,
@@ -363,6 +364,52 @@ const CreateTicketForm = (props: any) => {
               <option value={"high"}>high</option>
               <option value={"urgent"}>urgent</option>
             </FormSelect>
+          </FormInline>
+        </div>
+      </div>
+      <div className={`grid grid-cols-12 gap-y-1 gap-x-4 mt-4`}>
+        <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+          <FormInline>
+            <FormLabel className="" htmlFor="ticket_trouble_category_uuid">
+              Trouble Category
+            </FormLabel>
+            <FormSelect
+              formSelectSize="sm"
+              name="ticket_trouble_category_uuid"
+              value={formData?.ticket_trouble_category_uuid}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  ticket_trouble_category_uuid: e.target.value,
+                })
+              }
+            >
+              <option value={""}></option>
+              {ticket_trouble_category &&
+                ticket_trouble_category.map((data: any, index: any) => (
+                  <option key={index} value={data.uuid}>
+                    {data.name}
+                  </option>
+                ))}
+            </FormSelect>
+          </FormInline>
+        </div>
+        <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+          <FormInline>
+            <FormLabel className="" htmlFor="trouble_description">
+              Trouble Description
+            </FormLabel>
+            <FormTextarea
+              formTextareaSize="sm"
+              value={formData?.trouble_description}
+              name="trouble_description"
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  trouble_description: e.target.value,
+                })
+              }
+            />
           </FormInline>
         </div>
       </div>

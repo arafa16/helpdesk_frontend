@@ -6,6 +6,7 @@ import Button from "../../base-components/Button";
 import {
   GetTicketDataById,
   UpdateTicketStatusDataById,
+  DeleteTicketData,
   resetTicket,
 } from "../../stores/features/TicketSlice";
 
@@ -51,6 +52,28 @@ import dayjs from "dayjs";
 import axios from "axios";
 import TicketActivityCommentSlideOver from "../../components/SlideOver/TicketActivityCommentSlideOver";
 import TicketUserReminderSlideOver from "../../components/SlideOver/TicketUserReminderSlideOver";
+
+import Toastify from "toastify-js";
+
+function NewNotification(message: any) {
+  Toastify({
+    text: `${message}`,
+    duration: 3000,
+    gravity: "top",
+    position: "right",
+    close: true,
+    stopOnFocus: true,
+    style: {
+      background: "#fff",
+      color: "#3d4044", // slate-500
+      fontSize: "12px",
+      borderRadius: "8px",
+      boxShadow: "0 2px 8px rgba(34,197,94,0.10)",
+      padding: "20px 64px 20px 20px",
+      border: "1px solid #e5e7eb",
+    },
+  }).showToast();
+}
 
 const ViewTicketPage = () => {
   const { id } = useParams();
@@ -104,37 +127,53 @@ const ViewTicketPage = () => {
   const navigate = useNavigate();
 
   //ticket view
-  const { data, isError, isSuccess, isLoading, message, messageUpdate } =
-    useSelector((state: any) => state.ticket);
+  const {
+    data,
+    isError,
+    isSuccess,
+    isLoading,
+    message,
+    messageUpdate,
+    messageDelete,
+  } = useSelector((state: any) => state.ticket);
 
   useEffect(() => {
-    if (data && isSuccess) {
-      if (!isLoading) {
-        console.log(data?.data);
-        setDatas(data?.data);
-        dispatch(resetTicket());
-      }
+    if (data !== null && isSuccess && !isLoading) {
+      setDatas(data?.data);
+      dispatch(resetTicket());
+    } else if (message !== "" && isError && !isLoading) {
+      NewNotification(messageUpdate.message);
+      dispatch(resetTicket());
     }
-    if (message && isError) {
-      if (!isLoading) {
-        console.log("error", message);
-        dispatch(resetTicket());
-      }
+
+    if (messageUpdate !== "" && isSuccess && !isLoading) {
+      NewNotification(messageUpdate.message);
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicket());
+    } else if (messageUpdate !== "" && isError && !isLoading) {
+      NewNotification(messageUpdate.message);
+      dispatch(resetTicket());
     }
-    if (messageUpdate && isSuccess) {
-      if (!isLoading) {
-        console.log("message update", messageUpdate);
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicket());
-      }
+
+    if (messageDelete !== "" && isSuccess && !isLoading) {
+      dispatch(resetTicket());
+      const link: string | any = searchParams.get("back") || -1;
+      navigate(link);
+    } else if (messageDelete !== "" && isError && !isLoading) {
+      NewNotification(messageDelete.message);
+      dispatch(resetTicket());
     }
-    if (messageUpdate && isError) {
-      if (!isLoading) {
-        console.log("error", messageUpdate);
-        dispatch(resetTicket());
-      }
-    }
-  }, [data, isError, isSuccess, isLoading, message, messageUpdate]);
+  }, [
+    data,
+    isError,
+    isSuccess,
+    isLoading,
+    message,
+    messageUpdate,
+    messageDelete,
+    dispatch,
+    id,
+  ]);
 
   useEffect(() => {
     dispatch(GetTicketDataById(id));
@@ -149,7 +188,7 @@ const ViewTicketPage = () => {
         dispatch(UpdateTicketStatusDataById({ uuid: id, ticket_status_uuid }));
       }
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -170,37 +209,44 @@ const ViewTicketPage = () => {
     ) {
       setShowTicketAttachmentSlideOver(true);
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
   useEffect(() => {
-    if (messageTicketAttachment && isSuccessTicketAttachment) {
-      if (!isLoadingTicketAttachment) {
-        successNotificationToggle();
-        handleCancelTicketAttachment();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketAttachment());
-      }
+    if (
+      messageTicketAttachment !== "" &&
+      isSuccessTicketAttachment &&
+      !isLoadingTicketAttachment
+    ) {
+      NewNotification(messageTicketAttachment?.message);
+      handleCancelTicketAttachment();
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketAttachment());
+    } else if (
+      messageTicketAttachment !== "" &&
+      isErrorTicketAttachment &&
+      !isLoadingTicketAttachment
+    ) {
+      NewNotification(messageTicketAttachment?.message);
+      dispatch(resetTicketAttachment());
     }
-    if (messageTicketAttachment && isErrorTicketAttachment) {
-      if (!isLoadingTicketAttachment) {
-        console.log("error", messageTicketAttachment);
-        dispatch(resetTicketAttachment());
-      }
-    }
-    if (message2TicketAttachment && isSuccessTicketAttachment) {
-      if (!isLoadingTicketAttachment) {
-        successNotificationToggle();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketAttachment());
-      }
-    }
-    if (message2TicketAttachment && isErrorTicketAttachment) {
-      if (!isLoadingTicketAttachment) {
-        console.log("error", message2TicketAttachment);
-        dispatch(resetTicketAttachment());
-      }
+
+    if (
+      message2TicketAttachment !== "" &&
+      isSuccessTicketAttachment &&
+      !isLoadingTicketAttachment
+    ) {
+      NewNotification(message2TicketAttachment?.message);
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketAttachment());
+    } else if (
+      message2TicketAttachment !== "" &&
+      isErrorTicketAttachment &&
+      !isLoadingTicketAttachment
+    ) {
+      NewNotification(message2TicketAttachment?.message);
+      dispatch(resetTicketAttachment());
     }
   }, [
     dataTicketAttachment,
@@ -208,6 +254,7 @@ const ViewTicketPage = () => {
     isSuccessTicketAttachment,
     isLoadingTicketAttachment,
     messageTicketAttachment,
+    message2TicketAttachment,
   ]);
 
   const handleSubmitTicketAttachment = (e: any) => {
@@ -223,7 +270,7 @@ const ViewTicketPage = () => {
     ) {
       dispatch(CreateTicketAttachment({ formData, ticket_uuid: id }));
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -239,7 +286,7 @@ const ViewTicketPage = () => {
     ) {
       dispatch(DeleteTicketAttachment({ uuid }));
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -267,6 +314,14 @@ const ViewTicketPage = () => {
     navigate(`/ticket/edit/${id}?` + back_view);
   };
 
+  const handleDelete = () => {
+    if (id) {
+      if (window.confirm("Are you sure want to delete this data?")) {
+        dispatch(DeleteTicketData({ uuid: id }));
+      }
+    }
+  };
+
   //ticket activity
   const {
     data: dataTicketActivity,
@@ -278,34 +333,38 @@ const ViewTicketPage = () => {
   } = useSelector((state: any) => state.ticketActivity);
 
   useEffect(() => {
-    if (messageTicketActivity && isSuccessTicketActivity) {
-      if (!isLoadingTicketActivity) {
-        console.log(messageTicketActivity);
-        successNotificationToggle();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketActivity());
-      }
+    if (
+      messageTicketActivity !== "" &&
+      isSuccessTicketActivity &&
+      !isLoadingTicketActivity
+    ) {
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketActivity());
+    } else if (
+      messageTicketActivity !== "" &&
+      isErrorTicketActivity &&
+      !isLoadingTicketActivity
+    ) {
+      NewNotification(messageTicketActivity.message);
+      dispatch(resetTicketActivity());
     }
-    if (messageTicketActivity && isErrorTicketActivity) {
-      if (!isLoadingTicketActivity) {
-        console.log("error", messageTicketActivity);
-        dispatch(resetTicketActivity());
-      }
-    }
-    if (messageUpdateTicketActivity && isSuccessTicketActivity) {
-      if (!isLoadingTicketActivity) {
-        console.log(messageUpdateTicketActivity);
-        successNotificationToggle();
-        dispatch(GetTicketDataById(id));
-        setShowTicketActivitySlideOver(false);
-        dispatch(resetTicketActivity());
-      }
-    }
-    if (messageUpdateTicketActivity && isErrorTicketActivity) {
-      if (!isLoadingTicketActivity) {
-        setShowTicketActivitySlideOver(false);
-        dispatch(resetTicketActivity());
-      }
+
+    if (
+      messageTicketActivity !== "" &&
+      isSuccessTicketActivity &&
+      !isLoadingTicketActivity
+    ) {
+      NewNotification(messageTicketActivity.message);
+      dispatch(GetTicketDataById(id));
+      setShowTicketActivitySlideOver(false);
+      dispatch(resetTicketActivity());
+    } else if (
+      messageUpdateTicketActivity !== "" &&
+      isErrorTicketActivity &&
+      !isLoadingTicketActivity
+    ) {
+      setShowTicketActivitySlideOver(false);
+      dispatch(resetTicketActivity());
     }
   }, [
     dataTicketActivity,
@@ -323,7 +382,7 @@ const ViewTicketPage = () => {
     ) {
       dispatch(DeleteTicketActivityDataById(uuid));
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -343,7 +402,7 @@ const ViewTicketPage = () => {
       });
       setShowTicketActivitySlideOver(true);
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -371,7 +430,7 @@ const ViewTicketPage = () => {
         })
       );
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -386,32 +445,38 @@ const ViewTicketPage = () => {
   } = useSelector((state: any) => state.ticketActivityAttachment);
 
   useEffect(() => {
-    if (messageTicketActivityAttachment && isSuccessTicketActivityAttachment) {
-      if (!isLoadingTicketActivityAttachment) {
-        successNotificationToggle();
-        handleCancelTicketActivityAttachment();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketActivityAttachment());
-      }
+    if (
+      messageTicketActivityAttachment !== "" &&
+      isSuccessTicketActivityAttachment &&
+      !isLoadingTicketActivityAttachment
+    ) {
+      NewNotification(messageTicketActivityAttachment.message);
+      handleCancelTicketActivityAttachment();
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketActivityAttachment());
+    } else if (
+      messageTicketActivityAttachment !== "" &&
+      isErrorTicketActivityAttachment &&
+      !isLoadingTicketActivityAttachment
+    ) {
+      NewNotification(messageTicketActivityAttachment.message);
+      dispatch(resetTicketActivityAttachment());
     }
-    if (messageTicketActivityAttachment && isErrorTicketActivityAttachment) {
-      if (!isLoadingTicketActivityAttachment) {
-        console.log("error", messageTicketActivityAttachment);
-        dispatch(resetTicketActivityAttachment());
-      }
-    }
-    if (message2TicketActivityAttachment && isSuccessTicketActivityAttachment) {
-      if (!isLoadingTicketActivityAttachment) {
-        successNotificationToggle();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketActivityAttachment());
-      }
-    }
-    if (message2TicketActivityAttachment && isErrorTicketActivityAttachment) {
-      if (!isLoadingTicketActivityAttachment) {
-        console.log("error", message2TicketActivityAttachment);
-        dispatch(resetTicketActivityAttachment());
-      }
+    if (
+      message2TicketActivityAttachment !== "" &&
+      isSuccessTicketActivityAttachment &&
+      !isLoadingTicketActivityAttachment
+    ) {
+      NewNotification(message2TicketActivityAttachment.message);
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketActivityAttachment());
+    } else if (
+      message2TicketActivityAttachment !== "" &&
+      isErrorTicketActivityAttachment &&
+      !isLoadingTicketActivityAttachment
+    ) {
+      NewNotification(message2TicketActivityAttachment.message);
+      dispatch(resetTicketActivityAttachment());
     }
   }, [
     dataTicketActivityAttachment,
@@ -419,6 +484,7 @@ const ViewTicketPage = () => {
     isSuccessTicketActivityAttachment,
     isLoadingTicketActivityAttachment,
     messageTicketActivityAttachment,
+    message2TicketActivityAttachment,
   ]);
 
   const handleTicketActivityAttachmentShowSlideOver = (uuid: string) => {
@@ -432,14 +498,12 @@ const ViewTicketPage = () => {
       });
       setShowTicketActivityAttachmentSlideOver(true);
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
   const handleSubmitTicketActivityAttachment = (e: any) => {
     e.preventDefault();
-
-    console.log(formTicketActivityAttachment, "att");
 
     let formData = new FormData();
     formData.append("file", formTicketActivityAttachment.file);
@@ -455,7 +519,7 @@ const ViewTicketPage = () => {
         })
       );
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -471,7 +535,7 @@ const ViewTicketPage = () => {
     ) {
       dispatch(DeleteTicketActivityAttachment({ uuid }));
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -499,32 +563,39 @@ const ViewTicketPage = () => {
   } = useSelector((state: any) => state.ticketActivityComment);
 
   useEffect(() => {
-    if (messageTicketActivityComment && isSuccessTicketActivityComment) {
-      if (!isLoadingTicketActivityComment) {
-        successNotificationToggle();
-        handleCancelTicketActivityComment();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketActivityComment());
-      }
+    if (
+      messageTicketActivityComment !== "" &&
+      isSuccessTicketActivityComment &&
+      !isLoadingTicketActivityComment
+    ) {
+      NewNotification(messageTicketActivityComment.message);
+      handleCancelTicketActivityComment();
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketActivityComment());
+    } else if (
+      messageTicketActivityComment !== "" &&
+      isErrorTicketActivityComment &&
+      !isLoadingTicketActivityComment
+    ) {
+      NewNotification(messageTicketActivityComment.message);
+      dispatch(resetTicketActivityComment());
     }
-    if (messageTicketActivityComment && isErrorTicketActivityComment) {
-      if (!isLoadingTicketActivityComment) {
-        console.log("error", messageTicketActivityComment);
-        dispatch(resetTicketActivityComment());
-      }
-    }
-    if (messageDeleteTicketActivityComment && isSuccessTicketActivityComment) {
-      if (!isLoadingTicketActivityComment) {
-        successNotificationToggle();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketActivityComment());
-      }
-    }
-    if (messageDeleteTicketActivityComment && isErrorTicketActivityComment) {
-      if (!isLoadingTicketActivityComment) {
-        console.log("error", messageDeleteTicketActivityComment);
-        dispatch(resetTicketActivityComment());
-      }
+
+    if (
+      messageDeleteTicketActivityComment !== "" &&
+      isSuccessTicketActivityComment &&
+      !isLoadingTicketActivityComment
+    ) {
+      NewNotification(messageDeleteTicketActivityComment.message);
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketActivityComment());
+    } else if (
+      messageDeleteTicketActivityComment !== "" &&
+      isErrorTicketActivityComment &&
+      !isLoadingTicketActivityComment
+    ) {
+      NewNotification(messageDeleteTicketActivityComment.message);
+      dispatch(resetTicketActivityComment());
     }
   }, [
     dataTicketActivityComment,
@@ -547,7 +618,7 @@ const ViewTicketPage = () => {
       );
       setShowTicketActivityCommentSlideOver(false);
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -567,7 +638,7 @@ const ViewTicketPage = () => {
       });
       setShowTicketActivityCommentSlideOver(true);
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -578,7 +649,7 @@ const ViewTicketPage = () => {
     ) {
       dispatch(DeleteTicketActivityCommentDataById(data.uuid));
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -593,32 +664,39 @@ const ViewTicketPage = () => {
   } = useSelector((state: any) => state.ticketUserReminder);
 
   useEffect(() => {
-    if (messageTicketUserReminder && isSuccessTicketUserReminder) {
-      if (!isLoadingTicketUserReminder) {
-        successNotificationToggle();
-        handleCancelTicketUserReminder();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketUserReminder());
-      }
+    if (
+      messageTicketUserReminder !== "" &&
+      isSuccessTicketUserReminder &&
+      !isLoadingTicketUserReminder
+    ) {
+      NewNotification(messageTicketUserReminder.message);
+      handleCancelTicketUserReminder();
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketUserReminder());
+    } else if (
+      messageTicketUserReminder !== "" &&
+      isErrorTicketUserReminder &&
+      !isLoadingTicketUserReminder
+    ) {
+      NewNotification(messageTicketUserReminder.message);
+      dispatch(resetTicketUserReminder());
     }
-    if (messageTicketUserReminder && isErrorTicketUserReminder) {
-      if (!isLoadingTicketUserReminder) {
-        console.log("error", messageTicketUserReminder);
-        dispatch(resetTicketUserReminder());
-      }
-    }
-    if (messageDeleteTicketUserReminder && isSuccessTicketUserReminder) {
-      if (!isLoadingTicketUserReminder) {
-        successNotificationToggle();
-        dispatch(GetTicketDataById(id));
-        dispatch(resetTicketUserReminder());
-      }
-    }
-    if (messageDeleteTicketUserReminder && isErrorTicketUserReminder) {
-      if (!isLoadingTicketUserReminder) {
-        console.log("error", messageDeleteTicketUserReminder);
-        dispatch(resetTicketUserReminder());
-      }
+
+    if (
+      messageDeleteTicketUserReminder !== "" &&
+      isSuccessTicketUserReminder &&
+      !isLoadingTicketUserReminder
+    ) {
+      NewNotification(messageDeleteTicketUserReminder.message);
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketUserReminder());
+    } else if (
+      messageDeleteTicketUserReminder !== "" &&
+      isErrorTicketUserReminder &&
+      !isLoadingTicketUserReminder
+    ) {
+      NewNotification(messageDeleteTicketUserReminder.message);
+      dispatch(resetTicketUserReminder());
     }
   }, [
     dataTicketUserReminder,
@@ -637,7 +715,7 @@ const ViewTicketPage = () => {
       setFormTicketUserReminder({ ...formTicketUserReminder, ticket_uuid: id });
       setShowTicketUserReminderSlideOver(true);
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -651,7 +729,7 @@ const ViewTicketPage = () => {
         CreateTicketUserReminderData({ formData: formTicketUserReminder })
       );
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
   };
 
@@ -667,53 +745,13 @@ const ViewTicketPage = () => {
     ) {
       dispatch(DeleteTicketUserReminderDataById(uuid));
     } else {
-      permissionNotificationToggle();
+      NewNotification("You don't have permission");
     }
-  };
-
-  // Success notification
-  const successDeleteNotification = useRef<NotificationElement>();
-  const successNotificationToggle = () => {
-    successDeleteNotification.current?.showToast();
-  };
-
-  // permissionNotification
-  const permissionNotification = useRef<NotificationElement>();
-  const permissionNotificationToggle = () => {
-    permissionNotification.current?.showToast();
   };
 
   return (
     <div className="mb-24">
-      <Notification
-        getRef={(el) => {
-          successDeleteNotification.current = el;
-        }}
-        options={{
-          duration: 3000,
-        }}
-        className="flex"
-      >
-        <Lucide icon="CheckCircle" className="text-success" />
-        <div className="ml-4 mr-4">
-          <div className="font-medium">Success</div>
-        </div>
-      </Notification>
-      <Notification
-        getRef={(el) => {
-          permissionNotification.current = el;
-        }}
-        options={{
-          duration: 3000,
-        }}
-        className="flex"
-      >
-        <Lucide icon="CheckCircle" className="text-danger" />
-        <div className="ml-4 mr-4">
-          <div className="font-medium">You don't have permission</div>
-        </div>
-      </Notification>
-      <div className="mt-6 flex gap-4">
+      <div className="mt-6 flex justify-end md:justify-between gap-4">
         <Button
           variant="primary"
           type="button"
@@ -722,14 +760,24 @@ const ViewTicketPage = () => {
         >
           Back
         </Button>
-        <Button
-          variant="outline-primary"
-          type="button"
-          size="sm"
-          onClick={() => handleEdit()}
-        >
-          Edit
-        </Button>
+        <div className="flex gap-4">
+          <Button
+            variant="outline-primary"
+            type="button"
+            size="sm"
+            onClick={() => handleEdit()}
+          >
+            Edit
+          </Button>
+          <Button
+            variant="outline-danger"
+            type="button"
+            size="sm"
+            onClick={() => handleDelete()}
+          >
+            Delete
+          </Button>
+        </div>
       </div>
       <div className="mt-4">
         <TicketStage
