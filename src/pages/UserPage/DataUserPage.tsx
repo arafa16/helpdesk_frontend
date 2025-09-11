@@ -101,8 +101,8 @@ const DataUserPage = () => {
   };
 
   const handleCreate = () => {
-    const back = `back=/ticket`;
-    navigate(`/ticket/create?${back}`);
+    const back = `back=/user`;
+    navigate(`/user/create?${back}`);
   };
 
   return (
