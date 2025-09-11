@@ -45,6 +45,7 @@ function Main() {
   useEffect(() => {
     if (data && isSuccess) {
       if (!isLoading) {
+        console.log(data?.data, "data me");
         setUser(data?.data?.user);
         dispatch(resetGetMe());
       }
@@ -318,6 +319,7 @@ function Main() {
                     })}
                     menu={menu}
                     simpleMenu={simpleMenu}
+                    privilege={user?.privilege}
                     formattedMenuState={[formattedMenu, setFormattedMenu]}
                     level="first"
                   ></Menu>
@@ -350,6 +352,7 @@ function Main() {
                               })}
                               menu={subMenu}
                               simpleMenu={simpleMenu}
+                              privilege={user?.privilege}
                               formattedMenuState={[
                                 formattedMenu,
                                 setFormattedMenu,
@@ -388,6 +391,7 @@ function Main() {
                                           })}
                                           menu={lastSubMenu}
                                           simpleMenu={simpleMenu}
+                                          privilege={user?.privilege}
                                           formattedMenuState={[
                                             formattedMenu,
                                             setFormattedMenu,
@@ -457,6 +461,7 @@ function Menu(props: {
     wrapper: boolean;
   };
   menu: FormattedMenu;
+  privilege?: any;
   formattedMenuState: [
     (FormattedMenu | string)[],
     Dispatch<SetStateAction<(FormattedMenu | string)[]>>
@@ -466,11 +471,16 @@ function Menu(props: {
   const navigate = useNavigate();
   const [formattedMenu, setFormattedMenu] = props.formattedMenuState;
 
+  const nameColom: any = props.menu.privilege;
+
+  console.log(props.privilege, nameColom, "name");
+
   return (
     <a
       href={props.menu.subMenu ? "#" : props.menu.pathname}
       className={clsx([
-        "h-[50px] flex items-center pl-5 mb-1 relative dark:text-slate-300",
+        `${props.privilege && props.privilege[nameColom] ? "" : "hidden"}`,
+        "h-[50px] flex items-center pl-5 mb-1 relative dark:text-slate-300 text-xs",
         {
           "bg-primary text-white rounded-xl dark:bg-transparent":
             props.menu.active && props.level == "first",

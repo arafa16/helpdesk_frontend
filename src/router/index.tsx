@@ -10,6 +10,10 @@ import DataUserPage from "../pages/UserPage/DataUserPage";
 import ViewTicketPage from "../pages/TicketPage/ViewTicketPage";
 import CreateTicketPage from "../pages/TicketPage/CreateTicketPage";
 import EditTicketPage from "../pages/TicketPage/EditTicketPage";
+import ViewUserPage from "../pages/UserPage/ViewUserPage";
+import EditUserPage from "../pages/UserPage/EditUserPage";
+import CreateUserPage from "../pages/UserPage/CreateUserPage";
+import DashboardPage from "../pages/Dashboard/DashboardPage";
 
 function Router() {
   const routes = [
@@ -17,6 +21,10 @@ function Router() {
       path: "/",
       element: <Menu />,
       children: [
+        {
+          path: "/",
+          element: <DashboardPage />,
+        },
         {
           path: "/ticket",
           element: <DataTicketPage />,
@@ -41,9 +49,22 @@ function Router() {
           path: "/ticket/edit/:id",
           element: <EditTicketPage />,
         },
+        //user page
         {
           path: "/user",
           element: <DataUserPage />,
+        },
+        {
+          path: "/user/view/:id",
+          element: <ViewUserPage />,
+        },
+        {
+          path: "/user/edit/:id",
+          element: <EditUserPage />,
+        },
+        {
+          path: "/user/create",
+          element: <CreateUserPage />,
         },
       ],
     },
