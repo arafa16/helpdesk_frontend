@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Button from "../../base-components/Button";
 import CreateTicketForm from "../../components/Form/CreateTicketForm";
 import TicketStage from "../../components/Stage/TicketStage";
@@ -12,6 +12,7 @@ import { GetMe, resetGetMe } from "../../stores/features/GetMeSlice";
 import { useEffect, useState } from "react";
 
 const CreateTicketPage = () => {
+  const [searchParams] = useSearchParams();
   const [datas, setDatas] = useState<any>(null);
   let [formData, setFormData] = useState<any>({
     subject: "",
@@ -30,7 +31,7 @@ const CreateTicketPage = () => {
     lat: "",
     lng: "",
     gmap: "",
-    eta: "",
+    eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
     trouble_description: "",
@@ -45,13 +46,11 @@ const CreateTicketPage = () => {
   );
 
   useEffect(() => {
-    if (data && isSuccess) {
-      if (!isLoading) {
-        setDatas(data?.data);
-        dispatch(resetTicket());
-      }
+    if (data && isSuccess && !isLoading) {
+      setDatas(data?.data);
+      dispatch(resetTicket());
     }
-    if (message && isError) {
+    if (message !== "" && isError && !isLoading) {
       if (!isLoading) {
         console.log(message);
         dispatch(resetTicket());
@@ -60,18 +59,15 @@ const CreateTicketPage = () => {
   }, [data, isError, isSuccess, isLoading, message]);
 
   useEffect(() => {
-    if (message && isSuccess) {
-      if (!isLoading) {
-        const uuid = message?.data?.ticket?.uuid;
-        dispatch(resetTicket());
-        navigate(`/ticket/view/${uuid}`);
-      }
+    if (message !== "" && isSuccess && !isLoading) {
+      const link_back: string | any = searchParams.get("back");
+      const uuid = message?.data?.ticket?.uuid;
+      dispatch(resetTicket());
+      navigate(`/ticket/view/${uuid}?back=${link_back}`);
     }
-    if (message && isError) {
-      if (!isLoading) {
-        console.log("error", message);
-        dispatch(resetTicket());
-      }
+    if (message !== "" && isError && !isLoading) {
+      console.log("error", message);
+      dispatch(resetTicket());
     }
   }, [data, isError, isSuccess, isLoading, message]);
 
@@ -79,36 +75,8 @@ const CreateTicketPage = () => {
     dispatch(GetTicketDataAttribute());
   }, [dispatch]);
 
-  //get me
-
-  // const {
-  //   data: dataMe,
-  //   isError: isErrorMe,
-  //   isSuccess: isSuccessMe,
-  //   isLoading: isLoadingMe,
-  //   message: messageMe,
-  // } = useSelector((state: any) => state.getMe);
-
-  // useEffect(() => {
-  //   if (dataMe && isSuccessMe) {
-  //     if (!isLoadingMe) {
-  //       setFormData({ ...formData, user_uuid: dataMe?.data?.user?.uuid });
-  //       dispatch(resetGetMe());
-  //     }
-  //   }
-  //   if (messageMe && isErrorMe) {
-  //     if (!isLoadingMe) {
-  //       console.log("get error");
-  //       dispatch(resetGetMe());
-  //     }
-  //   }
-  // }, [dataMe, isErrorMe, isSuccessMe, isLoadingMe, messageMe]);
-
-  // useEffect(() => {
-  //   dispatch(GetMe());
-  // }, [dispatch]);
-
-  const handleSubmitTicket = () => {
+  const handleSubmitTicket = (e: any) => {
+    e.preventDefault();
     dispatch(CreateTicketData(formData));
   };
 
@@ -119,12 +87,7 @@ const CreateTicketPage = () => {
   return (
     <>
       <div className="mt-6 flex justify-end gap-2">
-        <Button
-          variant="primary"
-          type="button"
-          size="sm"
-          onClick={() => handleSubmitTicket()}
-        >
+        <Button form="form_ticket" variant="primary" type="submit" size="sm">
           Save
         </Button>
         <Button
@@ -145,6 +108,7 @@ const CreateTicketPage = () => {
       </div>
       <div className="mt-4">
         <CreateTicketForm
+          submit={handleSubmitTicket}
           formData={formData}
           setFormData={setFormData}
           area={datas?.area}

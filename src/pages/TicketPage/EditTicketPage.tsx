@@ -104,7 +104,8 @@ const EditTicketPage = () => {
     dispatch(GetTicketUpdateDataAttribute(id));
   }, [dispatch, id]);
 
-  const handleSubmitTicket = () => {
+  const handleSubmitTicket = (e: any) => {
+    e.preventDefault();
     dispatch(UpdateTicketData({ uuid: id, formData }));
   };
 
@@ -141,12 +142,7 @@ const EditTicketPage = () => {
         </div>
       </Notification>
       <div className="mt-6 flex justify-end gap-2">
-        <Button
-          variant="primary"
-          type="button"
-          size="sm"
-          onClick={() => handleSubmitTicket()}
-        >
+        <Button variant="primary" type="button" size="sm" form="form_ticket">
           Save
         </Button>
         <Button
@@ -167,6 +163,7 @@ const EditTicketPage = () => {
       </div>
       <div className={`mt-4 ${isLoading ? "hidden" : ""}`}>
         <CreateTicketForm
+          submit={handleSubmitTicket}
           formData={formData}
           setFormData={setFormData}
           area={datas?.area}
