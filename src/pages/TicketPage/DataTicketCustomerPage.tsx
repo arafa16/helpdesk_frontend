@@ -88,7 +88,7 @@ const DataTicketCustomerPage = () => {
   };
 
   const handleView = (data: any) => {
-    const back = `back=/ticket_executor`;
+    const back = `back=/ticket_customer`;
     navigate(`/ticket/view/${data.uuid}?${back}`);
   };
 

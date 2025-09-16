@@ -81,32 +81,32 @@ const CreateTicketPage = () => {
 
   //get me
 
-  const {
-    data: dataMe,
-    isError: isErrorMe,
-    isSuccess: isSuccessMe,
-    isLoading: isLoadingMe,
-    message: messageMe,
-  } = useSelector((state: any) => state.getMe);
+  // const {
+  //   data: dataMe,
+  //   isError: isErrorMe,
+  //   isSuccess: isSuccessMe,
+  //   isLoading: isLoadingMe,
+  //   message: messageMe,
+  // } = useSelector((state: any) => state.getMe);
 
-  useEffect(() => {
-    if (dataMe && isSuccessMe) {
-      if (!isLoadingMe) {
-        setFormData({ ...formData, user_uuid: dataMe?.data?.user?.uuid });
-        dispatch(resetGetMe());
-      }
-    }
-    if (messageMe && isErrorMe) {
-      if (!isLoadingMe) {
-        console.log("get error");
-        dispatch(resetGetMe());
-      }
-    }
-  }, [dataMe, isErrorMe, isSuccessMe, isLoadingMe, messageMe]);
+  // useEffect(() => {
+  //   if (dataMe && isSuccessMe) {
+  //     if (!isLoadingMe) {
+  //       setFormData({ ...formData, user_uuid: dataMe?.data?.user?.uuid });
+  //       dispatch(resetGetMe());
+  //     }
+  //   }
+  //   if (messageMe && isErrorMe) {
+  //     if (!isLoadingMe) {
+  //       console.log("get error");
+  //       dispatch(resetGetMe());
+  //     }
+  //   }
+  // }, [dataMe, isErrorMe, isSuccessMe, isLoadingMe, messageMe]);
 
-  useEffect(() => {
-    dispatch(GetMe());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(GetMe());
+  // }, [dispatch]);
 
   const handleSubmitTicket = () => {
     dispatch(CreateTicketData(formData));

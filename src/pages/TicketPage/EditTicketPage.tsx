@@ -8,7 +8,6 @@ import {
   UpdateTicketData,
   resetTicket,
 } from "../../stores/features/TicketSlice";
-import { GetMe, resetGetMe } from "../../stores/features/GetMeSlice";
 import { useEffect, useState, useRef } from "react";
 import { NotificationElement } from "../../base-components/Notification";
 import Notification from "../../base-components/Notification";

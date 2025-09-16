@@ -52,28 +52,7 @@ import dayjs from "dayjs";
 import axios from "axios";
 import TicketActivityCommentSlideOver from "../../components/SlideOver/TicketActivityCommentSlideOver";
 import TicketUserReminderSlideOver from "../../components/SlideOver/TicketUserReminderSlideOver";
-
-import Toastify from "toastify-js";
-
-function NewNotification(message: any) {
-  Toastify({
-    text: `${message}`,
-    duration: 3000,
-    gravity: "top",
-    position: "right",
-    close: true,
-    stopOnFocus: true,
-    style: {
-      background: "#fff",
-      color: "#3d4044", // slate-500
-      fontSize: "12px",
-      borderRadius: "8px",
-      boxShadow: "0 2px 8px rgba(34,197,94,0.10)",
-      padding: "20px 64px 20px 20px",
-      border: "1px solid #e5e7eb",
-    },
-  }).showToast();
-}
+import { NewNotification } from "../../components/Notification/NewNotification";
 
 const ViewTicketPage = () => {
   const { id } = useParams();
@@ -147,11 +126,12 @@ const ViewTicketPage = () => {
     }
 
     if (messageUpdate !== "" && isSuccess && !isLoading) {
-      NewNotification(messageUpdate.message);
+      console.log(messageUpdate, "messageUpdate");
+      NewNotification(messageUpdate?.message);
       dispatch(GetTicketDataById(id));
       dispatch(resetTicket());
     } else if (messageUpdate !== "" && isError && !isLoading) {
-      NewNotification(messageUpdate.message);
+      NewNotification(messageUpdate?.message);
       dispatch(resetTicket());
     }
 
@@ -760,7 +740,14 @@ const ViewTicketPage = () => {
         >
           Back
         </Button>
-        <div className="flex gap-4">
+        <div
+          className={`flex gap-4 ${
+            datas?.user?.privilege?.ticket === true ||
+            datas?.user?.privilege?.ticket_executor === true
+              ? ""
+              : "hidden"
+          }`}
+        >
           <Button
             variant="outline-primary"
             type="button"
