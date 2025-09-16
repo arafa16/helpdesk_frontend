@@ -2,6 +2,8 @@ import { useRoutes } from "react-router-dom";
 import Menu from "../layouts/SideMenu";
 import LoginPage from "../pages/AuthPage/LoginPage";
 import RegistrationPage from "../pages/AuthPage/RegistrationPage";
+import RequestResetPasswordPage from "../pages/AuthPage/RequestResetPasswordPage";
+import ResetPasswordPage from "../pages/AuthPage/ResetPasswordPage";
 import ErrorPage from "../pages/ErrorPage";
 import DataTicketPage from "../pages/TicketPage/DataTicketPage";
 import DataTicketExecutorPage from "../pages/TicketPage/DataTicketExecutorPage";
@@ -75,6 +77,14 @@ function Router() {
     {
       path: "/registration",
       element: <RegistrationPage />,
+    },
+    {
+      path: "/req_reset",
+      element: <RequestResetPasswordPage />,
+    },
+    {
+      path: "/reset/:token",
+      element: <ResetPasswordPage />,
     },
     {
       path: "/error-page",

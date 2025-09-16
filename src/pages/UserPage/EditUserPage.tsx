@@ -19,6 +19,7 @@ const EditUserPage = () => {
     nip: "",
     phone_number: "",
     company_uuid: "",
+    job_position_uuid: "",
     division_uuid: "",
     location_uuid: "",
     user_status_uuid: "",
@@ -35,6 +36,7 @@ const EditUserPage = () => {
     division: [],
     location: [],
     user_status: [],
+    job_position: [],
   });
 
   const dispatch = useDispatch();
@@ -52,6 +54,7 @@ const EditUserPage = () => {
         nip: data?.data?.nip,
         phone_number: data?.data?.phone_number,
         company_uuid: data?.data?.company?.uuid,
+        job_position_uuid: data?.data?.job_position?.uuid,
         division_uuid: data?.data?.division?.uuid,
         location_uuid: data?.data?.location?.uuid,
         user_status_uuid: data?.data?.user_status?.uuid,
@@ -67,6 +70,7 @@ const EditUserPage = () => {
         division: data?.attributes?.division,
         location: data?.attributes?.location,
         user_status: data?.attributes?.user_status,
+        job_position: data?.attributes?.job_position,
       });
       dispatch(resetUser());
     } else if (isError && message && !isLoading) {

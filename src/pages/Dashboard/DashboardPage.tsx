@@ -24,14 +24,12 @@ const DashboardPage = () => {
     }
   }, [data, isLoading, isError, isSuccess, message]);
 
-  console.log(datas, "datas");
-
   useEffect(() => {
     dispatch(GetMe());
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={`${isLoading ? "hidden" : ""}`}>
       <div className="mt-6">
         <UserHeader datas={datas} />
       </div>

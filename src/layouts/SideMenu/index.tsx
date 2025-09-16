@@ -43,18 +43,13 @@ function Main() {
   );
 
   useEffect(() => {
-    if (data && isSuccess) {
-      if (!isLoading) {
-        console.log(data?.data, "data me");
-        setUser(data?.data?.user);
-        dispatch(resetGetMe());
-      }
+    if (data !== null && isSuccess && !isLoading) {
+      setUser(data?.data?.user);
+      dispatch(resetGetMe());
     }
-    if (message && isError) {
-      if (!isLoading) {
-        dispatch(resetGetMe());
-        navigate("/login");
-      }
+    if (message !== "" && isError && !isLoading) {
+      dispatch(resetGetMe());
+      navigate("/login");
     }
   }, [data, isError, isSuccess, isLoading, message]);
 
@@ -185,7 +180,11 @@ function Main() {
   }, [sideMenuStore, location.pathname]);
 
   return (
-    <div className={`flex h-screen xl:pl-5 xl:py-5 text-xs `}>
+    <div
+      className={`${
+        user === null ? "hidden" : "flex h-screen xl:pl-5 xl:py-5 text-xs"
+      } `}
+    >
       <DarkModeSwitcher />
       {/* BEGIN: Side Menu */}
       <nav

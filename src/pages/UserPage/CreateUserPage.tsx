@@ -17,6 +17,7 @@ const CreateUserPage = () => {
     nip: "",
     phone_number: "",
     company_uuid: "",
+    job_position_uuid: "",
     division_uuid: "",
     location_uuid: "",
     user_status_uuid: "",
@@ -54,6 +55,7 @@ const CreateUserPage = () => {
         division: data?.attributes?.division,
         location: data?.attributes?.location,
         user_status: data?.attributes?.user_status,
+        job_position: data?.attributes?.job_position,
       });
       dispatch(resetUser());
     } else if (isError && message && !isLoading) {

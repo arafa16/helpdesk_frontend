@@ -8,6 +8,8 @@ import {
 const CreateUserForm = (props: any) => {
   const { formData, setFormData, attributes } = props;
 
+  console.log(attributes, "attributes");
+
   return (
     <div className={`text-xs box p-6`}>
       <div
@@ -93,6 +95,29 @@ const CreateUserForm = (props: any) => {
             >
               <option value={""}></option>
               {attributes?.company?.map((data: any, index: any) => (
+                <option key={index} value={data.uuid}>
+                  {data.name}
+                </option>
+              ))}
+            </FormSelect>
+          </FormInline>
+        </div>
+        <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+          <FormInline>
+            <FormLabel className="" htmlFor="job_position_uuid">
+              Job Position
+            </FormLabel>
+            <FormSelect
+              formSelectSize="sm"
+              aria-label=".form-select-sm example"
+              name="job_position_uuid"
+              value={formData?.job_position_uuid}
+              onChange={(e) =>
+                setFormData({ ...formData, job_position_uuid: e.target.value })
+              }
+            >
+              <option value={""}></option>
+              {attributes?.job_position?.map((data: any, index: any) => (
                 <option key={index} value={data.uuid}>
                   {data.name}
                 </option>

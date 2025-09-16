@@ -51,6 +51,16 @@ const UserDataView = (props: any) => {
           </div>
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
+              <FormLabel className="" htmlFor="company">
+                Job Position
+              </FormLabel>
+              <div className="text-slate-700 capitalize">
+                : {datas?.job_position?.name}
+              </div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
               <FormLabel className="" htmlFor="division">
                 Division
               </FormLabel>
