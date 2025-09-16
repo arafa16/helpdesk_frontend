@@ -1,9 +1,8 @@
 import Lucide from "../../base-components/Lucide";
 import clsx from "clsx";
-import { useNavigate } from "react-router-dom";
 import Button from "../../base-components/Button";
 import dayjs from "dayjs";
-import { Menu, Popover } from "../../base-components/Headless";
+import { Popover } from "../../base-components/Headless";
 
 const TicketActivityTable = (props: any) => {
   const {
@@ -17,12 +16,46 @@ const TicketActivityTable = (props: any) => {
     handleDeleteComment,
   } = props;
 
+  let grap_duration: any = [];
+
+  const duration = (data: any) => {
+    const start_date = dayjs(data.start_date);
+    const end_date = dayjs(data.end_date);
+
+    let hours = end_date.diff(start_date, "hour", true).toFixed(2);
+
+    grap_duration.push(Number(hours));
+    return hours;
+  };
+
   return (
     <div className="grid grid-cols-12 mt-5 box text-xs">
       {/* BEGIN: Inbox Content */}
       <div className="col-span-12 xl:col-span-12 2xl:col-span-12">
-        <div className="pt-4 px-4">
+        <div className="pt-4 px-4 flex justify-between items-center">
           <p className="text-[12px]">Ticket Activity</p>
+          <p className="bg-slate-500 px-2 py-1 text-white rounded-lg cursor-pointer hover:bg-slate-400">
+            {" "}
+            Total Duration :{" "}
+            {datas &&
+              datas
+                .reduce((sum: number, data: any) => {
+                  if (data?.start_date && data?.end_date) {
+                    const start = dayjs(data.start_date);
+                    const end = dayjs(data.end_date);
+                    const hours = end.diff(start, "hour", true);
+                    return sum + hours;
+                  } else if (data?.end_date === null) {
+                    const start = dayjs(data.start_date);
+                    const end = dayjs(Date.now());
+                    const hours = end.diff(start, "hour", true);
+                    return sum + hours;
+                  }
+                  return sum;
+                }, 0)
+                .toFixed(2)}{" "}
+            hour
+          </p>
         </div>
         <div className="overflow-x-auto sm:overflow-x-visible mt-4 px-4">
           {datas &&
@@ -34,8 +67,8 @@ const TicketActivityTable = (props: any) => {
                     "transition duration-200 ease-in-out transform cursor-pointer inline-block sm:block border-b border-slate-200/60 dark:border-darkmode-400",
                   ])}
                 >
-                  <div className="flex items-center px-5 py-3 bg-slate-50 hover:bg-slate-100 rounded-lg">
-                    <div className="mr-5 w-8">{index + 1}</div>
+                  <div className="flex items-center px-5 py-2 bg-slate-50 hover:bg-slate-100 rounded-lg">
+                    <div className="mr-2 w-4">{index + 1}</div>
                     <div className="w-24 truncate sm:w-48">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data.ticket_status?.name}
@@ -53,9 +86,11 @@ const TicketActivityTable = (props: any) => {
                     </div>
                     <div className="w-64 truncate sm:w-64">
                       <span className={clsx(["ml-3 truncate"])}>
-                        {dayjs(data.schedule_reminder).format(
-                          "YYYY-MM-DD HH:mm"
-                        )}
+                        {data?.schedule_reminder !== null
+                          ? dayjs(data.schedule_reminder).format(
+                              "YYYY-MM-DD HH:mm"
+                            )
+                          : "-"}
                       </span>
                     </div>
                     <div className="pl-10 ml-auto whitespace-nowrap"></div>
@@ -131,6 +166,51 @@ const TicketActivityTable = (props: any) => {
                       >
                         <Lucide icon="Trash2" className="w-4 h-4" />
                       </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center ml-20 px-5 py-2 mt-2 bg-slate-50 hover:bg-slate-100 rounded-lg">
+                    <div className="w-24 truncate sm:w-96">
+                      <span className={clsx(["ml-3 truncate"])}>
+                        start date:{" "}
+                        {data?.start_date !== null
+                          ? dayjs(data?.start_date).format(
+                              "YYYY-MM-DD HH:mm:ss"
+                            )
+                          : "not set"}
+                      </span>
+                    </div>
+                    <div className="pl-1 w-64 truncate sm:w-22">
+                      <span
+                        className={clsx([
+                          `ml-3 truncate ${
+                            data?.end_date === null
+                              ? "bg-slate-500 px-2 py-2 text-white"
+                              : ""
+                          }`,
+                        ])}
+                      >
+                        {data?.end_date === null ? "now " : "end date "}:{" "}
+                        {data?.end_date !== null
+                          ? dayjs(data?.end_date).format("YYYY-MM-DD HH:mm:ss")
+                          : dayjs(Date.now()).format("YYYY-MM-DD HH:mm:ss")}
+                      </span>
+                    </div>
+                    <div className="w-64 ml-auto flex justify-end truncate sm:w-64">
+                      <span className={clsx(["ml-3 truncate"])}>
+                        {" "}
+                        {data?.start_date !== null && data?.end_date !== null
+                          ? duration({
+                              start_date: data?.start_date,
+                              end_date: data?.end_date,
+                            }) + " hour"
+                          : ""}
+                        {data?.start_date !== null && data?.end_date === null
+                          ? duration({
+                              start_date: data?.start_date,
+                              end_date: Date.now(),
+                            }) + " hour"
+                          : ""}
+                      </span>
                     </div>
                   </div>
                   <div className="flex px-20 pt-2">
