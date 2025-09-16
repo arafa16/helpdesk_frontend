@@ -3,25 +3,33 @@ import axios from "axios";
 
 interface variabel {
   data: any;
+  dataToken: any;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
   message: string;
   messageRegister: string;
+  messageReset: string;
+  messageToken: string;
+  messageResetPassword: string;
 }
 
 const initialState: variabel = {
   data: null,
+  dataToken: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
   messageRegister: "",
+  messageReset: "",
+  messageToken: "",
+  messageResetPassword: "",
 };
 
 export const Login: any = createAsyncThunk(
   "Auth/Login",
-  async (datas, thunkAPI) => {
+  async (datas: any, thunkAPI) => {
     try {
       const response = await axios.post(
         import.meta.env.VITE_REACT_APP_API_URL + `/api/v1/auth/login`,
@@ -62,11 +70,75 @@ export const RegistrationAttributes: any = createAsyncThunk(
 
 export const Registration: any = createAsyncThunk(
   "Auth/Registration",
-  async (datas, thunkAPI) => {
+  async (datas: any, thunkAPI) => {
     try {
       const response = await axios.post(
         import.meta.env.VITE_REACT_APP_API_URL + `/api/v1/auth/register`,
         datas,
+        {
+          withCredentials: true, // Now this is was the missing piece in the client side
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkAPI.rejectWithValue(error.response);
+      }
+    }
+  }
+);
+
+export const SendResetPassword: any = createAsyncThunk(
+  "Auth/SendResetPassword",
+  async (datas: any, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_REACT_APP_API_URL + `/api/v1/auth/mail`,
+        datas.formData,
+        {
+          withCredentials: true, // Now this is was the missing piece in the client side
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkAPI.rejectWithValue(error.response);
+      }
+    }
+  }
+);
+
+export const GetTokenData: any = createAsyncThunk(
+  "Auth/GetTokenData",
+  async (datas: any, thunkAPI) => {
+    try {
+      const response = await axios.get(
+        import.meta.env.VITE_REACT_APP_API_URL +
+          `/api/v1/auth/reset/${datas.token}`,
+        {
+          withCredentials: true, // Now this is was the missing piece in the client side
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkAPI.rejectWithValue(error.response);
+      }
+    }
+  }
+);
+
+export const ResetPassword: any = createAsyncThunk(
+  "Auth/ResetPassword",
+  async (datas: any, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_REACT_APP_API_URL +
+          `/api/v1/auth/reset/${datas.token}`,
+        datas.formData,
         {
           withCredentials: true, // Now this is was the missing piece in the client side
         }
@@ -165,6 +237,50 @@ export const AuthSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.messageRegister = action.payload;
+    });
+
+    //SendResetPassword
+    builder.addCase(SendResetPassword.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(SendResetPassword.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.messageReset = action.payload;
+    });
+    builder.addCase(SendResetPassword.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.messageReset = action.payload;
+    });
+
+    //GetTokenData
+    builder.addCase(GetTokenData.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(GetTokenData.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.dataToken = action.payload;
+    });
+    builder.addCase(GetTokenData.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.messageToken = action.payload;
+    });
+    //ResetPassword
+    builder.addCase(ResetPassword.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(ResetPassword.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.messageResetPassword = action.payload;
+    });
+    builder.addCase(ResetPassword.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.messageResetPassword = action.payload;
     });
   },
 });

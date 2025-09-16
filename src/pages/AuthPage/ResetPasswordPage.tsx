@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Login, resetAuth } from "../../stores/features/AuthSlice";
+import {
+  GetTokenData,
+  ResetPassword,
+  resetAuth,
+} from "../../stores/features/AuthSlice";
 
 import logoWhite from "../../assets/images/logo/logo_kopkarla_white.png";
 import logoColor from "../../assets/images/logo/logo_kopkarla_color.png";
@@ -11,35 +15,66 @@ import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import LoadingIcon from "../../base-components/LoadingIcon";
 
 import { NewNotification } from "../../components/Notification/NewNotification";
+const ResetPasswordPage = () => {
+  const { token } = useParams();
 
-function LoginPage() {
   let [formData, setFormData] = useState<any>({
     email: "",
     password: "",
+    conf_password: "",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, isError, isSuccess, isLoading, message } = useSelector(
-    (state: any) => state.auth
-  );
+  const {
+    dataToken,
+    isError,
+    isSuccess,
+    isLoading,
+    messageToken,
+    messageResetPassword,
+  } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
-    if (message !== "" && isSuccess && !isLoading) {
+    if (dataToken !== "" && isSuccess && !isLoading) {
+      setFormData({ ...formData, email: dataToken?.data?.user?.email });
       dispatch(resetAuth());
-      navigate("/");
-    }
-    if (message !== "" && isError && !isLoading) {
-      NewNotification(message?.data?.message);
+    } else if (messageToken !== "" && isError && !isLoading) {
+      console.log(messageToken, "error");
+      NewNotification(messageToken?.data?.message);
       dispatch(resetAuth());
     }
-  }, [data, isError, isSuccess, isLoading, message]);
 
-  const handleAuth = (e: any) => {
+    if (messageResetPassword !== "" && isSuccess && !isLoading) {
+      NewNotification(messageResetPassword?.message);
+      setFormData({
+        email: "",
+        password: "",
+        conf_password: "",
+      });
+      dispatch(resetAuth());
+    } else if (messageResetPassword !== "" && isError && !isLoading) {
+      console.log(messageResetPassword, "error");
+      NewNotification(messageResetPassword?.data?.message);
+      dispatch(resetAuth());
+    }
+  }, [
+    dataToken,
+    isError,
+    isSuccess,
+    isLoading,
+    messageToken,
+    messageResetPassword,
+  ]);
+
+  useEffect(() => {
+    dispatch(GetTokenData({ token }));
+  }, [dispatch]);
+
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(Login(formData));
+    dispatch(ResetPassword({ formData, token }));
   };
-
   return (
     <>
       <div className="container">
@@ -56,14 +91,14 @@ function LoginPage() {
               alt="Kopkarla"
               src={logoColor}
             />
-            <form onSubmit={handleAuth}>
+            <form onSubmit={handleSubmit}>
               <div className="box px-5 py-8 mt-10 max-w-[450px] relative before:content-[''] before:z-[-1] before:w-[95%] before:h-full before:bg-slate-200 before:border before:border-slate-200 before:-mt-5 before:absolute before:rounded-lg before:mx-auto before:inset-x-0 before:dark:bg-darkmode-600/70 before:dark:border-darkmode-500/60">
                 <FormInput
                   type="email"
                   className="block px-4 py-3"
                   formInputSize="sm"
                   placeholder="Email"
-                  required
+                  disabled
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -80,14 +115,17 @@ function LoginPage() {
                     setFormData({ ...formData, password: e.target.value })
                   }
                 />
-                <div className="flex mt-8 text-slate-500">
-                  <p
-                    className="w-full flex justify-end hover:cursor-pointer"
-                    onClick={() => navigate("/req_reset")}
-                  >
-                    Forgot Password?
-                  </p>
-                </div>
+                <FormInput
+                  type="password"
+                  className="block px-4 py-3 mt-4"
+                  formInputSize="sm"
+                  placeholder="Confirmation Password"
+                  required
+                  value={formData.conf_password}
+                  onChange={(e) =>
+                    setFormData({ ...formData, conf_password: e.target.value })
+                  }
+                />
                 <div className="mt-5 text-center xl:mt-8 xl:text-left">
                   <Button
                     type="submit"
@@ -101,16 +139,16 @@ function LoginPage() {
                         color="white"
                       />
                     ) : (
-                      "Login"
+                      "Send Email Reset Password"
                     )}
                   </Button>
                   <Button
                     variant="outline-secondary"
                     className="w-full mt-3"
                     type="button"
-                    onClick={() => navigate("/registration")}
+                    onClick={() => navigate("/login")}
                   >
-                    Sign up
+                    Sign In
                   </Button>
                 </div>
                 <div className="mt-10 flex justify-center text-gray-400">
@@ -123,6 +161,6 @@ function LoginPage() {
       </div>
     </>
   );
-}
+};
 
-export default LoginPage;
+export default ResetPasswordPage;

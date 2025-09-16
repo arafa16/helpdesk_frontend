@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Login, resetAuth } from "../../stores/features/AuthSlice";
+import { SendResetPassword, resetAuth } from "../../stores/features/AuthSlice";
 
 import logoWhite from "../../assets/images/logo/logo_kopkarla_white.png";
 import logoColor from "../../assets/images/logo/logo_kopkarla_color.png";
@@ -12,32 +12,31 @@ import LoadingIcon from "../../base-components/LoadingIcon";
 
 import { NewNotification } from "../../components/Notification/NewNotification";
 
-function LoginPage() {
+const RequestResetPasswordPage = () => {
   let [formData, setFormData] = useState<any>({
     email: "",
-    password: "",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, isError, isSuccess, isLoading, message } = useSelector(
+  const { data, isError, isSuccess, isLoading, messageReset } = useSelector(
     (state: any) => state.auth
   );
 
   useEffect(() => {
-    if (message !== "" && isSuccess && !isLoading) {
+    if (messageReset !== "" && isSuccess && !isLoading) {
+      NewNotification(messageReset?.message);
+      setFormData({ ...formData, email: "" });
       dispatch(resetAuth());
-      navigate("/");
-    }
-    if (message !== "" && isError && !isLoading) {
-      NewNotification(message?.data?.message);
+    } else if (messageReset !== "" && isError && !isLoading) {
+      NewNotification(messageReset?.message);
       dispatch(resetAuth());
     }
-  }, [data, isError, isSuccess, isLoading, message]);
+  }, [data, isError, isSuccess, isLoading, messageReset]);
 
-  const handleAuth = (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(Login(formData));
+    dispatch(SendResetPassword({ formData }));
   };
 
   return (
@@ -56,7 +55,7 @@ function LoginPage() {
               alt="Kopkarla"
               src={logoColor}
             />
-            <form onSubmit={handleAuth}>
+            <form onSubmit={handleSubmit}>
               <div className="box px-5 py-8 mt-10 max-w-[450px] relative before:content-[''] before:z-[-1] before:w-[95%] before:h-full before:bg-slate-200 before:border before:border-slate-200 before:-mt-5 before:absolute before:rounded-lg before:mx-auto before:inset-x-0 before:dark:bg-darkmode-600/70 before:dark:border-darkmode-500/60">
                 <FormInput
                   type="email"
@@ -69,25 +68,6 @@ function LoginPage() {
                     setFormData({ ...formData, email: e.target.value })
                   }
                 />
-                <FormInput
-                  type="password"
-                  className="block px-4 py-3 mt-4"
-                  formInputSize="sm"
-                  placeholder="Password"
-                  required
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                />
-                <div className="flex mt-8 text-slate-500">
-                  <p
-                    className="w-full flex justify-end hover:cursor-pointer"
-                    onClick={() => navigate("/req_reset")}
-                  >
-                    Forgot Password?
-                  </p>
-                </div>
                 <div className="mt-5 text-center xl:mt-8 xl:text-left">
                   <Button
                     type="submit"
@@ -101,16 +81,16 @@ function LoginPage() {
                         color="white"
                       />
                     ) : (
-                      "Login"
+                      "Send Email Reset Password"
                     )}
                   </Button>
                   <Button
                     variant="outline-secondary"
                     className="w-full mt-3"
                     type="button"
-                    onClick={() => navigate("/registration")}
+                    onClick={() => navigate("/login")}
                   >
-                    Sign up
+                    Sign In
                   </Button>
                 </div>
                 <div className="mt-10 flex justify-center text-gray-400">
@@ -123,6 +103,6 @@ function LoginPage() {
       </div>
     </>
   );
-}
+};
 
-export default LoginPage;
+export default RequestResetPasswordPage;

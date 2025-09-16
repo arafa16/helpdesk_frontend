@@ -1,19 +1,17 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FormInput, FormSelect } from "../../base-components/Form";
 import Button from "../../base-components/Button";
 import LoadingIcon from "../../base-components/LoadingIcon";
 import { useNavigate } from "react-router-dom";
 import logoWhite from "../../assets/images/logo/logo_kopkarla_white.png";
 import logoColor from "../../assets/images/logo/logo_kopkarla_color.png";
-import Notification from "../../base-components/Notification";
-import Lucide from "../../base-components/Lucide";
-import { NotificationElement } from "../../base-components/Notification";
 import {
   RegistrationAttributes,
   Registration,
   resetAuth,
 } from "../../stores/features/AuthSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { NewNotification } from "../../components/Notification/NewNotification";
 
 const RegisterPage = () => {
   const [datas, setDatas] = useState<any>(null);
@@ -22,6 +20,7 @@ const RegisterPage = () => {
     email: "",
     password: "",
     phone_number: "",
+    nip: "",
     location_uuid: "",
     company_uuid: "",
     division_uuid: "",
@@ -33,36 +32,31 @@ const RegisterPage = () => {
     useSelector((state: any) => state.auth);
 
   useEffect(() => {
-    if (data && isSuccess) {
-      if (!isLoading) {
-        setDatas(data?.data);
-        dispatch(resetAuth());
-      }
+    if (data !== null && isSuccess && !isLoading) {
+      setDatas(data?.data);
+      dispatch(resetAuth());
     }
-    if (message && isError) {
-      if (!isLoading) {
-        dispatch(resetAuth());
-      }
+    if (message !== "" && isError && !isLoading) {
+      console.log(message, "message error");
+      dispatch(resetAuth());
     }
-    if (messageRegister && isSuccess) {
-      if (!isLoading) {
-        successNotificationToggle();
-        setFormData({
-          name: "",
-          email: "",
-          password: "",
-          phone_number: "",
-          location_uuid: "",
-          company_uuid: "",
-          division_uuid: "",
-        });
-        dispatch(resetAuth());
-      }
+    if (messageRegister !== "" && isSuccess && !isLoading) {
+      NewNotification(messageRegister?.message);
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        phone_number: "",
+        nip: "",
+        location_uuid: "",
+        company_uuid: "",
+        division_uuid: "",
+      });
+      dispatch(resetAuth());
     }
-    if (messageRegister && isError) {
-      if (!isLoading) {
-        dispatch(resetAuth());
-      }
+    if (messageRegister && isError && !isLoading) {
+      NewNotification(messageRegister?.data?.message);
+      dispatch(resetAuth());
     }
   }, [data, isError, isSuccess, isLoading, message, messageRegister]);
 
@@ -75,67 +69,28 @@ const RegisterPage = () => {
     dispatch(Registration(formData));
   };
 
-  // Success notification
-  const successDeleteNotification = useRef<NotificationElement>();
-  const successNotificationToggle = () => {
-    successDeleteNotification.current?.showToast();
-  };
-
-  // permissionNotification
-  const permissionNotification = useRef<NotificationElement>();
-  const permissionNotificationToggle = () => {
-    permissionNotification.current?.showToast();
-  };
-
   return (
     <>
-      <Notification
-        getRef={(el) => {
-          successDeleteNotification.current = el;
-        }}
-        options={{
-          duration: 3000,
-        }}
-        className="flex"
-      >
-        <Lucide icon="CheckCircle" className="text-success" />
-        <div className="ml-4 mr-4">
-          <div className="font-medium">Success</div>
-        </div>
-      </Notification>
-      {/* <Notification
-        getRef={(el) => {
-          permissionNotification.current = el;
-        }}
-        options={{
-          duration: 3000,
-        }}
-        className="flex"
-      >
-        <Lucide icon="CheckCircle" className="text-danger" />
-        <div className="ml-4 mr-4">
-          <div className="font-medium">Register Error</div>
-        </div>
-      </Notification> */}
       <div className="container">
         <div className="flex items-center justify-center w-full min-h-screen p-5 md:p-20 text-xs">
-          <div className="w-96 intro-y">
+          <div className="w-[650px] intro-y">
             <img
-              className="w-24 mx-auto hidden lg:flex"
+              className="w-12 md:w-24 mx-auto hidden lg:flex"
               alt="Kopkarla"
               src={logoWhite}
             />
             <img
-              className="w-24 mx-auto flex lg:hidden"
+              className="w-12 md:w-24 mx-auto flex lg:hidden"
               alt="Kopkarla"
               src={logoColor}
             />
             <form onSubmit={handleRegistration}>
-              <div className="box px-5 py-8 mt-10 max-w-[450px] relative before:content-[''] before:z-[-1] before:w-[95%] before:h-full before:bg-slate-200 before:border before:border-slate-200 before:-mt-5 before:absolute before:rounded-lg before:mx-auto before:inset-x-0 before:dark:bg-darkmode-600/70 before:dark:border-darkmode-500/60">
+              <div className="box grid grid-cols-12 gap-4 px-5 py-8 mt-10 max-w-[650px] relative before:content-[''] before:z-[-1] before:w-[95%] before:h-full before:bg-slate-200 before:border before:border-slate-200 before:-mt-5 before:absolute before:rounded-lg before:mx-auto before:inset-x-0 before:dark:bg-darkmode-600/70 before:dark:border-darkmode-500/60">
                 <FormInput
+                  name="name"
                   type="text"
                   formInputSize="sm"
-                  className="block px-4 py-3 mt-4"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
                   placeholder="Name"
                   required
                   value={formData.name}
@@ -144,9 +99,10 @@ const RegisterPage = () => {
                   }
                 />
                 <FormInput
+                  name="email"
                   type="email"
                   formInputSize="sm"
-                  className="block px-4 py-3 mt-4"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
                   placeholder="Email"
                   required
                   value={formData.email}
@@ -155,9 +111,10 @@ const RegisterPage = () => {
                   }
                 />
                 <FormInput
+                  name="password"
                   type="password"
                   formInputSize="sm"
-                  className="block px-4 py-3 mt-4"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
                   placeholder="Password"
                   required
                   value={formData.password}
@@ -166,9 +123,10 @@ const RegisterPage = () => {
                   }
                 />
                 <FormInput
+                  name="phone_number"
                   type="text"
                   formInputSize="sm"
-                  className="block px-4 py-3 mt-4"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
                   placeholder="Nomor Telpon/Hp"
                   required
                   value={formData.phone_number}
@@ -176,10 +134,22 @@ const RegisterPage = () => {
                     setFormData({ ...formData, phone_number: e.target.value })
                   }
                 />
+                <FormInput
+                  name="nip"
+                  type="text"
+                  formInputSize="sm"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
+                  placeholder="NIP"
+                  required
+                  value={formData.nip}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nip: e.target.value })
+                  }
+                />
                 <FormSelect
-                  formSelectSize="sm"
-                  className="block px-4 py-3 mt-4"
                   name="location_uuid"
+                  formSelectSize="sm"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
                   value={formData.location_uuid}
                   onChange={(e) =>
                     setFormData({ ...formData, location_uuid: e.target.value })
@@ -193,9 +163,9 @@ const RegisterPage = () => {
                   ))}
                 </FormSelect>
                 <FormSelect
-                  formSelectSize="sm"
-                  className="block px-4 py-3 mt-4"
                   name="division_uuid"
+                  formSelectSize="sm"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
                   value={formData.division_uuid}
                   onChange={(e) =>
                     setFormData({ ...formData, division_uuid: e.target.value })
@@ -209,9 +179,9 @@ const RegisterPage = () => {
                   ))}
                 </FormSelect>
                 <FormSelect
-                  formSelectSize="sm"
-                  className="block px-4 py-3 mt-4"
                   name="company_uuid"
+                  formSelectSize="sm"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
                   required
                   value={formData.company_uuid}
                   onChange={(e) =>
@@ -225,11 +195,11 @@ const RegisterPage = () => {
                     </option>
                   ))}
                 </FormSelect>
-                <div className="mt-5 text-center xl:mt-8 xl:text-left">
+                <div className="mt-5 col-span-12 md:flex md:justify-end md:gap-4 text-center xl:mt-8 xl:text-left">
                   <Button
                     type="submit"
                     variant="primary"
-                    className="w-full xl:mr-3"
+                    className="px-4 w-full md:w-auto "
                   >
                     {isLoading ? (
                       <LoadingIcon
@@ -243,11 +213,11 @@ const RegisterPage = () => {
                   </Button>
                   <Button
                     variant="outline-secondary"
-                    className="w-full mt-3"
+                    className="px-4 w-full md:w-auto mt-4 md:mt-0"
                     type="button"
                     onClick={() => navigate("/login")}
                   >
-                    Sign in
+                    Back to Sign in
                   </Button>
                 </div>
               </div>

@@ -1,30 +1,136 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Lucide from "../../base-components/Lucide";
-import Breadcrumb from "../../base-components/Breadcrumb";
-import { FormInput } from "../../base-components/Form";
-import { Menu, Popover, Dialog } from "../../base-components/Headless";
-import fakerData from "../../utils/faker";
+import { Menu, Dialog } from "../../base-components/Headless";
+import Button from "../../base-components/Button";
 import userNotFound from "../../assets/images/user/userNotFound.jpg";
 import _ from "lodash";
 import clsx from "clsx";
+import { FormLabel, FormInput } from "../../base-components/Form";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ChangePassword, resetUser } from "../../stores/features/UserSlice";
+import { NewNotification } from "../Notification/NewNotification";
 
 function Main(props: any) {
-  const [searchResultModal, setSearchResultModal] = useState(false);
+  const [resetPasswordModal, setResetPasswordModal] = useState(false);
+  const [formData, setFormData] = useState({
+    password: "",
+    conf_password: "",
+  });
 
-  // Show search result modal
-  const showSearchResultModal = () => {
-    setSearchResultModal(true);
-  };
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // On press event (Ctrl+k)
-  document.querySelectorAll("body")[0].onkeydown = (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.which == 75) {
-      setSearchResultModal(true);
+  // document.querySelectorAll("body")[0].onkeydown = (e) => {
+  //   if ((e.ctrlKey || e.metaKey) && e.which == 75) {
+  //     setSearchResultModal(true);
+  //   }
+  // };
+
+  //get data user login
+  const { data, isError, isSuccess, isLoading, messagePassword } = useSelector(
+    (state: any) => state.user
+  );
+
+  useEffect(() => {
+    if (messagePassword !== "" && isSuccess && !isLoading) {
+      NewNotification(messagePassword?.message);
+      setFormData({
+        password: "",
+        conf_password: "",
+      });
+      setResetPasswordModal(false);
+      dispatch(resetUser());
     }
+    if (messagePassword !== "" && isError && !isLoading) {
+      console.log(messagePassword, "message");
+      NewNotification(messagePassword?.data?.message);
+      dispatch(resetUser());
+    }
+  }, [data, isError, isSuccess, isLoading, messagePassword]);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    dispatch(ChangePassword({ formData }));
   };
 
   return (
     <>
+      <Dialog
+        open={resetPasswordModal}
+        onClose={() => {
+          setResetPasswordModal(false);
+        }}
+        // initialFocus={sendButtonRef}
+      >
+        <Dialog.Panel>
+          <Dialog.Title>
+            <h2 className="mr-auto text-base">Change Password</h2>
+          </Dialog.Title>
+          <form id="form" onSubmit={handleSubmit}>
+            <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+              <div className="col-span-12 sm:col-span-12">
+                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormInput
+                  formInputSize="sm"
+                  id="password"
+                  type="password"
+                  placeholder="*********"
+                  value={formData.password}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      password: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="col-span-12 sm:col-span-12">
+                <FormLabel htmlFor="conf_password">
+                  Confirmation Password
+                </FormLabel>
+                <FormInput
+                  formInputSize="sm"
+                  id="conf_password"
+                  type="password"
+                  placeholder="*********"
+                  value={formData.conf_password}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      conf_password: e.target.value,
+                    })
+                  }
+                />
+              </div>
+            </Dialog.Description>
+          </form>
+          <Dialog.Footer>
+            <Button
+              size="sm"
+              type="button"
+              variant="outline-secondary"
+              onClick={() => {
+                setResetPasswordModal(false);
+              }}
+              className="w-20 mr-1"
+            >
+              Cancel
+            </Button>
+            <Button
+              form="form"
+              size="sm"
+              variant="primary"
+              type="submit"
+              className="w-20"
+              // ref={sendButtonRef}
+            >
+              Update
+            </Button>
+          </Dialog.Footer>
+        </Dialog.Panel>
+      </Dialog>
       {/* BEGIN: Top Bar */}
       <div
         className={clsx([
@@ -64,7 +170,7 @@ function Main(props: any) {
             </div>
           </Menu.Button>
           <Menu.Items className="w-48 mt-px">
-            <Menu.Item>
+            <Menu.Item onClick={() => setResetPasswordModal(true)}>
               <Lucide icon="Lock" className="w-4 h-4 mr-2" /> Reset Password
             </Menu.Item>
             <Menu.Divider />

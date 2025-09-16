@@ -10,6 +10,7 @@ interface variabel {
   messageUpdate: string;
   messageCreate: string;
   messageDelete: string;
+  messagePassword: string;
 }
 
 const initialState: variabel = {
@@ -21,6 +22,7 @@ const initialState: variabel = {
   messageUpdate: "",
   messageCreate: "",
   messageDelete: "",
+  messagePassword: "",
 };
 
 export const GetUserDatas: any = createAsyncThunk(
@@ -189,6 +191,27 @@ export const DeleteUserData: any = createAsyncThunk(
   }
 );
 
+export const ChangePassword: any = createAsyncThunk(
+  "User/ChangePassword",
+  async (datas: any, thunkAPI) => {
+    try {
+      const response = await axios.patch(
+        import.meta.env.VITE_REACT_APP_API_URL + `/api/v1/user/change_password`,
+        datas.formData,
+        {
+          withCredentials: true, // Now this is was the missing piece in the client side
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      if (error.response) {
+        return thunkAPI.rejectWithValue(error.response);
+      }
+    }
+  }
+);
+
 export const UserSlice = createSlice({
   name: "User",
   initialState,
@@ -314,6 +337,21 @@ export const UserSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.messageDelete = action.payload;
+    });
+
+    //ChangePassword
+    builder.addCase(ChangePassword.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(ChangePassword.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.messagePassword = action.payload;
+    });
+    builder.addCase(ChangePassword.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.messagePassword = action.payload;
     });
   },
 });
