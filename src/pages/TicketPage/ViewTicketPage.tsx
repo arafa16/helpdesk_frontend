@@ -330,11 +330,11 @@ const ViewTicketPage = () => {
     }
 
     if (
-      messageTicketActivity !== "" &&
+      messageUpdateTicketActivity !== "" &&
       isSuccessTicketActivity &&
       !isLoadingTicketActivity
     ) {
-      NewNotification(messageTicketActivity.message);
+      NewNotification(messageUpdateTicketActivity.message);
       dispatch(GetTicketDataById(id));
       setShowTicketActivitySlideOver(false);
       dispatch(resetTicketActivity());

@@ -108,9 +108,11 @@ const TicketActivitySlideOver = (props: any) => {
                 </FormLabel>
                 <FormInput
                   id="schedule_reminder"
-                  type="date"
+                  type="datetime-local"
                   className="border p-1 text-xs"
-                  value={dayjs(formData.schedule_reminder).format("YYYY-MM-DD")}
+                  value={dayjs(formData.schedule_reminder).format(
+                    "YYYY-MM-DD HH:mm"
+                  )}
                   onChange={(e: any) =>
                     setFormData({
                       ...formData,
