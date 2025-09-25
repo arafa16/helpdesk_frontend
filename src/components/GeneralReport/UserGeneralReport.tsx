@@ -5,6 +5,8 @@ import Tippy from "../../base-components/Tippy";
 const UserGeneralReport = (props: any) => {
   const { handleClickStatus, meta, statuses, reports } = props;
 
+  console.log(reports, "reports");
+
   return (
     <div className="col-span-12 mt-6">
       <div
@@ -59,7 +61,7 @@ const UserGeneralReport = (props: any) => {
                         content={status?.name}
                       >
                         {status?.code !== "4"
-                          ? reports[status?.code].count
+                          ? reports[status?.code]?.count
                           : reports[4]?.count}
                       </Tippy>
                     </div>

@@ -142,7 +142,7 @@ const EditTicketPage = () => {
         </div>
       </Notification>
       <div className="mt-6 flex justify-end gap-2">
-        <Button variant="primary" type="button" size="sm" form="form_ticket">
+        <Button form="form_ticket" variant="primary" type="submit" size="sm">
           Save
         </Button>
         <Button

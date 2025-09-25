@@ -46,31 +46,6 @@ const CreateTicketForm = (props: any) => {
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
-              <FormLabel className="" htmlFor="user_uuid">
-                User
-              </FormLabel>
-              <FormSelect
-                formSelectSize="sm"
-                aria-label=".form-select-sm example"
-                name="user_uuid"
-                required
-                value={formData?.user_uuid}
-                onChange={(e) =>
-                  setFormData({ ...formData, user_uuid: e.target.value })
-                }
-              >
-                <option value={""}></option>
-                {users &&
-                  users.map((data: any, index: any) => (
-                    <option key={index} value={data.uuid}>
-                      {data.name}
-                    </option>
-                  ))}
-              </FormSelect>
-            </FormInline>
-          </div>
-          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
-            <FormInline>
               <FormLabel className="" htmlFor="input-wizard-1">
                 Customer
               </FormLabel>
@@ -231,6 +206,31 @@ const CreateTicketForm = (props: any) => {
                   setFormData({ ...formData, description: e.target.value })
                 }
               />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="user_uuid">
+                User
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                aria-label=".form-select-sm example"
+                name="user_uuid"
+                required
+                value={formData?.user_uuid}
+                onChange={(e) =>
+                  setFormData({ ...formData, user_uuid: e.target.value })
+                }
+              >
+                <option value={""}></option>
+                {users &&
+                  users.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
             </FormInline>
           </div>
         </div>

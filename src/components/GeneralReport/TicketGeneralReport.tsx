@@ -37,7 +37,7 @@ const TicketGeneralReport = (props: any) => {
                         className={`flex items-center justify-center border rounded-full w-[2.2rem] h-[2.2rem] text-success ${
                           status.uuid === meta?.ticket_status_uuid
                             ? "bg-success/20"
-                            : status.code === "6" &&
+                            : status?.code === "6" &&
                               meta?.ticket_status_uuid === ""
                             ? "bg-success/20"
                             : "bg-secondary/20"
@@ -59,8 +59,8 @@ const TicketGeneralReport = (props: any) => {
                         content={status.name}
                       >
                         {status.code !== "6"
-                          ? reports[status.code].count
-                          : reports[7].count}
+                          ? reports[status.code]?.count
+                          : reports[7]?.count}
                       </Tippy>
                     </div>
                   </div>

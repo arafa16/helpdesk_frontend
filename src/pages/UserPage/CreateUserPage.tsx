@@ -18,6 +18,7 @@ const CreateUserPage = () => {
     phone_number: "",
     company_uuid: "",
     job_position_uuid: "",
+    area_uuid: "",
     division_uuid: "",
     location_uuid: "",
     user_status_uuid: "",
@@ -33,6 +34,8 @@ const CreateUserPage = () => {
     division: [],
     location: [],
     user_status: [],
+    job_position: [],
+    area: [],
   });
 
   const dispatch = useDispatch();
@@ -56,6 +59,7 @@ const CreateUserPage = () => {
         location: data?.attributes?.location,
         user_status: data?.attributes?.user_status,
         job_position: data?.attributes?.job_position,
+        area: data?.attributes?.area,
       });
       dispatch(resetUser());
     } else if (isError && message && !isLoading) {
@@ -77,7 +81,8 @@ const CreateUserPage = () => {
     dispatch(GetCreateAttribute());
   }, [dispatch]);
 
-  const handleSubmitTicket = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
     dispatch(CreateUserData({ formData }));
   };
 
@@ -89,12 +94,7 @@ const CreateUserPage = () => {
   return (
     <div>
       <div className="mt-6 flex justify-end gap-2">
-        <Button
-          variant="primary"
-          type="button"
-          size="sm"
-          onClick={() => handleSubmitTicket()}
-        >
+        <Button form="form_user" variant="primary" type="submit" size="sm">
           Save
         </Button>
         <Button
@@ -111,6 +111,7 @@ const CreateUserPage = () => {
           formData={formData}
           setFormData={setFormData}
           attributes={attributes}
+          submit={handleSubmit}
         />
       </div>
     </div>

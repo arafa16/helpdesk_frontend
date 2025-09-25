@@ -472,8 +472,6 @@ function Menu(props: {
 
   const nameColom: any = props.menu.privilege;
 
-  console.log(props.privilege, nameColom, "name");
-
   return (
     <a
       href={props.menu.subMenu ? "#" : props.menu.pathname}

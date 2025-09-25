@@ -1,6 +1,5 @@
 import Lucide from "../../base-components/Lucide";
 import clsx from "clsx";
-import { Form, useNavigate } from "react-router-dom";
 import { FormInput } from "../../base-components/Form";
 
 const TicketTable = (props: any) => {

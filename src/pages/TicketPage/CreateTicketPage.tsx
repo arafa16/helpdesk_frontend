@@ -8,7 +8,6 @@ import {
   CreateTicketData,
   resetTicket,
 } from "../../stores/features/TicketSlice";
-import { GetMe, resetGetMe } from "../../stores/features/GetMeSlice";
 import { useEffect, useState } from "react";
 
 const CreateTicketPage = () => {

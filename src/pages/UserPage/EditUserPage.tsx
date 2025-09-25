@@ -20,6 +20,7 @@ const EditUserPage = () => {
     phone_number: "",
     company_uuid: "",
     job_position_uuid: "",
+    area_uuid: "",
     division_uuid: "",
     location_uuid: "",
     user_status_uuid: "",
@@ -37,6 +38,7 @@ const EditUserPage = () => {
     location: [],
     user_status: [],
     job_position: [],
+    area: [],
   });
 
   const dispatch = useDispatch();
@@ -55,6 +57,7 @@ const EditUserPage = () => {
         phone_number: data?.data?.phone_number,
         company_uuid: data?.data?.company?.uuid,
         job_position_uuid: data?.data?.job_position?.uuid,
+        area_uuid: data?.data?.area?.uuid,
         division_uuid: data?.data?.division?.uuid,
         location_uuid: data?.data?.location?.uuid,
         user_status_uuid: data?.data?.user_status?.uuid,
@@ -71,6 +74,7 @@ const EditUserPage = () => {
         location: data?.attributes?.location,
         user_status: data?.attributes?.user_status,
         job_position: data?.attributes?.job_position,
+        area: data?.attributes?.area,
       });
       dispatch(resetUser());
     } else if (isError && message && !isLoading) {
@@ -95,7 +99,8 @@ const EditUserPage = () => {
     }
   }, [id, dispatch]);
 
-  const handleSubmitTicket = () => {
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
     dispatch(UpdateUserData({ uuid: id, formData }));
   };
 
@@ -108,12 +113,7 @@ const EditUserPage = () => {
   return (
     <div>
       <div className="mt-6 flex justify-end gap-2">
-        <Button
-          variant="primary"
-          type="button"
-          size="sm"
-          onClick={() => handleSubmitTicket()}
-        >
+        <Button form="form_user" variant="primary" type="submit" size="sm">
           Save
         </Button>
         <Button
@@ -130,6 +130,7 @@ const EditUserPage = () => {
           formData={formData}
           setFormData={setFormData}
           attributes={attributes}
+          submit={handleSubmit}
         />
       </div>
     </div>

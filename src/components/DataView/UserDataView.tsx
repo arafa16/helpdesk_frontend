@@ -81,6 +81,16 @@ const UserDataView = (props: any) => {
           </div>
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
+              <FormLabel className="" htmlFor="location">
+                Area
+              </FormLabel>
+              <div className="text-slate-700 capitalize">
+                : {datas?.area?.name}
+              </div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
               <FormLabel className="" htmlFor="subject">
                 User Status
               </FormLabel>
