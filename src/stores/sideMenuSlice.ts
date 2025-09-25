@@ -55,12 +55,6 @@ const initialState: SideMenuState = {
       subMenu: [
         {
           icon: "Settings",
-          title: "application",
-          pathname: "/application",
-          privilege: "setting",
-        },
-        {
-          icon: "Settings",
           title: "company",
           pathname: "/company",
           privilege: "setting",
@@ -73,20 +67,14 @@ const initialState: SideMenuState = {
         },
         {
           icon: "Settings",
-          title: "devision",
-          pathname: "/devision",
+          title: "division",
+          pathname: "/division",
           privilege: "setting",
         },
         {
           icon: "Settings",
           title: "user status",
           pathname: "/user_status",
-          privilege: "setting",
-        },
-        {
-          icon: "Settings",
-          title: "user shift schedule",
-          pathname: "/user_shift_schedule",
           privilege: "setting",
         },
         {
@@ -117,36 +105,6 @@ const initialState: SideMenuState = {
           icon: "Settings",
           title: "area",
           pathname: "/area",
-          privilege: "setting",
-        },
-        {
-          icon: "Settings",
-          title: "ticket history",
-          pathname: "/ticket_history",
-          privilege: "setting",
-        },
-        {
-          icon: "Settings",
-          title: "user ticket reminder",
-          pathname: "/user_ticket_reminder",
-          privilege: "setting",
-        },
-        {
-          icon: "Settings",
-          title: "ticket attachment",
-          pathname: "/ticket_attachment",
-          privilege: "setting",
-        },
-        {
-          icon: "Settings",
-          title: "ticket activity attachment",
-          pathname: "/ticket_activity_attachment",
-          privilege: "setting",
-        },
-        {
-          icon: "Settings",
-          title: "ticket activity tipe",
-          pathname: "/ticket_activity_tipe",
           privilege: "setting",
         },
       ],
