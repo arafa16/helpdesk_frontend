@@ -37,6 +37,26 @@ const TicketActivityCommentSlideOver = (props: any) => {
             <h2 className="mr-auto text-base font-medium">
               Ticket Activity Comment
             </h2>
+            <Button
+              variant="outline-secondary"
+              type="button"
+              size="sm"
+              onClick={() => {
+                handleCancel();
+              }}
+              className="w-20 mr-1"
+            >
+              Cancel
+            </Button>
+            <Button
+              form="form"
+              variant="primary"
+              type="submit"
+              size="sm"
+              className="w-20"
+            >
+              Submit
+            </Button>
           </Slideover.Title>
           <Slideover.Description>
             <form id="form" onSubmit={handleSubmit}>
