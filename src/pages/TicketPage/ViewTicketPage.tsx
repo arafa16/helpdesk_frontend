@@ -45,14 +45,23 @@ import {
   DeleteTicketUserReminderDataById,
   resetTicketUserReminder,
 } from "../../stores/features/TicketUserReminderSlice";
-import Notification from "../../base-components/Notification";
-import Lucide from "../../base-components/Lucide";
-import { NotificationElement } from "../../base-components/Notification";
 import dayjs from "dayjs";
 import axios from "axios";
 import TicketActivityCommentSlideOver from "../../components/SlideOver/TicketActivityCommentSlideOver";
 import TicketUserReminderSlideOver from "../../components/SlideOver/TicketUserReminderSlideOver";
 import { NewNotification } from "../../components/Notification/NewNotification";
+import TemplateTicketReportPdf from "../../components/PdfRender/TemplateTicketReportPdf";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  PDFViewer,
+  PDFDownloadLink,
+  StyleSheet,
+  Image,
+  Svg,
+} from "@react-pdf/renderer";
 
 const ViewTicketPage = () => {
   const { id } = useParams();
@@ -731,8 +740,9 @@ const ViewTicketPage = () => {
 
   return (
     <div className="mb-24">
-      <div className="mt-6 flex justify-end md:justify-between gap-4">
+      <div className="mt-6 grid grid-cols-12 md:flex justify-end md:justify-between gap-4">
         <Button
+          className="col-span-12"
           variant="primary"
           type="button"
           size="sm"
@@ -741,14 +751,44 @@ const ViewTicketPage = () => {
           Back
         </Button>
         <div
-          className={`flex gap-4 ${
+          className={`grid col-span-12 gap-y-4 md:flex md:gap-4 ${
             datas?.user?.privilege?.ticket === true ||
             datas?.user?.privilege?.ticket_executor === true
               ? ""
               : "hidden"
           }`}
         >
+          <PDFDownloadLink
+            document={<TemplateTicketReportPdf data={datas?.ticket} />}
+            fileName={
+              datas?.ticket?.display_name + "-" + datas?.ticket?.subject
+            }
+            className="col-span-12"
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? (
+                <Button
+                  className="w-full"
+                  variant="outline-primary"
+                  type="button"
+                  size="sm"
+                >
+                  Loading...
+                </Button>
+              ) : (
+                <Button
+                  className="w-full"
+                  variant="outline-primary"
+                  type="button"
+                  size="sm"
+                >
+                  Download Pusdjarin
+                </Button>
+              )
+            }
+          </PDFDownloadLink>
           <Button
+            className="col-span-12"
             variant="outline-primary"
             type="button"
             size="sm"
@@ -757,6 +797,7 @@ const ViewTicketPage = () => {
             Edit
           </Button>
           <Button
+            className="col-span-12"
             variant="outline-danger"
             type="button"
             size="sm"
