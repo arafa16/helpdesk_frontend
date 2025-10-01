@@ -199,6 +199,45 @@ const CreateUserForm = (props: any) => {
               </FormSelect>
             </FormInline>
           </div>
+
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="is_customer">
+                Is Customer
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                aria-label=".form-select-sm example"
+                name="is_customer"
+                value={formData?.is_customer}
+                onChange={(e) =>
+                  setFormData({ ...formData, is_customer: e.target.value })
+                }
+              >
+                <option value={0}>no</option>
+                <option value={1}>yes</option>
+              </FormSelect>
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="is_executor">
+                Is Executor
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                aria-label=".form-select-sm example"
+                name="is_executor"
+                value={formData?.is_executor}
+                onChange={(e) =>
+                  setFormData({ ...formData, is_executor: e.target.value })
+                }
+              >
+                <option value={0}>no</option>
+                <option value={1}>yes</option>
+              </FormSelect>
+            </FormInline>
+          </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="user_status">

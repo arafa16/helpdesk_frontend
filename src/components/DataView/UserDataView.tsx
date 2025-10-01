@@ -91,6 +91,26 @@ const UserDataView = (props: any) => {
           </div>
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
+              <FormLabel className="" htmlFor="location">
+                Is Customer
+              </FormLabel>
+              <div className="text-slate-700 capitalize">
+                : {datas?.is_customer ? "yes" : "no"}
+              </div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="location">
+                Is Executor
+              </FormLabel>
+              <div className="text-slate-700 capitalize">
+                : {datas?.is_executor ? "yes" : "no"}
+              </div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
               <FormLabel className="" htmlFor="subject">
                 User Status
               </FormLabel>

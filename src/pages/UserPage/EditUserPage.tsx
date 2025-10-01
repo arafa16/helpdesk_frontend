@@ -24,6 +24,8 @@ const EditUserPage = () => {
     division_uuid: "",
     location_uuid: "",
     user_status_uuid: "",
+    is_executor: 0,
+    is_customer: 0,
     //privilege
     dashboard: "",
     ticket: "",
@@ -61,6 +63,8 @@ const EditUserPage = () => {
         division_uuid: data?.data?.division?.uuid,
         location_uuid: data?.data?.location?.uuid,
         user_status_uuid: data?.data?.user_status?.uuid,
+        is_customer: data?.data?.is_customer ? 1 : 0,
+        is_executor: data?.data?.is_executor ? 1 : 0,
         dashboard: data?.data?.privilege?.dashboard ? 1 : 0,
         ticket: data?.data?.privilege?.ticket ? 1 : 0,
         ticket_executor: data?.data?.privilege?.ticket_executor ? 1 : 0,

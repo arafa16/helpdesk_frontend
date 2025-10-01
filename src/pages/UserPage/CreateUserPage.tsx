@@ -22,6 +22,8 @@ const CreateUserPage = () => {
     division_uuid: "",
     location_uuid: "",
     user_status_uuid: "",
+    is_executor: 0,
+    is_customer: 0,
     dashboard: 0,
     ticket: 0,
     ticket_executor: 0,
