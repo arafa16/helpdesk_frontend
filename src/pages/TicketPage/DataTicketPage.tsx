@@ -121,7 +121,7 @@ const DataTicketPage = () => {
           meta={meta}
         />
       </div>
-      <div>
+      <div className="mb-20">
         <TicketTable
           datas={datas?.data}
           page={datas?.meta?.page}
