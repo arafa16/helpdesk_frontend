@@ -7,6 +7,7 @@ import {
   resetTicket,
 } from "../../stores/features/TicketSlice";
 import { useNavigate } from "react-router-dom";
+import { NewNotification } from "../../components/Notification/NewNotification";
 
 const DataTicketCustomerPage = () => {
   const [ticketStatus, setTicketStatus] = useState<any>(null);
@@ -104,8 +105,7 @@ const DataTicketCustomerPage = () => {
   };
 
   const handleCreate = () => {
-    const back = `back=/ticket_customer`;
-    navigate(`/ticket/create?${back}`);
+    NewNotification("You have no access");
   };
 
   return (
