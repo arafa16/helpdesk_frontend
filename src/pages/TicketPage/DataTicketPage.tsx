@@ -7,10 +7,17 @@ import {
   resetTicket,
 } from "../../stores/features/TicketSlice";
 import { useNavigate } from "react-router-dom";
+import {
+  ExportTicketData,
+  resetTicketExport,
+} from "../../stores/features/TicketExportSlice";
+import Button from "../../base-components/Button";
+import { FormSelect, FormInline } from "../../base-components/Form";
 
 const DataTicketPage = () => {
   const [ticketStatus, setTicketStatus] = useState<any>(null);
   const [generalReport, setGeneralReport] = useState<any>(null);
+  const [year, setYear] = useState<any>(null);
   const [datas, setDatas] = useState([] as any);
   const [meta, setMeta] = useState<any>({
     page: 1,
@@ -19,6 +26,15 @@ const DataTicketPage = () => {
     search: "",
     ticket_status_uuid: "",
   });
+
+  const currentYear = new Date().getFullYear();
+  const startYear = 2025;
+  const years = [];
+
+  for (let y = startYear; y <= currentYear; y++) {
+    years.push(y);
+  }
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,12 +42,48 @@ const DataTicketPage = () => {
     (state: any) => state.ticket
   );
 
-  console.log("data ticket page", ticketStatus, generalReport);
+  const {
+    data: dataExport,
+    isLoading: isLoadingExport,
+    isError: isErrorExport,
+    isSuccess: isSuccessExport,
+    message: messageExport,
+  } = useSelector((state: any) => state.ticket_export);
+
+  useEffect(() => {
+    if (messageExport !== "" && isSuccessExport && isLoadingExport) {
+      dispatch(resetTicketExport());
+    } else if (messageExport !== "" && isErrorExport && isLoadingExport) {
+      console.log(message);
+      dispatch(resetTicket());
+    }
+  }, [
+    dataExport,
+    isLoadingExport,
+    isSuccessExport,
+    isErrorExport,
+    messageExport,
+  ]);
+
+  const handleDownloadTicket = () => {
+    let searchParams;
+
+    if (year !== null) {
+      const paramsObj: any = { year: year };
+      searchParams = new URLSearchParams(paramsObj);
+    }
+
+    dispatch(
+      ExportTicketData({
+        searchParams,
+        name: "data ticket" + ".xlsx",
+      })
+    );
+  };
 
   useEffect(() => {
     if (data && isSuccess) {
       if (!isLoading) {
-        console.log(data, "data");
         setDatas(data);
         setTicketStatus(data?.ticket_status);
         setGeneralReport(data?.general_report);
@@ -120,6 +172,34 @@ const DataTicketPage = () => {
           handleClickStatus={handleClickStatus}
           meta={meta}
         />
+      </div>
+      <div className="mt-6 flex gap-4 justify-end">
+        <FormInline>
+          <FormSelect
+            formSelectSize="sm"
+            aria-label=".form-select-sm example"
+            name="year"
+            value={year}
+            required
+            onChange={(e) => setYear(e.target.value)}
+          >
+            <option value={""}></option>
+            {years.map((data: any, index: any) => (
+              <option value={data} key={index}>
+                {data}
+              </option>
+            ))}
+          </FormSelect>
+        </FormInline>
+        <Button
+          className="col-span-12"
+          variant="primary"
+          type="button"
+          size="sm"
+          onClick={() => handleDownloadTicket()}
+        >
+          Export Data
+        </Button>
       </div>
       <div className="mb-20">
         <TicketTable

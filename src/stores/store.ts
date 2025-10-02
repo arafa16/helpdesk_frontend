@@ -20,6 +20,7 @@ import TicketCategoryReducer from "./features/TicketCategorySlice";
 import TicketAccessReducer from "./features/TicketAccessSlice";
 import AreaReducer from "./features/AreaSlice";
 import CustomerReducer from "./features/CustomerSlice";
+import TicketExportReducer from "./features/TicketExportSlice";
 
 export const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ export const store = configureStore({
     colorScheme: colorSchemeReducer,
     sideMenu: sideMenuReducer,
     ticket: TicketReducer,
+    ticket_export: TicketExportReducer,
     ticketAttachment: TicketAttachmentReducer,
     auth: AuthReducer,
     getMe: GetMeReducer,
