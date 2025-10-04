@@ -39,7 +39,7 @@ const TemplateTicketReportPdf = (props: any) => {
               <Text>Duration</Text>
               <Text>Total Duration</Text>
               <Text>Trouble Category</Text>
-              <Text>Trouble Description</Text>
+              <Text>Solution</Text>
             </View>
             <View style={[styles.gapColumn]}>
               <Text>: {data?.display_name}</Text>
@@ -90,7 +90,7 @@ const TemplateTicketReportPdf = (props: any) => {
                 Hour
               </Text>
               <Text>: {data?.ticket_category?.name}</Text>
-              <Text>: {data?.trouble_description}</Text>
+              <Text>: {data?.solution}</Text>
             </View>
           </View>
           <View
