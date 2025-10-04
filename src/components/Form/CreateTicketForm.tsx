@@ -195,15 +195,15 @@ const CreateTicketForm = (props: any) => {
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline className="">
-              <FormLabel className="" htmlFor="description">
-                Description
+              <FormLabel className="" htmlFor="rfo">
+                RFO
               </FormLabel>
               <FormTextarea
                 formTextareaSize="sm"
-                value={formData?.description}
-                name="description"
+                value={formData?.rfo}
+                name="rfo"
                 onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
+                  setFormData({ ...formData, rfo: e.target.value })
                 }
               />
             </FormInline>
@@ -407,17 +407,17 @@ const CreateTicketForm = (props: any) => {
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
-              <FormLabel className="" htmlFor="trouble_description">
-                Trouble Description
+              <FormLabel className="" htmlFor="solution">
+                Solution
               </FormLabel>
               <FormTextarea
                 formTextareaSize="sm"
-                value={formData?.trouble_description}
-                name="trouble_description"
+                value={formData?.solution}
+                name="solution"
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    trouble_description: e.target.value,
+                    solution: e.target.value,
                   })
                 }
               />

@@ -27,7 +27,7 @@ const EditTicketPage = () => {
     ticket_access_uuid: "",
     ticket_category_uuid: "",
     address: "",
-    description: "",
+    rfo: "",
     pic: "",
     executor_uuid: "",
     pic_phone_number: "",
@@ -38,6 +38,7 @@ const EditTicketPage = () => {
     priority_level: "",
     ticket_trouble_category_uuid: "",
     trouble_category: "",
+    solution: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const EditTicketPage = () => {
           ticket_access_uuid: data?.data?.ticket?.ticket_access?.uuid,
           ticket_category_uuid: data?.data?.ticket?.ticket_category?.uuid,
           address: data?.data?.ticket?.address,
-          description: data?.data?.ticket?.description,
+          rfo: data?.data?.ticket?.rfo,
           pic: data?.data?.ticket?.pic,
           executor_uuid: data?.data?.ticket?.executor?.uuid,
           pic_phone_number: data?.data?.ticket?.pic_phone_number,
@@ -72,7 +73,7 @@ const EditTicketPage = () => {
           priority_level: data?.data?.ticket?.priority_level,
           ticket_trouble_category_uuid:
             data?.data?.ticket?.ticket_trouble_category?.uuid,
-          trouble_description: data?.data?.ticket?.trouble_description,
+          solution: data?.data?.ticket?.solution,
         });
         setDatas(data?.data);
         dispatch(resetTicket());

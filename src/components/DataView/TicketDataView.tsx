@@ -89,9 +89,9 @@ const TicketDataView = (props: any) => {
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
-                Description
+                RFO
               </FormLabel>
-              <div className="">: {datas?.description}</div>
+              <div className="">: {datas?.rfo}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -185,9 +185,9 @@ const TicketDataView = (props: any) => {
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
-                Trouble Description
+                Solution
               </FormLabel>
-              <div className="">: {datas?.trouble_description}</div>
+              <div className="">: {datas?.solution}</div>
             </FormInline>
           </div>
         </div>
