@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 const TemplateTicketReportPdf = (props: any) => {
   const { data } = props;
 
+  console.log(data, "data pdf");
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -106,14 +108,47 @@ const TemplateTicketReportPdf = (props: any) => {
             </View>
             <View style={[styles.gapColumn, { marginTop: "12px" }]}>
               <Text>: </Text>
+            </View>
+          </View>
+          <View style={[styles.columnSpace]}>
+            <View style={[styles.gapColumn, { marginTop: "12px" }]}>
               {data?.ticket_activities?.map((data: any, index: any) => (
-                <Text key={index}>
-                  {index + 1}. {dayjs(data?.start_date).format("HH:mm:ss")} -{" "}
-                  {dayjs(
-                    data?.end_date !== null ? data?.end_date : Date.now()
-                  ).format("HH:mm:ss")}{" "}
-                  - {data?.ticket_status?.name}
-                </Text>
+                <View key={index}>
+                  <Text>
+                    {index + 1}. {dayjs(data?.start_date).format("HH:mm:ss")} -{" "}
+                    {dayjs(
+                      data?.end_date !== null ? data?.end_date : Date.now()
+                    ).format("HH:mm:ss")}{" "}
+                    - {data?.ticket_status?.name}
+                  </Text>
+                  {data?.ticket_activity_comments.map(
+                    (data_comment: any, index: any) => (
+                      <Text
+                        key={index}
+                        style={[{ marginLeft: "12px", marginTop: "12px" }]}
+                      >
+                        - {data_comment?.description}
+                      </Text>
+                    )
+                  )}
+                  {data?.ticket_activity_attachments.map(
+                    (data_image: any, index: any) => (
+                      <Image
+                        src={
+                          import.meta.env.VITE_REACT_APP_API_URL +
+                          data_image.file_url
+                        }
+                        style={[
+                          {
+                            width: "200px",
+                            marginTop: "12px",
+                            height: "auto",
+                          },
+                        ]}
+                      />
+                    )
+                  )}
+                </View>
               ))}
             </View>
           </View>
