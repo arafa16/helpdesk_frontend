@@ -782,7 +782,7 @@ const ViewTicketPage = () => {
                   type="button"
                   size="sm"
                 >
-                  Download Pusdjarin
+                  Print Ticket
                 </Button>
               )
             }
