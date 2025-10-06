@@ -16,14 +16,14 @@ import dayjs from "dayjs";
 const TemplateTicketReportPdf = (props: any) => {
   const { data } = props;
 
-  console.log(data, "data pdf");
-
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.header}>
           <View>
-            <Text style={[styles.title, styles.textBold]}>PUSDJARIN</Text>
+            <Text style={[styles.title, styles.textBold]}>
+              {data?.display_name} - {data?.case_number}
+            </Text>
           </View>
         </View>
         <View style={[styles.formatData]}>
