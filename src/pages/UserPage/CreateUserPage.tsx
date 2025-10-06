@@ -14,6 +14,7 @@ const CreateUserPage = () => {
   const [formData, setFormData] = useState<any>({
     name: "",
     email: "",
+    password: "",
     nip: "",
     phone_number: "",
     company_uuid: "",
@@ -114,6 +115,7 @@ const CreateUserPage = () => {
           setFormData={setFormData}
           attributes={attributes}
           submit={handleSubmit}
+          passwordField={true}
         />
       </div>
     </div>

@@ -20,10 +20,8 @@ const RegisterPage = () => {
     email: "",
     password: "",
     phone_number: "",
-    nip: "",
-    location_uuid: "",
     company_uuid: "",
-    division_uuid: "",
+    area_uuid: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,10 +45,8 @@ const RegisterPage = () => {
         email: "",
         password: "",
         phone_number: "",
-        nip: "",
-        location_uuid: "",
         company_uuid: "",
-        division_uuid: "",
+        area_uuid: "",
       });
       dispatch(resetAuth());
     }
@@ -134,50 +130,6 @@ const RegisterPage = () => {
                     setFormData({ ...formData, phone_number: e.target.value })
                   }
                 />
-                <FormInput
-                  name="nip"
-                  type="text"
-                  formInputSize="sm"
-                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
-                  placeholder="NIP"
-                  required
-                  value={formData.nip}
-                  onChange={(e) =>
-                    setFormData({ ...formData, nip: e.target.value })
-                  }
-                />
-                <FormSelect
-                  name="location_uuid"
-                  formSelectSize="sm"
-                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
-                  value={formData.location_uuid}
-                  onChange={(e) =>
-                    setFormData({ ...formData, location_uuid: e.target.value })
-                  }
-                >
-                  <option></option>
-                  {datas?.location.map((data: any, index: any) => (
-                    <option key={index} value={data.uuid}>
-                      {data.name}
-                    </option>
-                  ))}
-                </FormSelect>
-                <FormSelect
-                  name="division_uuid"
-                  formSelectSize="sm"
-                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
-                  value={formData.division_uuid}
-                  onChange={(e) =>
-                    setFormData({ ...formData, division_uuid: e.target.value })
-                  }
-                >
-                  <option></option>
-                  {datas?.division.map((data: any, index: any) => (
-                    <option key={index} value={data.uuid}>
-                      {data.name}
-                    </option>
-                  ))}
-                </FormSelect>
                 <FormSelect
                   name="company_uuid"
                   formSelectSize="sm"
@@ -190,6 +142,23 @@ const RegisterPage = () => {
                 >
                   <option></option>
                   {datas?.company.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+                </FormSelect>
+                <FormSelect
+                  name="area_uuid"
+                  formSelectSize="sm"
+                  className="block col-span-12 md:col-span-6 px-4 py-3 mt-4"
+                  required
+                  value={formData.area_uuid}
+                  onChange={(e) =>
+                    setFormData({ ...formData, area_uuid: e.target.value })
+                  }
+                >
+                  <option></option>
+                  {datas?.area.map((data: any, index: any) => (
                     <option key={index} value={data.uuid}>
                       {data.name}
                     </option>

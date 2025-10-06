@@ -6,7 +6,7 @@ import {
 } from "../../base-components/Form";
 
 const CreateUserForm = (props: any) => {
-  const { formData, setFormData, attributes, submit } = props;
+  const { formData, setFormData, attributes, submit, passwordField } = props;
 
   return (
     <form onSubmit={submit} id="form_user">
@@ -44,6 +44,28 @@ const CreateUserForm = (props: any) => {
                 value={formData?.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div
+            className={`col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded ${
+              passwordField ? "" : "hidden"
+            }`}
+          >
+            <FormInline>
+              <FormLabel className="" htmlFor="password">
+                Password
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                id="password"
+                name="password"
+                type="password"
+                required={passwordField ? true : false}
+                value={formData?.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
                 }
               />
             </FormInline>
