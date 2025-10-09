@@ -22,10 +22,10 @@ const TicketActivityTable = (props: any) => {
     const start_date = dayjs(data.start_date);
     const end_date = dayjs(data.end_date);
 
-    let hours = end_date.diff(start_date, "hour", true).toFixed(2);
+    let minutes = end_date.diff(start_date, "minute", true).toFixed(2);
 
-    grap_duration.push(Number(hours));
-    return hours;
+    grap_duration.push(Number(minutes));
+    return minutes;
   };
 
   return (
@@ -43,18 +43,18 @@ const TicketActivityTable = (props: any) => {
                   if (data?.start_date && data?.end_date) {
                     const start = dayjs(data.start_date);
                     const end = dayjs(data.end_date);
-                    const hours = end.diff(start, "hour", true);
-                    return sum + hours;
+                    const minutes = end.diff(start, "minute", true);
+                    return sum + minutes;
                   } else if (data?.end_date === null) {
                     const start = dayjs(data.start_date);
                     const end = dayjs(Date.now());
-                    const hours = end.diff(start, "hour", true);
-                    return sum + hours;
+                    const minutes = end.diff(start, "minute", true);
+                    return sum + minutes;
                   }
                   return sum;
                 }, 0)
                 .toFixed(2)}{" "}
-            hour
+            minute
           </p>
         </div>
         <div className="overflow-x-auto sm:overflow-x-visible mt-4 px-4">
@@ -202,13 +202,13 @@ const TicketActivityTable = (props: any) => {
                           ? duration({
                               start_date: data?.start_date,
                               end_date: data?.end_date,
-                            }) + " hour"
+                            }) + " minute"
                           : ""}
                         {data?.start_date !== null && data?.end_date === null
                           ? duration({
                               start_date: data?.start_date,
                               end_date: Date.now(),
-                            }) + " hour"
+                            }) + " minute"
                           : ""}
                       </span>
                     </div>
