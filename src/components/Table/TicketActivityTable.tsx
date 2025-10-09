@@ -22,7 +22,7 @@ const TicketActivityTable = (props: any) => {
     const start_date = dayjs(data.start_date);
     const end_date = dayjs(data.end_date);
 
-    let minutes = end_date.diff(start_date, "minute", true).toFixed(2);
+    let minutes = end_date.diff(start_date, "minute", true).toFixed(0);
 
     grap_duration.push(Number(minutes));
     return minutes;
@@ -53,7 +53,7 @@ const TicketActivityTable = (props: any) => {
                   }
                   return sum;
                 }, 0)
-                .toFixed(2)}{" "}
+                .toFixed(0)}{" "}
             minute
           </p>
         </div>
