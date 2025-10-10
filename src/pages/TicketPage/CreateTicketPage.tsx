@@ -30,10 +30,27 @@ const CreateTicketPage = () => {
     lat: "",
     lng: "",
     gmap: "",
+    complaint_time: null,
     eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
     solution: "",
+    ticket_network_status_uuid: "",
+    down_time: null,
+    up_time: null,
+    new_cable: 0,
+    external_pole: 0,
+    new_pole_setup: 0,
+    open_cut: 0,
+    drilling: 0,
+    new_closure: 0,
+    new_splitter: 0,
+    fo_jointing: 0,
+    old_datek: "",
+    new_datek: "",
+    spk_number: "",
+    justification: "",
+    constraint: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -114,6 +131,7 @@ const CreateTicketPage = () => {
           ticket_category={datas?.ticket_category}
           ticket_trouble_category={datas?.ticket_trouble_category}
           ticket_access={datas?.ticket_access}
+          ticket_network_status={datas?.ticket_network_status}
           executor={datas?.executor}
           customer={datas?.customer}
           users={datas?.user_customer}

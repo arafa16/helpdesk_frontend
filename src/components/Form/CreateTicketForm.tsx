@@ -17,6 +17,7 @@ const CreateTicketForm = (props: any) => {
     area,
     ticket_category,
     ticket_trouble_category,
+    ticket_network_status,
     ticket_access,
     executor,
     users,
@@ -24,7 +25,7 @@ const CreateTicketForm = (props: any) => {
 
   return (
     <form onSubmit={submit} id="form_ticket">
-      <div className={`text-xs box p-6`}>
+      <div className={`text-xs box p-6 mb-20`}>
         <div
           className={`grid grid-cols-12 gap-y-1 gap-x-4 border-b border-slate-200 pb-4`}
         >
@@ -92,6 +93,28 @@ const CreateTicketForm = (props: any) => {
                     </option>
                   ))}
               </FormSelect>
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="complaint_time">
+                Complaint Time
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={
+                  formData?.complaint_time !== null
+                    ? formData?.complaint_time
+                    : ""
+                }
+                name="complaint_time"
+                type="datetime-local"
+                step="1"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, complaint_time: e.target.value })
+                }
+              />
             </FormInline>
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
@@ -291,7 +314,9 @@ const CreateTicketForm = (props: any) => {
             </FormInline>
           </div>
         </div>
-        <div className={`grid grid-cols-12 gap-y-1 gap-x-4 mt-4`}>
+        <div
+          className={`grid grid-cols-12 gap-y-1 gap-x-4 border-b border-slate-200 pb-4 mt-4`}
+        >
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="lat">
@@ -338,7 +363,9 @@ const CreateTicketForm = (props: any) => {
             </FormInline>
           </div>
         </div>
-        <div className={`grid grid-cols-12 gap-y-1 gap-x-4 mt-4`}>
+        <div
+          className={`grid grid-cols-12 gap-y-1 gap-x-4 border-b border-slate-200 pb-4 mt-4`}
+        >
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="eta">
@@ -380,6 +407,22 @@ const CreateTicketForm = (props: any) => {
         </div>
         <div className={`grid grid-cols-12 gap-y-1 gap-x-4 mt-4`}>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="spk_number">
+                SPK Number
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.spk_number}
+                name="spk_number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, spk_number: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="ticket_trouble_category_uuid">
                 Trouble Category
@@ -418,6 +461,274 @@ const CreateTicketForm = (props: any) => {
                   setFormData({
                     ...formData,
                     solution: e.target.value,
+                  })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="ticket_network_status_uuid">
+                Network Status
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                name="ticket_network_status_uuid"
+                value={formData?.ticket_network_status_uuid}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    ticket_network_status_uuid: e.target.value,
+                  })
+                }
+              >
+                <option value={""}></option>
+                {ticket_network_status &&
+                  ticket_network_status.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="down_time">
+                Down Time
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.down_time !== null ? formData?.down_time : ""}
+                name="down_time"
+                type="datetime-local"
+                step="1"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, down_time: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="up_time">
+                Up Time
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.up_time !== null ? formData?.up_time : ""}
+                name="up_time"
+                type="datetime-local"
+                step="1"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, up_time: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="new_cable">
+                New Cable
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.new_cable}
+                name="new_cable"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, new_cable: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="external_pole">
+                External Pole
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.external_pole}
+                name="external_pole"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, external_pole: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="new_pole_setup">
+                New Pole Setup
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.new_pole_setup}
+                name="new_pole_setup"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, new_pole_setup: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="open_cut">
+                Open Cut
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.open_cut}
+                name="open_cut"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, open_cut: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="drilling">
+                Drilling
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.drilling}
+                name="drilling"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, drilling: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="new_closure">
+                New Closure
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.new_closure}
+                name="new_closure"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, new_closure: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="new_splitter">
+                New Splitter
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.new_splitter}
+                name="new_splitter"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, new_splitter: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="fo_jointing">
+                FO Jointing
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.fo_jointing}
+                name="fo_jointing"
+                type="number"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, fo_jointing: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="old_datek">
+                Old Datek
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.old_datek}
+                name="old_datek"
+                type="text"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, old_datek: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline className="">
+              <FormLabel className="" htmlFor="new_datek">
+                New Datek
+              </FormLabel>
+              <FormInput
+                formInputSize="sm"
+                value={formData?.new_datek}
+                name="new_datek"
+                type="text"
+                placeholder=""
+                onChange={(e) =>
+                  setFormData({ ...formData, new_datek: e.target.value })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="justification">
+                Justification
+              </FormLabel>
+              <FormTextarea
+                formTextareaSize="sm"
+                value={formData?.justification}
+                name="justification"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    justification: e.target.value,
+                  })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="constraint">
+                Constraint
+              </FormLabel>
+              <FormTextarea
+                formTextareaSize="sm"
+                value={formData?.constraint}
+                name="constraint"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    constraint: e.target.value,
                   })
                 }
               />

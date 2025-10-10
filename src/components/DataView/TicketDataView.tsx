@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { FormInline, FormLabel } from "../../base-components/Form";
 const TicketDataView = (props: any) => {
   const { datas } = props;
+  console.log(datas, "ticket data view");
   return (
     <>
       <div className="w-full box text-xs p-4">
@@ -35,6 +36,19 @@ const TicketDataView = (props: any) => {
                 Area
               </FormLabel>
               <div className="">: {datas?.area?.name}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="complaint_time">
+                Complaint Time
+              </FormLabel>
+              <div className="">
+                :{" "}
+                {datas &&
+                  datas.complaint_time &&
+                  dayjs(datas.complaint_time).format("YYYY-MM-DD HH:mm:ss")}
+              </div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -107,17 +121,17 @@ const TicketDataView = (props: any) => {
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
-                Executor
+                PIC
               </FormLabel>
-              <div className="">: {datas?.executor?.name}</div>
+              <div className="">: {datas && datas.pic}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
-                PIC
+                Executor
               </FormLabel>
-              <div className="">: {datas && datas.pic}</div>
+              <div className="">: {datas?.executor?.name}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -129,7 +143,7 @@ const TicketDataView = (props: any) => {
             </FormInline>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-10 mt-4 pb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-10 mt-4 pb-4 border-b border-slate-200/60">
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
@@ -155,7 +169,7 @@ const TicketDataView = (props: any) => {
             </FormInline>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-10 mt-4 pb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-10 mt-4 pb-4 border-b border-slate-200/60">
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
@@ -173,7 +187,15 @@ const TicketDataView = (props: any) => {
             </FormInline>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-10 mt-4 pb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-1 gap-x-10 mt-4 pb-4 border-b border-slate-200/60">
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="spk_number">
+                SPK Number
+              </FormLabel>
+              <div className="">: {datas?.spk_number}</div>
+            </FormInline>
+          </div>
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
@@ -188,6 +210,134 @@ const TicketDataView = (props: any) => {
                 Solution
               </FormLabel>
               <div className="">: {datas?.solution}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="ticket_network_status">
+                Network Status
+              </FormLabel>
+              <div className="">: {datas?.ticket_network_status?.name}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="down_time">
+                Down Time
+              </FormLabel>
+              <div className="">
+                :{" "}
+                {datas?.down_time &&
+                  dayjs(datas?.down_time).format("YYYY-MM-DD HH:mm:ss")}
+              </div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="up_time">
+                Up Time
+              </FormLabel>
+              <div className="">
+                :{" "}
+                {datas?.up_time &&
+                  dayjs(datas?.up_time).format("YYYY-MM-DD HH:mm:ss")}
+              </div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="new_cable">
+                New Cable
+              </FormLabel>
+              <div className="">: {datas?.new_cable}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="external_pole">
+                External Pole
+              </FormLabel>
+              <div className="">: {datas?.external_pole}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="new_pole_setup">
+                New Pole Setup
+              </FormLabel>
+              <div className="">: {datas?.new_pole_setup}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="open_cut">
+                Open Cut
+              </FormLabel>
+              <div className="">: {datas?.open_cut}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="drilling">
+                Drilling
+              </FormLabel>
+              <div className="">: {datas?.drilling}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="new_closure">
+                New Closure
+              </FormLabel>
+              <div className="">: {datas?.new_closure}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="new_splitter">
+                New Splitter
+              </FormLabel>
+              <div className="">: {datas?.new_splitter}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="fo_jointing">
+                FO Jointing
+              </FormLabel>
+              <div className="">: {datas?.fo_jointing}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="old_datek">
+                Old Datek
+              </FormLabel>
+              <div className="">: {datas?.old_datek}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="new_datek">
+                New Datek
+              </FormLabel>
+              <div className="">: {datas?.new_datek}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="justification">
+                Justification
+              </FormLabel>
+              <div className="">: {datas?.justification}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="constraint">
+                Constraint
+              </FormLabel>
+              <div className="">: {datas?.constraint}</div>
             </FormInline>
           </div>
         </div>

@@ -12,6 +12,7 @@ import { useEffect, useState, useRef } from "react";
 import { NotificationElement } from "../../base-components/Notification";
 import Notification from "../../base-components/Notification";
 import Lucide from "../../base-components/Lucide";
+import dayjs from "dayjs";
 
 const EditTicketPage = () => {
   const { id } = useParams();
@@ -34,11 +35,28 @@ const EditTicketPage = () => {
     lat: "",
     lng: "",
     gmap: "",
-    eta: "",
+    complaint_time: null,
+    eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
     trouble_category: "",
     solution: "",
+    ticket_network_status_uuid: "",
+    down_time: null,
+    up_time: null,
+    new_cable: 0,
+    external_pole: 0,
+    new_pole_setup: 0,
+    open_cut: 0,
+    drilling: 0,
+    new_closure: 0,
+    new_splitter: 0,
+    fo_jointing: 0,
+    old_datek: "",
+    new_datek: "",
+    spk_number: "",
+    justification: "",
+    constraint: "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,11 +87,37 @@ const EditTicketPage = () => {
           lat: data?.data?.ticket?.lat,
           lng: data?.data?.ticket?.lng,
           gmap: data?.data?.ticket?.gmap,
+          complaint_time:
+            data?.data?.ticket?.complaint_time &&
+            dayjs(data?.data?.ticket?.complaint_time).format(
+              "YYYY-MM-DD HH:mm:ss"
+            ),
           eta: data?.data?.ticket?.eta,
           priority_level: data?.data?.ticket?.priority_level,
           ticket_trouble_category_uuid:
             data?.data?.ticket?.ticket_trouble_category?.uuid,
           solution: data?.data?.ticket?.solution,
+          ticket_network_status_uuid:
+            data?.data?.ticket?.ticket_network_status?.uuid,
+          down_time:
+            data?.data?.ticket?.down_time &&
+            dayjs(data?.data?.ticket?.down_time).format("YYYY-MM-DD HH:mm:ss"),
+          up_time:
+            data?.data?.ticket?.up_time &&
+            dayjs(data?.data?.ticket?.up_time).format("YYYY-MM-DD HH:mm:ss"),
+          new_cable: data?.data?.ticket?.new_cable,
+          external_pole: data?.data?.ticket?.external_pole,
+          new_pole_setup: data?.data?.ticket?.new_pole_setup,
+          open_cut: data?.data?.ticket?.open_cut,
+          drilling: data?.data?.ticket?.drilling,
+          new_closure: data?.data?.ticket?.new_closure,
+          new_splitter: data?.data?.ticket?.new_splitter,
+          fo_jointing: data?.data?.ticket?.fo_jointing,
+          old_datek: data?.data?.ticket?.old_datek,
+          new_datek: data?.data?.ticket?.new_datek,
+          spk_number: data?.data?.ticket?.spk_number,
+          justification: data?.data?.ticket?.justification,
+          constraint: data?.data?.ticket?.constraint,
         });
         setDatas(data?.data);
         dispatch(resetTicket());
@@ -171,6 +215,7 @@ const EditTicketPage = () => {
           ticket_category={datas?.ticket_category}
           ticket_trouble_category={datas?.ticket_trouble_category}
           ticket_access={datas?.ticket_access}
+          ticket_network_status={datas?.ticket_network_status}
           executor={datas?.executor}
           customer={datas?.customer}
           users={datas?.user_customer}
