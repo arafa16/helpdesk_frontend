@@ -669,14 +669,15 @@ const CreateTicketForm = (props: any) => {
               <FormLabel className="" htmlFor="old_datek">
                 Old Datek
               </FormLabel>
-              <FormInput
-                formInputSize="sm"
+              <FormTextarea
+                formTextareaSize="sm"
                 value={formData?.old_datek}
                 name="old_datek"
-                type="text"
-                placeholder=""
                 onChange={(e) =>
-                  setFormData({ ...formData, old_datek: e.target.value })
+                  setFormData({
+                    ...formData,
+                    old_datek: e.target.value,
+                  })
                 }
               />
             </FormInline>
@@ -686,14 +687,15 @@ const CreateTicketForm = (props: any) => {
               <FormLabel className="" htmlFor="new_datek">
                 New Datek
               </FormLabel>
-              <FormInput
-                formInputSize="sm"
+              <FormTextarea
+                formTextareaSize="sm"
                 value={formData?.new_datek}
                 name="new_datek"
-                type="text"
-                placeholder=""
                 onChange={(e) =>
-                  setFormData({ ...formData, new_datek: e.target.value })
+                  setFormData({
+                    ...formData,
+                    new_datek: e.target.value,
+                  })
                 }
               />
             </FormInline>

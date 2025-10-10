@@ -97,7 +97,7 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="subject">
                 Address
               </FormLabel>
-              <div className="">: {datas?.address}</div>
+              <div className="whitespace-pre-line">: {datas?.address}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -105,7 +105,7 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="subject">
                 RFO
               </FormLabel>
-              <div className="">: {datas?.rfo}</div>
+              <div className="whitespace-pre-line">: {datas?.rfo}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -165,7 +165,7 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="subject">
                 Gmap Link
               </FormLabel>
-              <div className="">: {datas && datas.gmap}</div>
+              <div className="whitespace-pre-line">: {datas && datas.gmap}</div>
             </FormInline>
           </div>
         </div>
@@ -209,7 +209,7 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="subject">
                 Solution
               </FormLabel>
-              <div className="">: {datas?.solution}</div>
+              <div className="whitespace-pre-line">: {datas?.solution}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -313,7 +313,7 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="old_datek">
                 Old Datek
               </FormLabel>
-              <div className="">: {datas?.old_datek}</div>
+              <div className="whitespace-pre-line">: {datas?.old_datek}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -321,7 +321,7 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="new_datek">
                 New Datek
               </FormLabel>
-              <div className="">: {datas?.new_datek}</div>
+              <div className="whitespace-pre-line">: {datas?.new_datek}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -329,7 +329,9 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="justification">
                 Justification
               </FormLabel>
-              <div className="">: {datas?.justification}</div>
+              <div className="whitespace-pre-line">
+                : {datas?.justification}
+              </div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
@@ -337,7 +339,7 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="constraint">
                 Constraint
               </FormLabel>
-              <div className="">: {datas?.constraint}</div>
+              <div className="whitespace-pre-line">: {datas?.constraint}</div>
             </FormInline>
           </div>
         </div>

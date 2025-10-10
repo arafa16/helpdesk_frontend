@@ -11,7 +11,7 @@ function FormInline(props: FormInlineProps) {
     <formInlineContext.Provider value={true}>
       <div
         {...props}
-        className={twMerge(["block sm:flex items-center", props.className])}
+        className={twMerge(["block sm:flex items-start", props.className])}
       >
         {props.children}
       </div>
