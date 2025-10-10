@@ -34,12 +34,25 @@ const TemplateTicketReportPdf = (props: any) => {
               <Text>Customer</Text>
               <Text>Network Number</Text>
               <Text>Address</Text>
+              <Text>Network Status</Text>
               <Text>PIC Customer</Text>
               <Text>PIC Executor</Text>
+              <Text>Down Time</Text>
+              <Text>Up Time</Text>
               <Text>Duration</Text>
               <Text>Total Duration</Text>
               <Text>Trouble Category</Text>
-              <Text>Solution</Text>
+              <Text>Solution / Remarks</Text>
+              <Text>New Cable</Text>
+              <Text>External Pole</Text>
+              <Text>New Pole Setup</Text>
+              <Text>Open Cut</Text>
+              <Text>Drilling</Text>
+              <Text>New Closure</Text>
+              <Text>New Splitter</Text>
+              <Text>FO Jointing</Text>
+              <Text>Old Datek</Text>
+              <Text>New Datek</Text>
             </View>
             <View style={[styles.gapColumn]}>
               <Text>: {data?.display_name}</Text>
@@ -47,8 +60,15 @@ const TemplateTicketReportPdf = (props: any) => {
               <Text>: {data?.customer?.name}</Text>
               <Text>: {data?.network_number}</Text>
               <Text>: {data?.address}</Text>
+              <Text>: {data?.ticket_network_status?.name}</Text>
               <Text>: {data?.pic}</Text>
               <Text>: {data?.executor?.name}</Text>
+              <Text>
+                : {dayjs(data?.down_time).format("YYYY-MM-DD HH:mm:ss")}
+              </Text>
+              <Text>
+                : {dayjs(data?.up_time).format("YYYY-MM-DD HH:mm:ss")}
+              </Text>
               <Text>
                 :{" "}
                 {data?.ticket_activities
@@ -91,6 +111,16 @@ const TemplateTicketReportPdf = (props: any) => {
               </Text>
               <Text>: {data?.ticket_category?.name}</Text>
               <Text>: {data?.solution}</Text>
+              <Text>: {data?.new_cable}</Text>
+              <Text>: {data?.external_pole}</Text>
+              <Text>: {data?.new_pole_setup}</Text>
+              <Text>: {data?.open_cut}</Text>
+              <Text>: {data?.drilling}</Text>
+              <Text>: {data?.new_closure}</Text>
+              <Text>: {data?.new_splitter}</Text>
+              <Text>: {data?.fo_jointing}</Text>
+              <Text>: {data?.old_datek}</Text>
+              <Text>: {data?.new_datek}</Text>
             </View>
           </View>
           <View
