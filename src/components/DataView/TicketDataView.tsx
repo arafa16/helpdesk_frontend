@@ -165,7 +165,9 @@ const TicketDataView = (props: any) => {
               <FormLabel className="" htmlFor="subject">
                 Gmap Link
               </FormLabel>
-              <div className="whitespace-pre-line">: {datas && datas.gmap}</div>
+              <div className="whitespace-pre-line truncate">
+                : {datas && datas.gmap}
+              </div>
             </FormInline>
           </div>
         </div>
