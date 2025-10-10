@@ -1,6 +1,7 @@
 import Lucide from "../../base-components/Lucide";
 import clsx from "clsx";
 import { FormInput } from "../../base-components/Form";
+import dayjs from "dayjs";
 
 const TicketTable = (props: any) => {
   const {
@@ -97,39 +98,88 @@ const TicketTable = (props: any) => {
                   onClick={() => handleView(data)}
                 >
                   <div className="flex px-5 py-3">
-                    <div className="flex items-center flex-none mr-5 w-8">
-                      <div className="w-6">
-                        {index + 1 + (meta.page - 1) * meta.limit}
-                      </div>
+                    <div className="flex items-center flex-none mr-2 w-2">
+                      {index + 1 + (meta.page - 1) * meta.limit}
                     </div>
-                    <div className="w-64 truncate sm:w-32">
+                    <div className="w-24 truncate sm:w-24">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.display_name}
                       </span>
                     </div>
+                    <div className="w-48 truncate sm:w-48">
+                      <span>{data?.case_number}</span>
+                    </div>
                     <div className="w-64 truncate sm:w-36">
-                      <span className={clsx(["ml-3 truncate"])}>
-                        {data?.case_number}
-                      </span>
+                      <span>{data?.subject}</span>
                     </div>
                     <div className="w-64 truncate sm:w-64">
-                      <span className={clsx(["ml-3 truncate"])}>
-                        {data?.subject}
-                      </span>
-                    </div>
-                    <div className="w-64 truncate sm:w-52">
-                      <span className={clsx(["ml-3 truncate"])}>
-                        {data?.customer?.name}
-                      </span>
+                      <span>{data?.customer?.name}</span>
                     </div>
                     <div className="w-64 truncate sm:w-24">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.area?.name}
                       </span>
                     </div>
-                    <div className="w-64 truncate sm:w-24">
-                      <span className={clsx(["ml-3 truncate"])}>
-                        {data?.executor?.name}
+                    <div
+                      className={`w-64 truncate sm:w-40 rounded text-end px-2 ${
+                        data?.ticket_activities
+                          ?.reduce((sum: number, data: any) => {
+                            if (data?.start_date && data?.end_date) {
+                              const start = dayjs(data.start_date);
+                              const end = dayjs(data.end_date);
+                              const hours = end.diff(start, "hour", true);
+                              return sum + hours;
+                            } else if (data?.end_date === null) {
+                              const start = dayjs(data.start_date);
+                              const end = dayjs(Date.now());
+                              const hours = end.diff(start, "hour", true);
+                              return sum + hours;
+                            }
+                            return sum;
+                          }, 0)
+                          .toFixed(1) > 6
+                          ? "bg-red-500 text-white"
+                          : "bg-green-500 text-white"
+                      }`}
+                    >
+                      <span>
+                        {data?.ticket_activities
+                          ?.reduce((sum: number, data: any) => {
+                            if (data?.start_date && data?.end_date) {
+                              const start = dayjs(data.start_date);
+                              const end = dayjs(data.end_date);
+                              const minutes = end.diff(start, "minute", true);
+                              return sum + minutes;
+                            } else if (data?.end_date === null) {
+                              const start = dayjs(data.start_date);
+                              const end = dayjs(Date.now());
+                              const minutes = end.diff(start, "minute", true);
+                              return sum + minutes;
+                            }
+                            return sum;
+                          }, 0)
+                          .toFixed(0)}{" "}
+                        min
+                      </span>
+                      <span className="mx-1">/</span>
+                      <span>
+                        {data?.ticket_activities
+                          ?.reduce((sum: number, data: any) => {
+                            if (data?.start_date && data?.end_date) {
+                              const start = dayjs(data.start_date);
+                              const end = dayjs(data.end_date);
+                              const hours = end.diff(start, "hour", true);
+                              return sum + hours;
+                            } else if (data?.end_date === null) {
+                              const start = dayjs(data.start_date);
+                              const end = dayjs(Date.now());
+                              const hours = end.diff(start, "hour", true);
+                              return sum + hours;
+                            }
+                            return sum;
+                          }, 0)
+                          .toFixed(1)}{" "}
+                        hour
                       </span>
                     </div>
                     <div className="pl-10 ml-auto whitespace-nowrap">
