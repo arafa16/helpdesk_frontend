@@ -28,6 +28,8 @@ const TicketActivityTable = (props: any) => {
     return minutes;
   };
 
+  console.log(datas, "datas activity");
+
   return (
     <div className="grid grid-cols-12 mt-5 box text-xs">
       {/* BEGIN: Inbox Content */}
@@ -40,12 +42,19 @@ const TicketActivityTable = (props: any) => {
             {datas &&
               datas
                 .reduce((sum: number, data: any) => {
-                  if (data?.start_date && data?.end_date) {
+                  if (
+                    data?.ticket_status?.is_active === true &&
+                    data?.start_date &&
+                    data?.end_date
+                  ) {
                     const start = dayjs(data.start_date);
                     const end = dayjs(data.end_date);
                     const minutes = end.diff(start, "minute", true);
                     return sum + minutes;
-                  } else if (data?.end_date === null) {
+                  } else if (
+                    data?.ticket_status?.is_active === true &&
+                    data?.end_date === null
+                  ) {
                     const start = dayjs(data.start_date);
                     const end = dayjs(Date.now());
                     const minutes = end.diff(start, "minute", true);

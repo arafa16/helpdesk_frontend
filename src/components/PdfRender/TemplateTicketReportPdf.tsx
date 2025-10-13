@@ -73,12 +73,19 @@ const TemplateTicketReportPdf = (props: any) => {
                 :{" "}
                 {data?.ticket_activities
                   ?.reduce((sum: number, data: any) => {
-                    if (data?.start_date && data?.end_date) {
+                    if (
+                      data?.ticket_status?.is_active === true &&
+                      data?.start_date &&
+                      data?.end_date
+                    ) {
                       const start = dayjs(data.start_date);
                       const end = dayjs(data.end_date);
                       const hours = end.diff(start, "minute", true);
                       return sum + hours;
-                    } else if (data?.end_date === null) {
+                    } else if (
+                      data?.ticket_status?.is_active === true &&
+                      data?.end_date === null
+                    ) {
                       const start = dayjs(data.start_date);
                       const end = dayjs(Date.now());
                       const hours = end.diff(start, "minute", true);
@@ -93,12 +100,19 @@ const TemplateTicketReportPdf = (props: any) => {
                 :{" "}
                 {data?.ticket_activities
                   ?.reduce((sum: number, data: any) => {
-                    if (data?.start_date && data?.end_date) {
+                    if (
+                      data?.ticket_status?.is_active === true &&
+                      data?.start_date &&
+                      data?.end_date
+                    ) {
                       const start = dayjs(data.start_date);
                       const end = dayjs(data.end_date);
                       const hours = end.diff(start, "hour", true);
                       return sum + hours;
-                    } else if (data?.end_date === null) {
+                    } else if (
+                      data?.ticket_status?.is_active === true &&
+                      data?.end_date === null
+                    ) {
                       const start = dayjs(data.start_date);
                       const end = dayjs(Date.now());
                       const hours = end.diff(start, "hour", true);

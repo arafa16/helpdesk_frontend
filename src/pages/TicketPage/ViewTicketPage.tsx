@@ -738,6 +738,8 @@ const ViewTicketPage = () => {
     }
   };
 
+  console.log(datas, "datas");
+
   return (
     <div className="mb-24">
       <div className="mt-6 grid grid-cols-12 md:flex justify-end md:justify-between gap-4">
@@ -787,6 +789,15 @@ const ViewTicketPage = () => {
               )
             }
           </PDFDownloadLink>
+          <Button
+            className="col-span-12"
+            variant="outline-warning"
+            type="button"
+            size="sm"
+            onClick={() => handleChangeTicketStatus(datas?.stop_clock?.uuid)}
+          >
+            Stop Clock
+          </Button>
           <Button
             className="col-span-12"
             variant="outline-primary"
