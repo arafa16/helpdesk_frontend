@@ -18,6 +18,8 @@ const DataTicketPage = () => {
   const [ticketStatus, setTicketStatus] = useState<any>(null);
   const [generalReport, setGeneralReport] = useState<any>(null);
   const [year, setYear] = useState<any>(null);
+  const [area_uuid, setAreaUuid] = useState<any>(null);
+  const [area, setArea] = useState<any>(null);
   const [datas, setDatas] = useState([] as any);
   const [meta, setMeta] = useState<any>({
     page: 1,
@@ -69,7 +71,7 @@ const DataTicketPage = () => {
     let searchParams;
 
     if (year !== null) {
-      const paramsObj: any = { year: year };
+      const paramsObj: any = { year: year, area_uuid: area_uuid };
       searchParams = new URLSearchParams(paramsObj);
     }
 
@@ -87,6 +89,7 @@ const DataTicketPage = () => {
         setDatas(data);
         setTicketStatus(data?.ticket_status);
         setGeneralReport(data?.general_report);
+        setArea(data?.area);
         dispatch(resetTicket());
       }
     }
@@ -179,14 +182,31 @@ const DataTicketPage = () => {
             formSelectSize="sm"
             aria-label=".form-select-sm example"
             name="year"
-            value={year}
+            value={year !== null ? year : ""}
             required
             onChange={(e) => setYear(e.target.value)}
           >
             <option value={""}></option>
-            {years.map((data: any, index: any) => (
+            {years?.map((data: any, index: any) => (
               <option value={data} key={index}>
                 {data}
+              </option>
+            ))}
+          </FormSelect>
+        </FormInline>
+        <FormInline>
+          <FormSelect
+            formSelectSize="sm"
+            aria-label=".form-select-sm example"
+            name="area_uuid"
+            value={area_uuid !== null ? area_uuid : ""}
+            required
+            onChange={(e) => setAreaUuid(e.target.value)}
+          >
+            <option value={""}></option>
+            {area?.map((data: any, index: any) => (
+              <option value={data.uuid} key={index}>
+                {data.name}
               </option>
             ))}
           </FormSelect>
