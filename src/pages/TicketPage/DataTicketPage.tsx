@@ -107,10 +107,12 @@ const DataTicketPage = () => {
       limit: meta.limit,
       search: meta.search,
       ticket_status_uuid: meta.ticket_status_uuid,
+      year: year,
+      area_uuid: area_uuid,
     };
     const params_attributes = new URLSearchParams(paramsObj);
     dispatch(GetTicketDataTable(params_attributes));
-  }, [dispatch, meta]);
+  }, [dispatch, meta, year, area_uuid]);
 
   const handleNextPage = () => {
     if (meta.page < datas?.meta?.pages) {
@@ -218,7 +220,7 @@ const DataTicketPage = () => {
           size="sm"
           onClick={() => handleDownloadTicket()}
         >
-          Export Data
+          {isLoadingExport ? "Loading..." : "Export Data Ticket"}
         </Button>
       </div>
       <div className="mb-20">
