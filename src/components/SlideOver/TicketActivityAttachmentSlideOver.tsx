@@ -65,6 +65,19 @@ const TicketActivityAttachmentSlideOver = (props: any) => {
                   }
                 />
               </div>
+              <div className="text-xs mt-4">
+                <FormLabel htmlFor="name">File Name</FormLabel>
+                <FormInput
+                  formInputSize="sm"
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={formData?.name || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                />
+              </div>
             </form>
           </Slideover.Description>
           <Slideover.Footer>

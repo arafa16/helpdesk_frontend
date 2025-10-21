@@ -98,6 +98,7 @@ const ViewTicketPage = () => {
     useState<any>({
       file: [],
       file_url: "",
+      name: "",
       uuid: "",
     });
   const [
@@ -529,6 +530,7 @@ const ViewTicketPage = () => {
 
     let formData = new FormData();
     formData.append("file", formTicketActivityAttachment.file);
+    formData.append("name", formTicketActivityAttachment.name);
 
     if (
       datas?.user?.privilege?.ticket === true ||
