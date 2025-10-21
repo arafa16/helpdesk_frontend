@@ -5,6 +5,7 @@ import sideMenuReducer from "./sideMenuSlice";
 import TicketReducer from "./features/TicketSlice";
 import TicketAttachmentReducer from "./features/TicketAttachmentSlice";
 import TicketActivityAttachmentReducer from "./features/TicketActivityAttachmentSlice";
+import TicketActivityCommentAttachmentReducer from "./features/TicketActivityCommentAttachmentSlice";
 import AuthReducer from "./features/AuthSlice";
 import GetMeReducer from "./features/GetMeSlice";
 import TicketActivityReducer from "./features/TicketActivitiesSlice";
@@ -34,6 +35,7 @@ export const store = configureStore({
     getMe: GetMeReducer,
     ticketActivity: TicketActivityReducer,
     ticketActivityAttachment: TicketActivityAttachmentReducer,
+    ticket_activity_comment_attachment: TicketActivityCommentAttachmentReducer,
     ticketActivityComment: TicketActivityCommentReducer,
     ticketUserReminder: TicketUserReminderReducer,
     user: UserReducer,

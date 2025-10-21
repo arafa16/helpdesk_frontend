@@ -275,29 +275,6 @@ const CreateTicketForm = (props: any) => {
               />
             </FormInline>
           </div>
-          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded absolute z-[50]">
-            <FormInline>
-              <FormLabel className="" htmlFor="executor_uuid">
-                Executor
-              </FormLabel>
-              <FormSelect
-                formSelectSize="sm"
-                name="executor_uuid"
-                value={formData?.executor_uuid}
-                onChange={(e) =>
-                  setFormData({ ...formData, executor_uuid: e.target.value })
-                }
-              >
-                <option value={""}></option>
-                {executor &&
-                  executor.map((data: any, index: any) => (
-                    <option key={index} value={data.uuid}>
-                      {data.name}
-                    </option>
-                  ))}
-              </FormSelect>
-            </FormInline>
-          </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="pic_phone_number">
@@ -311,6 +288,110 @@ const CreateTicketForm = (props: any) => {
                   setFormData({ ...formData, pic_phone_number: e.target.value })
                 }
               />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded absolute z-[50]">
+            <FormInline>
+              <FormLabel className="" htmlFor="first_executor_uuid">
+                First Executor
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                name="first_executor_uuid"
+                value={formData?.first_executor_uuid}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    first_executor_uuid: e.target.value,
+                  })
+                }
+              >
+                <option value={""}></option>
+                {executor &&
+                  executor.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded absolute z-[50]">
+            <FormInline>
+              <FormLabel className="" htmlFor="second_executor_uuid">
+                Second Executor
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                name="second_executor_uuid"
+                value={formData?.second_executor_uuid}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    second_executor_uuid: e.target.value,
+                  })
+                }
+              >
+                <option value={""}></option>
+                {executor &&
+                  executor.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded absolute z-[50]">
+            <FormInline>
+              <FormLabel className="" htmlFor="third_executor_uuid">
+                Third Executor
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                name="third_executor_uuid"
+                value={formData?.third_executor_uuid}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    third_executor_uuid: e.target.value,
+                  })
+                }
+              >
+                <option value={""}></option>
+                {executor &&
+                  executor.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded absolute z-[50]">
+            <FormInline>
+              <FormLabel className="" htmlFor="fourth_executor_uuid">
+                Fourth Executor
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                name="fourth_executor_uuid"
+                value={formData?.fourth_executor_uuid}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    fourth_executor_uuid: e.target.value,
+                  })
+                }
+              >
+                <option value={""}></option>
+                {executor &&
+                  executor.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
             </FormInline>
           </div>
         </div>

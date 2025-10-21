@@ -16,6 +16,8 @@ import dayjs from "dayjs";
 const TemplateTicketReportPdf = (props: any) => {
   const { data } = props;
 
+  console.log("data pdf", data);
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -165,19 +167,10 @@ const TemplateTicketReportPdf = (props: any) => {
                     ).format("HH:mm:ss")}{" "}
                     - {data?.ticket_status?.name}
                   </Text>
-                  {data?.ticket_activity_comments.map(
-                    (data_comment: any, index: any) => (
-                      <Text
-                        key={index}
-                        style={[{ marginLeft: "12px", marginTop: "12px" }]}
-                      >
-                        - {data_comment?.description}
-                      </Text>
-                    )
-                  )}
                   {data?.ticket_activity_attachments.map(
                     (data_image: any, index: any) => (
                       <Image
+                        key={index}
                         src={
                           import.meta.env.VITE_REACT_APP_API_URL +
                           data_image.file_url
@@ -190,6 +183,36 @@ const TemplateTicketReportPdf = (props: any) => {
                           },
                         ]}
                       />
+                    )
+                  )}
+                  {data?.ticket_activity_comments.map(
+                    (data_comment: any, index: any) => (
+                      <View>
+                        <Text
+                          key={index}
+                          style={[{ marginLeft: "12px", marginTop: "12px" }]}
+                        >
+                          - {data_comment?.description}
+                        </Text>
+                        {data_comment?.ticket_activity_comment_attachments?.map(
+                          (data_image: any, index: any) => (
+                            <Image
+                              key={index}
+                              src={
+                                import.meta.env.VITE_REACT_APP_API_URL +
+                                data_image.file_url
+                              }
+                              style={[
+                                {
+                                  width: "150px",
+                                  marginTop: "12px",
+                                  height: "auto",
+                                },
+                              ]}
+                            />
+                          )
+                        )}
+                      </View>
                     )
                   )}
                 </View>

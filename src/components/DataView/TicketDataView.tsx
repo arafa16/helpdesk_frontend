@@ -129,17 +129,41 @@ const TicketDataView = (props: any) => {
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
-                Executor
+                PIC Phone Number
               </FormLabel>
-              <div className="">: {datas?.executor?.name}</div>
+              <div className="">: {datas && datas.pic_phone_number}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
-              <FormLabel className="" htmlFor="subject">
-                PIC Phone Number
+              <FormLabel className="" htmlFor="first_executor">
+                First Executor
               </FormLabel>
-              <div className="">: {datas && datas.pic_phone_number}</div>
+              <div className="">: {datas?.first_executor?.name}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="second_executor">
+                Second Executor
+              </FormLabel>
+              <div className="">: {datas?.second_executor?.name}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="third_executor">
+                Third Executor
+              </FormLabel>
+              <div className="">: {datas?.third_executor?.name}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="fourth_executor">
+                Fourth Executor
+              </FormLabel>
+              <div className="">: {datas?.fourth_executor?.name}</div>
             </FormInline>
           </div>
         </div>

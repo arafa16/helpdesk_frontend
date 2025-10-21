@@ -10,10 +10,13 @@ const TicketActivityTable = (props: any) => {
     handleDelete,
     handleShowEdit,
     handleShowAttachment,
+    handleShowCommentAttachment,
     handleDeleteAttachment,
     handleViewAttachment,
+    handleViewCommentAttachment,
     handleViewComment,
     handleDeleteComment,
+    handleDeleteCommentAttachment,
   } = props;
 
   let grap_duration: any = [];
@@ -27,8 +30,6 @@ const TicketActivityTable = (props: any) => {
     grap_duration.push(Number(minutes));
     return minutes;
   };
-
-  console.log(datas, "datas activity");
 
   return (
     <div className="grid grid-cols-12 mt-5 box text-xs">
@@ -123,11 +124,13 @@ const TicketActivityTable = (props: any) => {
                                       <div
                                         key={index}
                                         className="grid grid-cols-12 text-xs text-left"
-                                        onClick={() =>
-                                          handleViewAttachment(data)
-                                        }
                                       >
-                                        <p className="col-span-9 hover:bg-slate-200 p-1 items-center rounded truncate">
+                                        <p
+                                          className="col-span-9 hover:bg-slate-200 p-1 items-center rounded truncate"
+                                          onClick={() =>
+                                            handleViewAttachment(data)
+                                          }
+                                        >
                                           {data?.name}
                                         </p>
                                         <div
@@ -241,11 +244,83 @@ const TicketActivityTable = (props: any) => {
                           <div>{index + 1}</div>
                           <div>{data?.description}</div>
                         </div>
-                        <div
-                          className="p-1 rounded-lg hover:bg-red-500 hover:text-white"
-                          onClick={() => handleDeleteComment(data)}
-                        >
-                          <Lucide icon="Trash2" className="w-4 h-4" />
+                        <div className="pl-10 ml-auto whitespace-nowrap flex gap-8">
+                          <div className={"flex items-center"}>
+                            <Popover className="inline-block">
+                              {({ close }) => (
+                                <>
+                                  <Popover.Button
+                                    className={
+                                      "flex gap-2 p-1 rounded-lg hover:bg-blue-600 hover:text-white "
+                                    }
+                                  >
+                                    {
+                                      data?.ticket_activity_comment_attachments
+                                        ?.length
+                                    }
+                                    <Lucide icon="Upload" className="w-4 h-4" />
+                                  </Popover.Button>
+                                  <Popover.Panel placement="bottom-start">
+                                    <div className="p-2">
+                                      {data?.ticket_activity_comment_attachments?.map(
+                                        (data: any, index: any) => (
+                                          <div
+                                            key={index}
+                                            className="grid grid-cols-12 text-xs text-left"
+                                          >
+                                            <p
+                                              className="col-span-9 hover:bg-slate-200 p-1 items-center rounded truncate"
+                                              onClick={() =>
+                                                handleViewCommentAttachment(
+                                                  data
+                                                )
+                                              }
+                                            >
+                                              {data?.name}
+                                            </p>
+                                            <div
+                                              className="col-span-3 hover:bg-red-500 rounded hover:text-white grid justify-center p-1"
+                                              onClick={() =>
+                                                handleDeleteCommentAttachment(
+                                                  data?.uuid
+                                                )
+                                              }
+                                            >
+                                              <Lucide
+                                                icon="Trash"
+                                                className="w-4 h-4"
+                                              />
+                                            </div>
+                                          </div>
+                                        )
+                                      )}
+
+                                      <div className="flex items-center mt-3">
+                                        <Button
+                                          variant="primary"
+                                          className="w-32 ml-2"
+                                          size="sm"
+                                          onClick={() =>
+                                            handleShowCommentAttachment(
+                                              data?.uuid
+                                            )
+                                          }
+                                        >
+                                          upload file
+                                        </Button>
+                                      </div>
+                                    </div>
+                                  </Popover.Panel>
+                                </>
+                              )}
+                            </Popover>
+                          </div>
+                          <div
+                            className="p-1 rounded-lg hover:bg-red-500 hover:text-white"
+                            onClick={() => handleDeleteComment(data)}
+                          >
+                            <Lucide icon="Trash2" className="w-4 h-4" />
+                          </div>
                         </div>
                       </div>
                     )

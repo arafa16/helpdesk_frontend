@@ -45,6 +45,11 @@ import {
   DeleteTicketUserReminderDataById,
   resetTicketUserReminder,
 } from "../../stores/features/TicketUserReminderSlice";
+import {
+  CreateTicketActivityCommentAttachment,
+  DeleteTicketActivityCommentAttachment,
+  resetTicketActivityCommentAttachment,
+} from "../../stores/features/TicketActivityCommentAttachmentSlice";
 import dayjs from "dayjs";
 import axios from "axios";
 import TicketActivityCommentSlideOver from "../../components/SlideOver/TicketActivityCommentSlideOver";
@@ -62,6 +67,7 @@ import {
   Image,
   Svg,
 } from "@react-pdf/renderer";
+import TicketActivityCommentAttachmentSlideOver from "../../components/SlideOver/TicketActivityCommentAttachmentSlideOver";
 
 const ViewTicketPage = () => {
   const { id } = useParams();
@@ -94,6 +100,15 @@ const ViewTicketPage = () => {
       file_url: "",
       uuid: "",
     });
+  const [
+    formTicketActivityCommentAttachment,
+    setFormTicketActivityCommentAttachment,
+  ] = useState<any>({
+    file: [],
+    file_url: "",
+    name: "",
+    uuid: "",
+  });
   const [showTicketAttachmentSlideOver, setShowTicketAttachmentSlideOver] =
     useState(false);
   const [showTicketActivitySlideOver, setShowTicketActivitySlideOver] =
@@ -105,6 +120,10 @@ const ViewTicketPage = () => {
   const [
     showTicketActivityAttachmentSlideOver,
     setShowTicketActivityAttachmentSlideOver,
+  ] = useState(false);
+  const [
+    showTicketActivityCommentAttachmentSlideOver,
+    setShowTicketActivityCommentAttachmentSlideOver,
   ] = useState(false);
   const [showTicketUserReminderSlideOver, setShowTicketUserReminderSlideOver] =
     useState(false);
@@ -298,16 +317,30 @@ const ViewTicketPage = () => {
   };
 
   const handleEdit = () => {
-    const link_back: string | any = searchParams.get("back") || -1;
-    const back_view = `back_view=/ticket/view/${id}&back=${link_back}`;
-    navigate(`/ticket/edit/${id}?` + back_view);
+    if (
+      datas?.user?.privilege?.ticket === true ||
+      datas?.user?.privilege?.ticket_executor === true
+    ) {
+      const link_back: string | any = searchParams.get("back") || -1;
+      const back_view = `back_view=/ticket/view/${id}&back=${link_back}`;
+      navigate(`/ticket/edit/${id}?` + back_view);
+    } else {
+      NewNotification("You don't have permission");
+    }
   };
 
   const handleDelete = () => {
-    if (id) {
-      if (window.confirm("Are you sure want to delete this data?")) {
-        dispatch(DeleteTicketData({ uuid: id }));
+    if (
+      datas?.user?.privilege?.ticket === true ||
+      datas?.user?.privilege?.ticket_executor === true
+    ) {
+      if (id) {
+        if (window.confirm("Are you sure want to delete this data?")) {
+          dispatch(DeleteTicketData({ uuid: id }));
+        }
       }
+    } else {
+      NewNotification("You don't have permission");
     }
   };
 
@@ -541,6 +574,19 @@ const ViewTicketPage = () => {
       });
   };
 
+  const handleViewTicketActivityCommentAttachment = (data: any) => {
+    const url = import.meta.env.VITE_REACT_APP_API_URL + data.file_url;
+    const file_name = data.name;
+
+    axios
+      .get(url, {
+        responseType: "blob",
+      })
+      .then((res) => {
+        fileDownload(res.data, file_name);
+      });
+  };
+
   //ticket activity comment
   const {
     data: dataTicketActivityComment,
@@ -738,7 +784,111 @@ const ViewTicketPage = () => {
     }
   };
 
-  console.log(datas, "datas");
+  //ticket activity comment attachment
+  const {
+    data: dataTicketActivityCommentAttachment,
+    isError: isErrorTicketActivityCommentAttachment,
+    isSuccess: isSuccessTicketActivityCommentAttachment,
+    isLoading: isLoadingTicketActivityCommentAttachment,
+    message: messageTicketActivityCommentAttachment,
+    message2: messageDeleteTicketActivityCommentAttachment,
+  } = useSelector((state: any) => state.ticket_activity_comment_attachment);
+
+  useEffect(() => {
+    if (
+      messageTicketActivityCommentAttachment !== "" &&
+      isSuccessTicketActivityCommentAttachment &&
+      !isLoadingTicketActivityCommentAttachment
+    ) {
+      NewNotification(messageTicketActivityCommentAttachment.message);
+      handleCancelTicketActivityCommentAttachment();
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketActivityCommentAttachment());
+    } else if (
+      messageTicketActivityCommentAttachment !== "" &&
+      isErrorTicketActivityCommentAttachment &&
+      !isLoadingTicketActivityCommentAttachment
+    ) {
+      NewNotification(messageTicketActivityCommentAttachment.message);
+      dispatch(resetTicketActivityCommentAttachment());
+    }
+
+    if (
+      messageDeleteTicketActivityCommentAttachment !== "" &&
+      isSuccessTicketActivityCommentAttachment &&
+      !isLoadingTicketActivityCommentAttachment
+    ) {
+      NewNotification(messageDeleteTicketActivityCommentAttachment.message);
+      dispatch(GetTicketDataById(id));
+      dispatch(resetTicketActivityCommentAttachment());
+    } else if (
+      messageDeleteTicketActivityCommentAttachment !== "" &&
+      isErrorTicketActivityCommentAttachment &&
+      !isLoadingTicketActivityCommentAttachment
+    ) {
+      NewNotification(messageDeleteTicketActivityCommentAttachment.message);
+      dispatch(resetTicketActivityCommentAttachment());
+    }
+  }, [
+    dataTicketActivityCommentAttachment,
+    isErrorTicketActivityCommentAttachment,
+    isSuccessTicketActivityCommentAttachment,
+    isLoadingTicketActivityCommentAttachment,
+    messageTicketActivityCommentAttachment,
+  ]);
+
+  const handleSubmitTicketActivityCommentAttachment = (e: any) => {
+    e.preventDefault();
+
+    let formData = new FormData();
+    formData.append("file", formTicketActivityCommentAttachment.file);
+    formData.append("name", formTicketActivityCommentAttachment.name);
+
+    if (
+      datas?.user?.privilege?.ticket === true ||
+      datas?.user?.privilege?.ticket_executor === true
+    ) {
+      dispatch(
+        CreateTicketActivityCommentAttachment({
+          formData,
+          uuid: formTicketActivityCommentAttachment.uuid,
+        })
+      );
+    } else {
+      NewNotification("You don't have permission");
+    }
+  };
+
+  const handleTicketActivityCommentAttachmentShowSlideOver = (uuid: string) => {
+    if (
+      datas?.user?.privilege?.ticket === true ||
+      datas?.user?.privilege?.ticket_executor === true
+    ) {
+      setFormTicketActivityCommentAttachment({
+        ...formTicketActivityCommentAttachment,
+        uuid: uuid,
+      });
+      setShowTicketActivityCommentAttachmentSlideOver(true);
+    } else {
+      NewNotification("You don't have permission");
+    }
+  };
+
+  const handleCancelTicketActivityCommentAttachment = () => {
+    setShowTicketActivityCommentAttachmentSlideOver(false);
+    setFormTicketActivityCommentAttachment({ file: [], uuid: "" });
+  };
+
+  const handleDeleteTicketActivityCommentAttachment = (uuid: string) => {
+    if (
+      datas?.user?.privilege?.ticket === true ||
+      datas?.user?.privilege?.ticket_executor === true
+    ) {
+      dispatch(DeleteTicketActivityCommentAttachment({ uuid }));
+    } else {
+      NewNotification("You don't have permission");
+    }
+  };
 
   return (
     <div className="mb-24">
@@ -850,10 +1000,19 @@ const ViewTicketPage = () => {
           handleDelete={handleDeleteTicketActivity}
           handleShowEdit={handleTicketActivityShowSlideOver}
           handleShowAttachment={handleTicketActivityAttachmentShowSlideOver}
+          handleShowCommentAttachment={
+            handleTicketActivityCommentAttachmentShowSlideOver
+          }
           handleDeleteAttachment={handleDeleteTicketActivityAttachment}
           handleViewAttachment={handleViewTicketActivityAttachment}
+          handleViewCommentAttachment={
+            handleViewTicketActivityCommentAttachment
+          }
           handleViewComment={handleTicketActivityCommentShowSlideOver}
           handleDeleteComment={handleDeleteTicketActivityComment}
+          handleDeleteCommentAttachment={
+            handleDeleteTicketActivityCommentAttachment
+          }
         />
         <TicketActivitySlideOver
           show={showTicketActivitySlideOver}
@@ -879,6 +1038,14 @@ const ViewTicketPage = () => {
           setFormData={setFormTicketActivityComment}
           handleSubmit={handleSubmitTicketActivityComment}
           handleCancel={handleCancelTicketActivityComment}
+        />
+        <TicketActivityCommentAttachmentSlideOver
+          show={showTicketActivityCommentAttachmentSlideOver}
+          setShow={setShowTicketActivityCommentAttachmentSlideOver}
+          formData={formTicketActivityCommentAttachment}
+          setFormData={setFormTicketActivityCommentAttachment}
+          handleSubmit={handleSubmitTicketActivityCommentAttachment}
+          handleCancel={handleCancelTicketActivityCommentAttachment}
         />
       </div>
       <div>

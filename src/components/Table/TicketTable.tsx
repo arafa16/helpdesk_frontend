@@ -19,7 +19,13 @@ const TicketTable = (props: any) => {
     meta,
   } = props;
 
-  console.log(datas, "datas ticket table");
+  function formatHourMinute(value: any) {
+    const hours = Math.floor(value);
+    const minutes = Math.round((value - hours) * 60);
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
+  }
 
   return (
     <div className="grid grid-cols-12 mt-5 box text-xs">
@@ -123,7 +129,7 @@ const TicketTable = (props: any) => {
                       </span>
                     </div>
                     <div
-                      className={`w-64 truncate sm:w-40 rounded text-end px-2 ${
+                      className={`w-64 truncate sm:w-24 rounded text-center px-2 ${
                         data?.ticket_activities
                           ?.reduce((sum: number, data: any) => {
                             if (
@@ -152,57 +158,32 @@ const TicketTable = (props: any) => {
                       }`}
                     >
                       <span>
-                        {data?.ticket_activities
-                          ?.reduce((sum: number, data: any) => {
-                            if (
-                              data?.ticket_status?.is_active === true &&
-                              data?.start_date &&
-                              data?.end_date
-                            ) {
-                              const start = dayjs(data.start_date);
-                              const end = dayjs(data.end_date);
-                              const minutes = end.diff(start, "minute", true);
-                              return sum + minutes;
-                            } else if (
-                              data?.ticket_status?.is_active === true &&
-                              data?.end_date === null
-                            ) {
-                              const start = dayjs(data.start_date);
-                              const end = dayjs(Date.now());
-                              const minutes = end.diff(start, "minute", true);
-                              return sum + minutes;
-                            }
-                            return sum;
-                          }, 0)
-                          .toFixed(0)}{" "}
-                        min
-                      </span>
-                      <span className="mx-1">/</span>
-                      <span>
-                        {data?.ticket_activities
-                          ?.reduce((sum: number, data: any) => {
-                            if (
-                              data?.ticket_status?.is_active === true &&
-                              data?.start_date &&
-                              data?.end_date
-                            ) {
-                              const start = dayjs(data.start_date);
-                              const end = dayjs(data.end_date);
-                              const hours = end.diff(start, "hour", true);
-                              return sum + hours;
-                            } else if (
-                              data?.ticket_status?.is_active === true &&
-                              data?.end_date === null
-                            ) {
-                              const start = dayjs(data.start_date);
-                              const end = dayjs(Date.now());
-                              const hours = end.diff(start, "hour", true);
-                              return sum + hours;
-                            }
-                            return sum;
-                          }, 0)
-                          .toFixed(1)}{" "}
-                        hour
+                        {formatHourMinute(
+                          data?.ticket_activities?.reduce(
+                            (sum: number, data: any) => {
+                              if (
+                                data?.ticket_status?.is_active === true &&
+                                data?.start_date &&
+                                data?.end_date
+                              ) {
+                                const start = dayjs(data.start_date);
+                                const end = dayjs(data.end_date);
+                                const hours = end.diff(start, "hour", true);
+                                return sum + hours;
+                              } else if (
+                                data?.ticket_status?.is_active === true &&
+                                data?.end_date === null
+                              ) {
+                                const start = dayjs(data.start_date);
+                                const end = dayjs(Date.now());
+                                const hours = end.diff(start, "hour", true);
+                                return sum + hours;
+                              }
+                              return sum;
+                            },
+                            0
+                          )
+                        )}
                       </span>
                     </div>
                     <div className="pl-10 ml-auto whitespace-nowrap">
