@@ -47,7 +47,7 @@ const TicketActivityCommentAttachmentSlideOver = (props: any) => {
                   Cancel
                 </Button>
                 <Button
-                  form="form"
+                  form="form_comment_attachment"
                   variant="primary"
                   type="submit"
                   size="sm"
