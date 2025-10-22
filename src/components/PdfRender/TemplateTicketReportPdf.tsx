@@ -16,8 +16,6 @@ import dayjs from "dayjs";
 const TemplateTicketReportPdf = (props: any) => {
   const { data } = props;
 
-  console.log("data pdf", data);
-
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -158,65 +156,69 @@ const TemplateTicketReportPdf = (props: any) => {
           </View>
           <View style={[styles.columnSpace]}>
             <View style={[styles.gapColumn, { marginTop: "12px" }]}>
-              {data?.ticket_activities?.map((data: any, index: any) => (
-                <View key={index}>
-                  <Text>
-                    {index + 1}. {dayjs(data?.start_date).format("HH:mm:ss")} -{" "}
-                    {dayjs(
-                      data?.end_date !== null ? data?.end_date : Date.now()
-                    ).format("HH:mm:ss")}{" "}
-                    - {data?.ticket_status?.name}
-                  </Text>
-                  {data?.ticket_activity_attachments.map(
-                    (data_image: any, index: any) => (
-                      <Image
-                        key={index}
-                        src={
-                          import.meta.env.VITE_REACT_APP_API_URL +
-                          data_image.file_url
-                        }
-                        style={[
-                          {
-                            width: "200px",
-                            marginTop: "12px",
-                            height: "auto",
-                          },
-                        ]}
-                      />
-                    )
-                  )}
-                  {data?.ticket_activity_comments.map(
-                    (data_comment: any, index: any) => (
-                      <View>
-                        <Text
-                          key={index}
-                          style={[{ marginLeft: "12px", marginTop: "12px" }]}
-                        >
-                          - {data_comment?.description}
-                        </Text>
-                        {data_comment?.ticket_activity_comment_attachments?.map(
-                          (data_image: any, index: any) => (
-                            <Image
-                              key={index}
-                              src={
-                                import.meta.env.VITE_REACT_APP_API_URL +
-                                data_image.file_url
-                              }
-                              style={[
-                                {
-                                  width: "150px",
-                                  marginTop: "12px",
-                                  height: "auto",
-                                },
-                              ]}
-                            />
-                          )
-                        )}
-                      </View>
-                    )
-                  )}
-                </View>
-              ))}
+              {data?.ticket_activities?.map(
+                (activity: any, activityIndex: any) => (
+                  <View key={`activity-${activityIndex}`}>
+                    <Text>
+                      {activityIndex + 1}.{" "}
+                      {dayjs(activity?.start_date).format("HH:mm:ss")} -{" "}
+                      {dayjs(
+                        activity?.end_date !== null
+                          ? activity?.end_date
+                          : Date.now()
+                      ).format("HH:mm:ss")}{" "}
+                      - {activity?.ticket_status?.name}
+                    </Text>
+                    {activity?.ticket_activity_attachments?.map(
+                      (data_image: any, imgIndex: any) => (
+                        <Image
+                          key={imgIndex}
+                          src={
+                            import.meta.env.VITE_REACT_APP_API_URL +
+                            data_image.file_url
+                          }
+                          style={[
+                            {
+                              width: "200px",
+                              marginTop: "12px",
+                              height: "auto",
+                            },
+                          ]}
+                        />
+                      )
+                    )}
+                    {activity?.ticket_activity_comments?.map(
+                      (data_comment: any, commentIndex: any) => (
+                        <View key={`comment-${commentIndex}`}>
+                          <Text
+                            style={[{ marginLeft: "12px", marginTop: "12px" }]}
+                          >
+                            - {data_comment?.description}
+                          </Text>
+                          {data_comment?.ticket_activity_comment_attachments?.map(
+                            (data_image: any, imgIndex2: any) => (
+                              <Image
+                                key={imgIndex2}
+                                src={
+                                  import.meta.env.VITE_REACT_APP_API_URL +
+                                  data_image.file_url
+                                }
+                                style={[
+                                  {
+                                    width: "150px",
+                                    marginTop: "12px",
+                                    height: "auto",
+                                  },
+                                ]}
+                              />
+                            )
+                          )}
+                        </View>
+                      )
+                    )}
+                  </View>
+                )
+              )}
             </View>
           </View>
         </View>

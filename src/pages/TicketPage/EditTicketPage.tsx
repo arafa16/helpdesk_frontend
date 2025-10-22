@@ -20,6 +20,7 @@ const EditTicketPage = () => {
   const [datas, setDatas] = useState<any>(null);
   let [formData, setFormData] = useState<any>({
     subject: "",
+    company_uuid: "",
     customer_uuid: "",
     user_uuid: "",
     area_uuid: "",
@@ -75,6 +76,7 @@ const EditTicketPage = () => {
         setFormData({
           ...formData,
           subject: data?.data?.ticket?.subject,
+          company_uuid: data?.data?.ticket?.company?.uuid,
           customer_uuid: data?.data?.ticket?.customer?.uuid,
           user_uuid: data?.data?.ticket?.user?.uuid,
           area_uuid: data?.data?.ticket?.area?.uuid,
@@ -224,6 +226,7 @@ const EditTicketPage = () => {
           ticket_network_status={datas?.ticket_network_status}
           executor={datas?.executor}
           customer={datas?.customer}
+          company={datas?.company}
           users={datas?.user_customer}
         />
       </div>

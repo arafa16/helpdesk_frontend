@@ -15,6 +15,7 @@ const CreateTicketPage = () => {
   const [datas, setDatas] = useState<any>(null);
   let [formData, setFormData] = useState<any>({
     subject: "",
+    company_uuid: "",
     customer_uuid: "",
     user_uuid: "",
     area_uuid: "",
@@ -137,6 +138,7 @@ const CreateTicketPage = () => {
           ticket_network_status={datas?.ticket_network_status}
           executor={datas?.executor}
           customer={datas?.customer}
+          company={datas?.company}
           users={datas?.user_customer}
         />
       </div>

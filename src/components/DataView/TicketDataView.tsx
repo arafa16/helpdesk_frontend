@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { FormInline, FormLabel } from "../../base-components/Form";
 const TicketDataView = (props: any) => {
   const { datas } = props;
-  console.log(datas, "ticket data view");
+
   return (
     <>
       <div className="w-full box text-xs p-4">
@@ -20,6 +20,14 @@ const TicketDataView = (props: any) => {
                 Subject
               </FormLabel>
               <div className="">: {datas?.subject}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="subject">
+                User Company
+              </FormLabel>
+              <div className="">: {datas?.company?.name}</div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">

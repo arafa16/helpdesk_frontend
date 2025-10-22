@@ -14,6 +14,7 @@ const CreateTicketForm = (props: any) => {
     formData,
     setFormData,
     customer,
+    company,
     area,
     ticket_category,
     ticket_trouble_category,
@@ -43,6 +44,31 @@ const CreateTicketForm = (props: any) => {
                   setFormData({ ...formData, subject: e.target.value })
                 }
               />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="input-wizard-1">
+                User Company
+              </FormLabel>
+              <FormSelect
+                formSelectSize="sm"
+                aria-label=".form-select-sm example"
+                name="company_uuid"
+                required
+                value={formData?.company_uuid}
+                onChange={(e) =>
+                  setFormData({ ...formData, company_uuid: e.target.value })
+                }
+              >
+                <option value={""}></option>
+                {company &&
+                  company.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
             </FormInline>
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
