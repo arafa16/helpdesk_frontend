@@ -242,6 +242,11 @@ const TicketActivityTable = (props: any) => {
                       >
                         <div className="flex gap-4 justify-start items-center mr-15 w-full bg-slate-50 hover:bg-slate-100 rounded-lg p-2">
                           <div>{index + 1}</div>
+                          <div>
+                            {dayjs(data?.created_at).format(
+                              "YYYY-MM-DD HH:mm:ss"
+                            )}
+                          </div>
                           <div>{data?.description}</div>
                         </div>
                         <div className="pl-10 ml-auto whitespace-nowrap flex gap-8">
