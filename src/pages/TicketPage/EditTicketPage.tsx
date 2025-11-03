@@ -43,6 +43,7 @@ const EditTicketPage = () => {
     eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
+    ticket_trouble_description: "",
     trouble_category: "",
     solution: "",
     ticket_network_status_uuid: "",
@@ -104,6 +105,8 @@ const EditTicketPage = () => {
           priority_level: data?.data?.ticket?.priority_level,
           ticket_trouble_category_uuid:
             data?.data?.ticket?.ticket_trouble_category?.uuid,
+          ticket_trouble_description:
+            data?.data?.ticket?.ticket_trouble_description,
           solution: data?.data?.ticket?.solution,
           ticket_network_status_uuid:
             data?.data?.ticket?.ticket_network_status?.uuid,

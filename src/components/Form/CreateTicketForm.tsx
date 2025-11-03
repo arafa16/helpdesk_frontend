@@ -575,6 +575,24 @@ const CreateTicketForm = (props: any) => {
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
+              <FormLabel className="" htmlFor="ticket_trouble_description">
+                Trouble Description
+              </FormLabel>
+              <FormTextarea
+                formTextareaSize="sm"
+                value={formData?.ticket_trouble_description}
+                name="ticket_trouble_description"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    ticket_trouble_description: e.target.value,
+                  })
+                }
+              />
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
               <FormLabel className="" htmlFor="ticket_network_status_uuid">
                 Network Status
               </FormLabel>

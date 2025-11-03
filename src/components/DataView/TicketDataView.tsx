@@ -248,6 +248,16 @@ const TicketDataView = (props: any) => {
           </div>
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
+              <FormLabel className="" htmlFor="subject">
+                Trouble Description
+              </FormLabel>
+              <div className="whitespace-pre-line">
+                : {datas?.ticket_trouble_description}
+              </div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
               <FormLabel className="" htmlFor="ticket_network_status">
                 Network Status
               </FormLabel>

@@ -38,6 +38,7 @@ const CreateTicketPage = () => {
     eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
+    ticket_trouble_description: "",
     solution: "",
     ticket_network_status_uuid: "",
     down_time: null,

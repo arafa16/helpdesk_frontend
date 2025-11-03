@@ -646,13 +646,21 @@ const ViewTicketPage = () => {
   const handleSubmitTicketActivityComment = (e: any) => {
     e.preventDefault();
 
+    let formData = new FormData();
+
+    formData.append(
+      "ticket_activity_uuid",
+      formTicketActivityComment.ticket_activity_uuid
+    );
+    formData.append("description", formTicketActivityComment.description);
+    formData.append("file", formTicketActivityComment.file);
+    formData.append("name", formTicketActivityComment.name);
+
     if (
       datas?.user?.privilege?.ticket === true ||
       datas?.user?.privilege?.ticket_executor === true
     ) {
-      dispatch(
-        CreateTicketActivityCommentData({ formData: formTicketActivityComment })
-      );
+      dispatch(CreateTicketActivityCommentData({ formData }));
       setShowTicketActivityCommentSlideOver(false);
     } else {
       NewNotification("You don't have permission");
