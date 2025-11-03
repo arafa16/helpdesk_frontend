@@ -60,7 +60,7 @@ const TicketActivityCommentSlideOver = (props: any) => {
           </Slideover.Title>
           <Slideover.Description>
             <form id="form" onSubmit={handleSubmit}>
-              <div className="mt-6 text-xs">
+              <div className="mt-6 text-xs mb-4 border-b pb-4">
                 <FormLabel htmlFor="description">Description</FormLabel>
                 <FormTextarea
                   id="description"
@@ -69,6 +69,30 @@ const TicketActivityCommentSlideOver = (props: any) => {
                   value={formData.description}
                   onChange={(e: any) =>
                     setFormData({ ...formData, description: e.target.value })
+                  }
+                />
+              </div>
+              <div className="text-xs">
+                <FormLabel htmlFor="file">File Attachment</FormLabel>
+                <FormInput
+                  id="file"
+                  type="file"
+                  className="border p-1 text-xs"
+                  onChange={(e: any) =>
+                    setFormData({ ...formData, file: e.target.files[0] })
+                  }
+                />
+              </div>
+              <div className="text-xs mt-4">
+                <FormLabel htmlFor="name">File Name</FormLabel>
+                <FormInput
+                  formInputSize="sm"
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={formData?.name || ""}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
                   }
                 />
               </div>
