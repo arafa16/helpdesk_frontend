@@ -69,6 +69,9 @@ import {
 } from "@react-pdf/renderer";
 import TicketActivityCommentAttachmentSlideOver from "../../components/SlideOver/TicketActivityCommentAttachmentSlideOver";
 
+import { Menu, Popover } from "../../base-components/Headless";
+import Lucide from "../../base-components/Lucide";
+
 const ViewTicketPage = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -902,9 +905,8 @@ const ViewTicketPage = () => {
 
   return (
     <div className="mb-24">
-      <div className="mt-6 grid grid-cols-12 md:flex justify-end md:justify-between gap-4">
+      <div className="col-span-12 flex justify-between mt-6">
         <Button
-          className="col-span-12"
           variant="primary"
           type="button"
           size="sm"
@@ -912,71 +914,52 @@ const ViewTicketPage = () => {
         >
           Back
         </Button>
-        <div
-          className={`grid col-span-12 gap-y-4 md:flex md:gap-4 ${
-            datas?.user?.privilege?.ticket === true ||
-            datas?.user?.privilege?.ticket_executor === true
-              ? ""
-              : "hidden"
-          }`}
-        >
-          <PDFDownloadLink
-            document={<TemplateTicketReportPdf data={datas?.ticket} />}
-            fileName={
-              datas?.ticket?.display_name + "-" + datas?.ticket?.subject
-            }
-            className="col-span-12"
-          >
-            {({ blob, url, loading, error }) =>
-              loading ? (
-                <Button
-                  className="w-full"
-                  variant="outline-primary"
-                  type="button"
-                  size="sm"
-                >
-                  Loading...
-                </Button>
-              ) : (
-                <Button
-                  className="w-full"
-                  variant="outline-primary"
-                  type="button"
-                  size="sm"
-                >
-                  Print Ticket
-                </Button>
-              )
-            }
-          </PDFDownloadLink>
-          <Button
-            className="col-span-12"
-            variant="outline-warning"
-            type="button"
-            size="sm"
-            onClick={() => handleChangeTicketStatus(datas?.stop_clock?.uuid)}
-          >
-            Stop Clock
-          </Button>
-          <Button
-            className="col-span-12"
-            variant="outline-primary"
-            type="button"
-            size="sm"
-            onClick={() => handleEdit()}
-          >
-            Edit
-          </Button>
-          <Button
-            className="col-span-12"
-            variant="outline-danger"
-            type="button"
-            size="sm"
-            onClick={() => handleDelete()}
-          >
-            Delete
-          </Button>
-        </div>
+        <Menu>
+          <Menu.Button as={Button} variant="outline-primary" size="sm">
+            Action
+          </Menu.Button>
+          <Menu.Items className="w-40">
+            <PDFDownloadLink
+              document={<TemplateTicketReportPdf data={datas?.ticket} />}
+              fileName={
+                datas?.ticket?.display_name + "-" + datas?.ticket?.subject
+              }
+            >
+              {({ loading }) =>
+                loading ? (
+                  <Menu.Item>
+                    <Lucide icon="Printer" className="w-4 mr-2" />
+                    Loading...
+                  </Menu.Item>
+                ) : (
+                  <Menu.Item>
+                    <Lucide icon="Printer" className="w-4 mr-2" />
+                    Print
+                  </Menu.Item>
+                )
+              }
+            </PDFDownloadLink>
+            <Menu.Item onClick={() => handleEdit()}>
+              <Lucide icon="Edit2" className="w-4 h-4 mr-2" />
+              Edit
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => handleChangeTicketStatus(datas?.stop_clock?.uuid)}
+              className="text-warning hover:bg-yellow-500 hover:text-white"
+            >
+              <Lucide icon="Timer" className="w-4 h-4 mr-2" />
+              Stop Clock
+            </Menu.Item>
+            <Menu.Divider />
+            <Menu.Item
+              onClick={() => handleDelete()}
+              className="text-danger hover:bg-red-500 hover:text-white"
+            >
+              <Lucide icon="Trash" className="w-4 h-4 mr-2" />
+              Delete
+            </Menu.Item>
+          </Menu.Items>
+        </Menu>
       </div>
       <div className="mt-4">
         <TicketStage

@@ -1,16 +1,6 @@
 import React from "react";
 import { styles } from "./style";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  PDFViewer,
-  PDFDownloadLink,
-  StyleSheet,
-  Image,
-  Svg,
-} from "@react-pdf/renderer";
+import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
 import dayjs from "dayjs";
 
 const TemplateTicketReportPdf = (props: any) => {
@@ -123,7 +113,7 @@ const TemplateTicketReportPdf = (props: any) => {
                   .toFixed(2)}{" "}
                 Hour
               </Text>
-              <Text>: {data?.ticket_category?.name}</Text>
+              <Text>: {data?.ticket_trouble_category?.name}</Text>
               <Text>: {data?.solution}</Text>
               <Text>: {data?.new_cable}</Text>
               <Text>: {data?.external_pole}</Text>

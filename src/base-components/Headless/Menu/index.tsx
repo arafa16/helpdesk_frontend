@@ -23,7 +23,7 @@ Menu.Button = ({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessMenu.Button>) => {
+}: any | ExtractProps<typeof HeadlessMenu.Button>) => {
   return (
     <HeadlessMenu.Button
       as="div"
