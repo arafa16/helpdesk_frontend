@@ -10,7 +10,7 @@ const TicketGeneralReport = (props: any) => {
 
   return (
     <div className="col-span-12 mt-6">
-      <div className="flex justify-between">
+      <div className="md:flex md:justify-between">
         {statuses &&
           statuses.map((status: any, index: number) => (
             <div
@@ -21,7 +21,7 @@ const TicketGeneralReport = (props: any) => {
               }
             >
               <div
-                className={`px-5 py-3 box zoom-in w-[150px] truncate ${
+                className={`px-5 py-3 mb-2 md:mb-0 box zoom-in w-full md:w-[150px] truncate ${
                   status?.uuid === meta?.ticket_status_uuid
                     ? "bg-white"
                     : "bg-slate-100"
@@ -36,7 +36,7 @@ const TicketGeneralReport = (props: any) => {
           ))}
         <div>
           <div
-            className={`px-5 py-3 box zoom-in w-[160px] truncate ${
+            className={`px-5 py-3 box zoom-in w-full md:w-[150px] truncate ${
               meta?.ticket_status_uuid === "" ? "bg-white" : "bg-slate-100"
             }`}
             onClick={() => handleClickStatus("")}
