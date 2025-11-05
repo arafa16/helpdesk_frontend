@@ -13,19 +13,17 @@ const TicketStage = (props: any) => {
               data?.uuid === status?.uuid || data?.code === status?.code
                 ? "bg-slate-0 text-slate-600"
                 : "bg-slate-100 text-slate-300"
+            } ${
+              (data?.code === "6" && status.code !== "6") ||
+              (data?.code === "7" && status.code !== "7")
+                ? "hidden"
+                : ""
             } capitalize px-4 py-1 intro-x dark:bg-darkmode-600 hover:cursor-pointer`}
             onClick={() => clickStage(data?.uuid)}
           >
             {data?.name}
           </div>
         ))}
-      <div
-        className={`${
-          status?.code !== "7" ? "hidden" : ""
-        } bg-slate-0 text-slate-600 capitalize px-4 py-1 intro-x dark:bg-darkmode-600 hover:cursor-pointer`}
-      >
-        stop clock
-      </div>
     </div>
   );
 };

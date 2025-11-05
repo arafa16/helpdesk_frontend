@@ -950,6 +950,13 @@ const ViewTicketPage = () => {
               <Lucide icon="Timer" className="w-4 h-4 mr-2" />
               Stop Clock
             </Menu.Item>
+            <Menu.Item
+              onClick={() => handleChangeTicketStatus(datas?.cancel?.uuid)}
+              className="text-warning hover:bg-yellow-500 hover:text-white"
+            >
+              <Lucide icon="Timer" className="w-4 h-4 mr-2" />
+              Cancel
+            </Menu.Item>
             <Menu.Divider />
             <Menu.Item
               onClick={() => handleDelete()}
