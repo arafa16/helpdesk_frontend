@@ -19,6 +19,13 @@ const TicketStage = (props: any) => {
             {data?.name}
           </div>
         ))}
+      <div
+        className={`${
+          status?.code !== "7" ? "hidden" : ""
+        } bg-slate-0 text-slate-600 capitalize px-4 py-1 intro-x dark:bg-darkmode-600 hover:cursor-pointer`}
+      >
+        stop clock
+      </div>
     </div>
   );
 };
