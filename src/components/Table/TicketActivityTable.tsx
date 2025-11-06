@@ -45,6 +45,7 @@ const TicketActivityTable = (props: any) => {
                 .reduce((sum: number, data: any) => {
                   if (
                     data?.ticket_status?.is_active === true &&
+                    data?.ticket_status?.code !== "7" &&
                     data?.start_date &&
                     data?.end_date
                   ) {
@@ -54,6 +55,7 @@ const TicketActivityTable = (props: any) => {
                     return sum + minutes;
                   } else if (
                     data?.ticket_status?.is_active === true &&
+                    data?.ticket_status?.code !== "7" &&
                     data?.end_date === null
                   ) {
                     const start = dayjs(data.start_date);

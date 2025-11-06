@@ -134,6 +134,7 @@ const TicketTable = (props: any) => {
                           ?.reduce((sum: number, data: any) => {
                             if (
                               data?.ticket_status?.is_active === true &&
+                              data?.ticket_status?.code !== "7" &&
                               data?.start_date &&
                               data?.end_date
                             ) {
@@ -143,6 +144,7 @@ const TicketTable = (props: any) => {
                               return sum + hours;
                             } else if (
                               data?.ticket_status?.is_active === true &&
+                              data?.ticket_status?.code !== "7" &&
                               data?.end_date === null
                             ) {
                               const start = dayjs(data.start_date);
@@ -163,6 +165,7 @@ const TicketTable = (props: any) => {
                             (sum: number, data: any) => {
                               if (
                                 data?.ticket_status?.is_active === true &&
+                                data?.ticket_status?.code !== "7" &&
                                 data?.start_date &&
                                 data?.end_date
                               ) {
@@ -172,6 +175,7 @@ const TicketTable = (props: any) => {
                                 return sum + hours;
                               } else if (
                                 data?.ticket_status?.is_active === true &&
+                                data?.ticket_status?.code !== "7" &&
                                 data?.end_date === null
                               ) {
                                 const start = dayjs(data.start_date);
