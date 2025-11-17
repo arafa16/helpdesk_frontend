@@ -6,8 +6,6 @@ import faker from "../../utils/faker";
 const TicketGeneralReport = (props: any) => {
   const { handleClickStatus, meta, statuses, reports } = props;
 
-  console.log("statuses", statuses, reports, meta);
-
   return (
     <div className="col-span-12 mt-6">
       <div className="md:flex md:justify-between">
@@ -21,7 +19,7 @@ const TicketGeneralReport = (props: any) => {
               }
             >
               <div
-                className={`px-5 py-3 mb-2 md:mb-0 box zoom-in w-full md:w-[150px] truncate ${
+                className={`px-5 py-3 mb-2 md:mb-0 box zoom-in w-full md:w-[150px] 2xl:w-[220px] truncate ${
                   status?.uuid === meta?.ticket_status_uuid
                     ? "bg-white"
                     : "bg-slate-100"
@@ -36,7 +34,7 @@ const TicketGeneralReport = (props: any) => {
           ))}
         <div>
           <div
-            className={`px-5 py-3 box zoom-in w-full md:w-[150px] truncate ${
+            className={`px-5 py-3 box zoom-in w-full md:w-[150px] 2xl:w-[220px] truncate ${
               meta?.ticket_status_uuid === "" ? "bg-white" : "bg-slate-100"
             }`}
             onClick={() => handleClickStatus("")}

@@ -109,27 +109,27 @@ const TicketTable = (props: any) => {
                     <div className="flex items-center flex-none mr-2 w-2">
                       {index + 1 + (meta.page - 1) * meta.limit}
                     </div>
-                    <div className="w-24 truncate sm:w-24">
+                    <div className="w-24 truncate sm:w-24 2xl:w-32">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.display_name}
                       </span>
                     </div>
-                    <div className="w-48 truncate sm:w-48">
+                    <div className="w-48 truncate sm:w-48 2xl:w-64">
                       <span>{data?.case_number}</span>
                     </div>
-                    <div className="w-64 truncate sm:w-36">
+                    <div className="w-64 truncate sm:w-36 2xl:w-48">
                       <span>{data?.subject}</span>
                     </div>
-                    <div className="w-64 truncate sm:w-64">
+                    <div className="w-64 truncate sm:w-64 2xl:w-96">
                       <span>{data?.customer?.name}</span>
                     </div>
-                    <div className="w-64 truncate sm:w-24">
+                    <div className="w-64 truncate sm:w-20 2xl:w-32">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.area?.name}
                       </span>
                     </div>
                     <div
-                      className={`w-64 truncate sm:w-24 rounded text-center px-2 ${
+                      className={`w-64 truncate sm:w-16 rounded text-center px-2 2xl:w-32 ${
                         data?.ticket_activities
                           ?.reduce((sum: number, data: any) => {
                             if (
@@ -190,8 +190,11 @@ const TicketTable = (props: any) => {
                         )}
                       </span>
                     </div>
-                    <div className="pl-10 ml-auto whitespace-nowrap">
-                      <span className={clsx(["ml-3 truncate"])}>
+                    <div className="pl-10 truncate sm:pl-10 2xl:pl-20">
+                      {dayjs(data?.complaint_time).format("YYYY-MM-DD HH:mm")}
+                    </div>
+                    <div className="ml-auto truncate">
+                      <span className={clsx(["ml-1 truncate"])}>
                         {data?.ticket_status?.name}
                       </span>
                     </div>
