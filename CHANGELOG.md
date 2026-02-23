@@ -1,3 +1,11 @@
+#### v1.1.0 - 2026-02-23
+
+- build: make new format printout ticket by [Ara Fa Adri](https://github.com/arafa16) in [#a6a9044](https://github.com/arafa16/helpdesk_frontend/commit/a6a9044fc62e791c0e84272f147d4016aae2571a).
+
+#### v1.0.0 - 2026-02-23
+
+- docs: update changelog, readme, license and package.json by [Ara Fa Adri](https://github.com/arafa16) in [#c0588e0](https://github.com/arafa16/helpdesk_frontend/commit/c0588e009ffa39b90b3a3b15db0d56fa63239443).
+
 #### v0.0.0 - 2025-11-04
 
 - build: make complaint time to the table by [Ara Fa Adri](https://github.com/arafa16) in [#b20faef](https://github.com/arafa16/helpdesk_frontend/commit/b20faef77dce890d27c4bd51fce15136484ef5b2).
