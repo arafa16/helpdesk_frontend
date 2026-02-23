@@ -20,7 +20,7 @@ const RequestResetPasswordPage = () => {
   const dispatch = useDispatch();
 
   const { data, isError, isSuccess, isLoading, messageReset } = useSelector(
-    (state: any) => state.auth
+    (state: any) => state.auth,
   );
 
   useEffect(() => {
@@ -94,7 +94,7 @@ const RequestResetPasswordPage = () => {
                   </Button>
                 </div>
                 <div className="mt-10 flex justify-center text-gray-400">
-                  <p>Created by Ara Fa Adri</p>
+                  <p>V.1.1.0 - Created by Ara Fa Adri</p>
                 </div>
               </div>
             </form>
