@@ -185,8 +185,8 @@ const TicketTable = (props: any) => {
                               }
                               return sum;
                             },
-                            0
-                          )
+                            0,
+                          ),
                         )}
                       </span>
                     </div>

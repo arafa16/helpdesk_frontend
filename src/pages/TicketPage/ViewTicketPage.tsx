@@ -56,20 +56,11 @@ import TicketActivityCommentSlideOver from "../../components/SlideOver/TicketAct
 import TicketUserReminderSlideOver from "../../components/SlideOver/TicketUserReminderSlideOver";
 import { NewNotification } from "../../components/Notification/NewNotification";
 import TemplateTicketReportPdf from "../../components/PdfRender/TemplateTicketReportPdf";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  PDFViewer,
-  PDFDownloadLink,
-  StyleSheet,
-  Image,
-  Svg,
-} from "@react-pdf/renderer";
+import TemplateTicketReportPdf2 from "../../components/PdfRender/TemplateTicketReportPdf2";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import TicketActivityCommentAttachmentSlideOver from "../../components/SlideOver/TicketActivityCommentAttachmentSlideOver";
 
-import { Menu, Popover } from "../../base-components/Headless";
+import { Menu } from "../../base-components/Headless";
 import Lucide from "../../base-components/Lucide";
 
 const ViewTicketPage = () => {
@@ -453,7 +444,7 @@ const ViewTicketPage = () => {
         UpdateTicketActivityData({
           formData: formTicketActivity,
           uuid: formTicketActivity.uuid,
-        })
+        }),
       );
     } else {
       NewNotification("You don't have permission");
@@ -543,7 +534,7 @@ const ViewTicketPage = () => {
         CreateTicketActivityAttachment({
           formData,
           uuid: formTicketActivityAttachment.uuid,
-        })
+        }),
       );
     } else {
       NewNotification("You don't have permission");
@@ -653,7 +644,7 @@ const ViewTicketPage = () => {
 
     formData.append(
       "ticket_activity_uuid",
-      formTicketActivityComment.ticket_activity_uuid
+      formTicketActivityComment.ticket_activity_uuid,
     );
     formData.append("description", formTicketActivityComment.description);
     formData.append("file", formTicketActivityComment.file);
@@ -774,7 +765,7 @@ const ViewTicketPage = () => {
       datas?.user?.privilege?.ticket_executor === true
     ) {
       dispatch(
-        CreateTicketUserReminderData({ formData: formTicketUserReminder })
+        CreateTicketUserReminderData({ formData: formTicketUserReminder }),
       );
     } else {
       NewNotification("You don't have permission");
@@ -865,7 +856,7 @@ const ViewTicketPage = () => {
         CreateTicketActivityCommentAttachment({
           formData,
           uuid: formTicketActivityCommentAttachment.uuid,
-        })
+        }),
       );
     } else {
       NewNotification("You don't have permission");
@@ -934,7 +925,27 @@ const ViewTicketPage = () => {
                 ) : (
                   <Menu.Item>
                     <Lucide icon="Printer" className="w-4 mr-2" />
-                    Print
+                    Print Format 1
+                  </Menu.Item>
+                )
+              }
+            </PDFDownloadLink>
+            <PDFDownloadLink
+              document={<TemplateTicketReportPdf2 data={datas?.ticket} />}
+              fileName={
+                datas?.ticket?.display_name + "-" + datas?.ticket?.subject
+              }
+            >
+              {({ loading }) =>
+                loading ? (
+                  <Menu.Item>
+                    <Lucide icon="Printer" className="w-4 mr-2" />
+                    Loading...
+                  </Menu.Item>
+                ) : (
+                  <Menu.Item>
+                    <Lucide icon="Printer" className="w-4 mr-2" />
+                    Print Format 2
                   </Menu.Item>
                 )
               }
