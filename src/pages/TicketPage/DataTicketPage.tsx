@@ -13,6 +13,7 @@ import {
 } from "../../stores/features/TicketExportSlice";
 import Button from "../../base-components/Button";
 import { FormSelect, FormInline } from "../../base-components/Form";
+import LoadingIcon from "../../base-components/LoadingIcon";
 
 const DataTicketPage = () => {
   const [ticketStatus, setTicketStatus] = useState<any>(null);
@@ -41,7 +42,7 @@ const DataTicketPage = () => {
   const navigate = useNavigate();
 
   const { data, isLoading, isError, isSuccess, message } = useSelector(
-    (state: any) => state.ticket
+    (state: any) => state.ticket,
   );
 
   const {
@@ -79,7 +80,7 @@ const DataTicketPage = () => {
       ExportTicketData({
         searchParams,
         name: "data ticket" + ".xlsx",
-      })
+      }),
     );
   };
 
@@ -170,7 +171,12 @@ const DataTicketPage = () => {
 
   return (
     <>
-      <div>
+      {isLoading ? (
+        <div className="flex justify-center md:mt-32 mt-10">
+          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
+        </div>
+      ) : null}
+      <div className={`${isLoading && "hidden"}`}>
         <TicketGeneralReport
           statuses={ticketStatus}
           reports={generalReport}
@@ -178,7 +184,7 @@ const DataTicketPage = () => {
           meta={meta}
         />
       </div>
-      <div className="mt-6 flex gap-4 justify-end">
+      <div className={`mt-6 flex gap-4 justify-end ${isLoading && "hidden"}`}>
         <FormInline>
           <FormSelect
             formSelectSize="sm"
@@ -223,7 +229,7 @@ const DataTicketPage = () => {
           {isLoadingExport ? "Loading..." : "Export Data Ticket"}
         </Button>
       </div>
-      <div className="mb-20">
+      <div className={`mb-20 ${isLoading && "hidden"}`}>
         <TicketTable
           datas={datas?.data}
           page={datas?.meta?.page}

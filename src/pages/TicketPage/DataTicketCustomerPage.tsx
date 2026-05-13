@@ -8,6 +8,7 @@ import {
 } from "../../stores/features/TicketSlice";
 import { useNavigate } from "react-router-dom";
 import { NewNotification } from "../../components/Notification/NewNotification";
+import LoadingIcon from "../../base-components/LoadingIcon";
 
 const DataTicketCustomerPage = () => {
   const [ticketStatus, setTicketStatus] = useState<any>(null);
@@ -24,7 +25,7 @@ const DataTicketCustomerPage = () => {
   const navigate = useNavigate();
 
   const { data, isLoading, isError, isSuccess, message } = useSelector(
-    (state: any) => state.ticket
+    (state: any) => state.ticket,
   );
 
   useEffect(() => {
@@ -110,7 +111,12 @@ const DataTicketCustomerPage = () => {
 
   return (
     <>
-      <div>
+      {isLoading ? (
+        <div className="flex justify-center md:mt-32 mt-10">
+          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
+        </div>
+      ) : null}
+      <div className={`${isLoading && "hidden"}`}>
         <TicketGeneralReport
           statuses={ticketStatus}
           reports={generalReport}
@@ -118,7 +124,7 @@ const DataTicketCustomerPage = () => {
           meta={meta}
         />
       </div>
-      <div className="mb-20">
+      <div className={`mb-20 ${isLoading && "hidden"}`}>
         <TicketTable
           datas={datas?.data}
           page={datas?.meta?.page}

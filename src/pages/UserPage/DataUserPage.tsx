@@ -4,6 +4,8 @@ import UserGeneralReport from "../../components/GeneralReport/UserGeneralReport"
 import { GetUserTable, resetUser } from "../../stores/features/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import LoadingIcon from "../../base-components/LoadingIcon";
+
 const DataUserPage = () => {
   const [userStatus, setUserStatus] = useState<any>(null);
   const [generalReport, setGeneralReport] = useState<any>(null);
@@ -19,7 +21,7 @@ const DataUserPage = () => {
   const navigate = useNavigate();
 
   const { data, isLoading, isError, isSuccess, message } = useSelector(
-    (state: any) => state.user
+    (state: any) => state.user,
   );
 
   useEffect(() => {
@@ -107,7 +109,12 @@ const DataUserPage = () => {
 
   return (
     <>
-      <div>
+      {isLoading ? (
+        <div className="flex justify-center md:mt-32 mt-10">
+          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
+        </div>
+      ) : null}
+      <div className={`${isLoading && "hidden"}`}>
         <UserGeneralReport
           statuses={userStatus}
           reports={generalReport}
@@ -115,7 +122,7 @@ const DataUserPage = () => {
           meta={meta}
         />
       </div>
-      <div>
+      <div className={`${isLoading && "hidden"}`}>
         <UserTable
           datas={datas?.data}
           page={datas?.meta?.page}

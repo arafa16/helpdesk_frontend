@@ -3,6 +3,7 @@ import UserHeader from "../../components/DataView/UserHeader";
 import { GetMe, resetGetMe } from "../../stores/features/GetMeSlice";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import LoadingIcon from "../../base-components/LoadingIcon";
 
 const DashboardPage = () => {
   const [datas, setDatas] = useState<any>(null);
@@ -10,7 +11,7 @@ const DashboardPage = () => {
   const dispatch = useDispatch();
 
   const { data, isLoading, isError, isSuccess, message } = useSelector(
-    (state: any) => state.getMe
+    (state: any) => state.getMe,
   );
 
   useEffect(() => {
@@ -29,14 +30,21 @@ const DashboardPage = () => {
   }, [dispatch]);
 
   return (
-    <div className={`${isLoading ? "hidden" : ""}`}>
-      <div className="mt-6">
-        <UserHeader datas={datas} />
+    <>
+      {isLoading ? (
+        <div className="flex justify-center md:mt-32 mt-10">
+          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
+        </div>
+      ) : null}
+      <div className={`${isLoading && "hidden"}`}>
+        <div className="mt-6">
+          <UserHeader datas={datas} />
+        </div>
+        <div className="mt-4">
+          <UserDataView datas={datas} />
+        </div>
       </div>
-      <div className="mt-4">
-        <UserDataView datas={datas} />
-      </div>
-    </div>
+    </>
   );
 };
 

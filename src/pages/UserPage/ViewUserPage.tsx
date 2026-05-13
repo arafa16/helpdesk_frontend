@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import Button from "../../base-components/Button";
+import LoadingIcon from "../../base-components/LoadingIcon";
 
 const ViewUserPage = () => {
   const { id } = useParams();
@@ -65,7 +66,12 @@ const ViewUserPage = () => {
   };
 
   return (
-    <div>
+    <>
+      {isLoading ? (
+        <div className="flex justify-center md:mt-32 mt-10">
+          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
+        </div>
+      ) : null}
       <div className="mt-6 flex justify-end md:justify-between gap-4">
         <Button
           variant="primary"
@@ -97,7 +103,7 @@ const ViewUserPage = () => {
       <div className="mt-4">
         <UserDataView datas={datas} privilege_view={true} />
       </div>
-    </div>
+    </>
   );
 };
 

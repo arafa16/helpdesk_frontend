@@ -4,8 +4,12 @@ const TicketStage = (props: any) => {
   const { datas, status, clickStage } = props;
 
   return (
-    <div className="md:flex md:justify-end text-xs box z-20">
-      {datas &&
+    <div
+      className={`md:flex md:justify-end text-xs box z-20 ${datas === undefined ? "text-center" : ""}`}
+    >
+      {datas === undefined ? (
+        <div className="px-4 py-1">Loading...</div>
+      ) : (
         datas.map((data: any, index: any) => (
           <div
             key={index}
@@ -23,7 +27,8 @@ const TicketStage = (props: any) => {
           >
             {data?.name}
           </div>
-        ))}
+        ))
+      )}
     </div>
   );
 };

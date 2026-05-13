@@ -9,6 +9,7 @@ import {
   DeleteTicketData,
   resetTicket,
 } from "../../stores/features/TicketSlice";
+import LoadingIcon from "../../base-components/LoadingIcon";
 
 import TicketDataView from "../../components/DataView/TicketDataView";
 import TicketStage from "../../components/Stage/TicketStage";
@@ -895,190 +896,201 @@ const ViewTicketPage = () => {
   };
 
   return (
-    <div className="mb-24">
-      <div className="col-span-12 flex justify-between mt-6">
-        <Button
-          variant="primary"
-          type="button"
-          size="sm"
-          onClick={() => handleBack()}
+    <>
+      {datas === null ? (
+        <div className="flex justify-center items-center md:mt-32 mt-10">
+          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
+        </div>
+      ) : null}
+      <div className={`mb-24`}>
+        <div
+          className={`col-span-12 flex justify-between mt-6 ${datas === null && "hidden"}`}
         >
-          Back
-        </Button>
-        <Menu>
-          <Menu.Button as={Button} variant="outline-primary" size="sm">
-            Action
-          </Menu.Button>
-          <Menu.Items className="w-40">
-            <PDFDownloadLink
-              document={<TemplateTicketReportPdf data={datas?.ticket} />}
-              fileName={
-                datas?.ticket?.display_name + "-" + datas?.ticket?.subject
-              }
-            >
-              {({ loading }) =>
-                loading ? (
-                  <Menu.Item>
-                    <Lucide icon="Printer" className="w-4 mr-2" />
-                    Loading...
-                  </Menu.Item>
-                ) : (
-                  <Menu.Item>
-                    <Lucide icon="Printer" className="w-4 mr-2" />
-                    Print Format 1
-                  </Menu.Item>
-                )
-              }
-            </PDFDownloadLink>
-            <PDFDownloadLink
-              document={<TemplateTicketReportPdf2 data={datas?.ticket} />}
-              fileName={
-                datas?.ticket?.display_name + "-" + datas?.ticket?.subject
-              }
-            >
-              {({ loading }) =>
-                loading ? (
-                  <Menu.Item>
-                    <Lucide icon="Printer" className="w-4 mr-2" />
-                    Loading...
-                  </Menu.Item>
-                ) : (
-                  <Menu.Item>
-                    <Lucide icon="Printer" className="w-4 mr-2" />
-                    Print Format 2
-                  </Menu.Item>
-                )
-              }
-            </PDFDownloadLink>
-            <Menu.Item onClick={() => handleEdit()}>
-              <Lucide icon="Edit2" className="w-4 h-4 mr-2" />
-              Edit
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => handleChangeTicketStatus(datas?.stop_clock?.uuid)}
-              className="text-warning hover:bg-yellow-500 hover:text-white"
-            >
-              <Lucide icon="Timer" className="w-4 h-4 mr-2" />
-              Stop Clock
-            </Menu.Item>
-            <Menu.Item
-              onClick={() => handleChangeTicketStatus(datas?.cancel?.uuid)}
-              className="text-warning hover:bg-yellow-500 hover:text-white"
-            >
-              <Lucide icon="XCircle" className="w-4 h-4 mr-2" />
-              Cancel
-            </Menu.Item>
-            <Menu.Divider />
-            <Menu.Item
-              onClick={() => handleDelete()}
-              className="text-danger hover:bg-red-500 hover:text-white"
-            >
-              <Lucide icon="Trash" className="w-4 h-4 mr-2" />
-              Delete
-            </Menu.Item>
-          </Menu.Items>
-        </Menu>
+          <Button
+            variant="primary"
+            type="button"
+            size="sm"
+            onClick={() => handleBack()}
+          >
+            Back
+          </Button>
+          <Menu>
+            <Menu.Button as={Button} variant="outline-primary" size="sm">
+              Action
+            </Menu.Button>
+            <Menu.Items className="w-40">
+              <PDFDownloadLink
+                document={<TemplateTicketReportPdf data={datas?.ticket} />}
+                fileName={
+                  datas?.ticket?.display_name + "-" + datas?.ticket?.subject
+                }
+              >
+                {({ loading }) =>
+                  loading ? (
+                    <Menu.Item>
+                      <Lucide icon="Printer" className="w-4 mr-2" />
+                      Loading...
+                    </Menu.Item>
+                  ) : (
+                    <Menu.Item>
+                      <Lucide icon="Printer" className="w-4 mr-2" />
+                      Print Format 1
+                    </Menu.Item>
+                  )
+                }
+              </PDFDownloadLink>
+              <PDFDownloadLink
+                document={<TemplateTicketReportPdf2 data={datas?.ticket} />}
+                fileName={
+                  datas?.ticket?.display_name + "-" + datas?.ticket?.subject
+                }
+              >
+                {({ loading }) =>
+                  loading ? (
+                    <Menu.Item>
+                      <Lucide icon="Printer" className="w-4 mr-2" />
+                      Loading...
+                    </Menu.Item>
+                  ) : (
+                    <Menu.Item>
+                      <Lucide icon="Printer" className="w-4 mr-2" />
+                      Print Format 2
+                    </Menu.Item>
+                  )
+                }
+              </PDFDownloadLink>
+              <Menu.Item onClick={() => handleEdit()}>
+                <Lucide icon="Edit2" className="w-4 h-4 mr-2" />
+                Edit
+              </Menu.Item>
+              <Menu.Item
+                onClick={() =>
+                  handleChangeTicketStatus(datas?.stop_clock?.uuid)
+                }
+                className="text-warning hover:bg-yellow-500 hover:text-white"
+              >
+                <Lucide icon="Timer" className="w-4 h-4 mr-2" />
+                Stop Clock
+              </Menu.Item>
+              <Menu.Item
+                onClick={() => handleChangeTicketStatus(datas?.cancel?.uuid)}
+                className="text-warning hover:bg-yellow-500 hover:text-white"
+              >
+                <Lucide icon="XCircle" className="w-4 h-4 mr-2" />
+                Cancel
+              </Menu.Item>
+              <Menu.Divider />
+              <Menu.Item
+                onClick={() => handleDelete()}
+                className="text-danger hover:bg-red-500 hover:text-white"
+              >
+                <Lucide icon="Trash" className="w-4 h-4 mr-2" />
+                Delete
+              </Menu.Item>
+            </Menu.Items>
+          </Menu>
+        </div>
+        <div className={`mt-4 ${datas === null && "hidden"}`}>
+          <TicketStage
+            datas={datas?.ticket_status}
+            status={datas?.ticket?.ticket_status}
+            clickStage={handleChangeTicketStatus}
+          />
+        </div>
+        <div className={`mt-4 ${datas === null && "hidden"}`}>
+          <TicketDataView datas={datas?.ticket} />
+        </div>
+        <div className={`mt-4 ${datas === null && "hidden"}`}>
+          <AttachmentTable
+            datas={datas?.ticket?.ticket_attachments}
+            handleShowSlideOver={handleTicketAttachmentShowSlideOver}
+            handleDelete={handleDeleteTicketAttachment}
+            handleView={handleViewTicketAttachment}
+          />
+          <TicketAttachmentSlideOver
+            show={showTicketAttachmentSlideOver}
+            setShow={setShowTicketAttachmentSlideOver}
+            formData={formTicketAttachment}
+            setFormData={setFormTicketAttachment}
+            handleSubmit={handleSubmitTicketAttachment}
+            handleCancel={handleCancelTicketAttachment}
+          />
+        </div>
+        <div className={`mt-4 ${datas === null && "hidden"}`}>
+          <TicketActivityTable
+            datas={datas?.ticket?.ticket_activities}
+            handleDelete={handleDeleteTicketActivity}
+            handleShowEdit={handleTicketActivityShowSlideOver}
+            handleShowAttachment={handleTicketActivityAttachmentShowSlideOver}
+            handleShowCommentAttachment={
+              handleTicketActivityCommentAttachmentShowSlideOver
+            }
+            handleDeleteAttachment={handleDeleteTicketActivityAttachment}
+            handleViewAttachment={handleViewTicketActivityAttachment}
+            handleViewCommentAttachment={
+              handleViewTicketActivityCommentAttachment
+            }
+            handleViewComment={handleTicketActivityCommentShowSlideOver}
+            handleDeleteComment={handleDeleteTicketActivityComment}
+            handleDeleteCommentAttachment={
+              handleDeleteTicketActivityCommentAttachment
+            }
+          />
+          <TicketActivitySlideOver
+            show={showTicketActivitySlideOver}
+            setShow={setShowTicketActivitySlideOver}
+            formData={formTicketActivity}
+            setFormData={setFormTicketActivity}
+            ticket_status={datas?.ticket_status}
+            handleSubmit={handleSubmitUpdateTicketActivity}
+            handleCancel={handleTicketActivityCancelSlideOver}
+          />
+          <TicketActivityAttachmentSlideOver
+            show={showTicketActivityAttachmentSlideOver}
+            setShow={setShowTicketActivityAttachmentSlideOver}
+            formData={formTicketActivityAttachment}
+            setFormData={setFormTicketActivityAttachment}
+            handleSubmit={handleSubmitTicketActivityAttachment}
+            handleCancel={handleCancelTicketActivityAttachment}
+          />
+          <TicketActivityCommentSlideOver
+            show={showTicketActivityCommentSlideOver}
+            setShow={setShowTicketActivityCommentSlideOver}
+            formData={formTicketActivityComment}
+            setFormData={setFormTicketActivityComment}
+            handleSubmit={handleSubmitTicketActivityComment}
+            handleCancel={handleCancelTicketActivityComment}
+          />
+          <TicketActivityCommentAttachmentSlideOver
+            show={showTicketActivityCommentAttachmentSlideOver}
+            setShow={setShowTicketActivityCommentAttachmentSlideOver}
+            formData={formTicketActivityCommentAttachment}
+            setFormData={setFormTicketActivityCommentAttachment}
+            handleSubmit={handleSubmitTicketActivityCommentAttachment}
+            handleCancel={handleCancelTicketActivityCommentAttachment}
+          />
+        </div>
+        <div className={`mt-4 ${datas === null && "hidden"}`}>
+          <UserReminderTable
+            datas={datas?.ticket?.ticket_user_reminders}
+            handleShowCreateSlideOver={handleTicketUserReminderShowSlideOver}
+            handleDelete={handleDeleteTicketUserReminder}
+          />
+          <TicketUserReminderSlideOver
+            show={showTicketUserReminderSlideOver}
+            setShow={setShowTicketUserReminderSlideOver}
+            formData={formTicketUserReminder}
+            users={datas?.users}
+            setFormData={setFormTicketUserReminder}
+            handleSubmit={handleSubmitTicketUserReminder}
+            handleCancel={handleCancelTicketUserReminder}
+          />
+        </div>
+        <div className={`mt-4 mb-4 ${datas === null && "hidden"}`}>
+          <HistoryView history={datas?.ticket?.ticket_histories} />
+        </div>
       </div>
-      <div className="mt-4">
-        <TicketStage
-          datas={datas?.ticket_status}
-          status={datas?.ticket?.ticket_status}
-          clickStage={handleChangeTicketStatus}
-        />
-      </div>
-      <div className="mt-4">
-        <TicketDataView datas={datas?.ticket} />
-      </div>
-      <div>
-        <AttachmentTable
-          datas={datas?.ticket?.ticket_attachments}
-          handleShowSlideOver={handleTicketAttachmentShowSlideOver}
-          handleDelete={handleDeleteTicketAttachment}
-          handleView={handleViewTicketAttachment}
-        />
-        <TicketAttachmentSlideOver
-          show={showTicketAttachmentSlideOver}
-          setShow={setShowTicketAttachmentSlideOver}
-          formData={formTicketAttachment}
-          setFormData={setFormTicketAttachment}
-          handleSubmit={handleSubmitTicketAttachment}
-          handleCancel={handleCancelTicketAttachment}
-        />
-      </div>
-      <div>
-        <TicketActivityTable
-          datas={datas?.ticket?.ticket_activities}
-          handleDelete={handleDeleteTicketActivity}
-          handleShowEdit={handleTicketActivityShowSlideOver}
-          handleShowAttachment={handleTicketActivityAttachmentShowSlideOver}
-          handleShowCommentAttachment={
-            handleTicketActivityCommentAttachmentShowSlideOver
-          }
-          handleDeleteAttachment={handleDeleteTicketActivityAttachment}
-          handleViewAttachment={handleViewTicketActivityAttachment}
-          handleViewCommentAttachment={
-            handleViewTicketActivityCommentAttachment
-          }
-          handleViewComment={handleTicketActivityCommentShowSlideOver}
-          handleDeleteComment={handleDeleteTicketActivityComment}
-          handleDeleteCommentAttachment={
-            handleDeleteTicketActivityCommentAttachment
-          }
-        />
-        <TicketActivitySlideOver
-          show={showTicketActivitySlideOver}
-          setShow={setShowTicketActivitySlideOver}
-          formData={formTicketActivity}
-          setFormData={setFormTicketActivity}
-          ticket_status={datas?.ticket_status}
-          handleSubmit={handleSubmitUpdateTicketActivity}
-          handleCancel={handleTicketActivityCancelSlideOver}
-        />
-        <TicketActivityAttachmentSlideOver
-          show={showTicketActivityAttachmentSlideOver}
-          setShow={setShowTicketActivityAttachmentSlideOver}
-          formData={formTicketActivityAttachment}
-          setFormData={setFormTicketActivityAttachment}
-          handleSubmit={handleSubmitTicketActivityAttachment}
-          handleCancel={handleCancelTicketActivityAttachment}
-        />
-        <TicketActivityCommentSlideOver
-          show={showTicketActivityCommentSlideOver}
-          setShow={setShowTicketActivityCommentSlideOver}
-          formData={formTicketActivityComment}
-          setFormData={setFormTicketActivityComment}
-          handleSubmit={handleSubmitTicketActivityComment}
-          handleCancel={handleCancelTicketActivityComment}
-        />
-        <TicketActivityCommentAttachmentSlideOver
-          show={showTicketActivityCommentAttachmentSlideOver}
-          setShow={setShowTicketActivityCommentAttachmentSlideOver}
-          formData={formTicketActivityCommentAttachment}
-          setFormData={setFormTicketActivityCommentAttachment}
-          handleSubmit={handleSubmitTicketActivityCommentAttachment}
-          handleCancel={handleCancelTicketActivityCommentAttachment}
-        />
-      </div>
-      <div>
-        <UserReminderTable
-          datas={datas?.ticket?.ticket_user_reminders}
-          handleShowCreateSlideOver={handleTicketUserReminderShowSlideOver}
-          handleDelete={handleDeleteTicketUserReminder}
-        />
-        <TicketUserReminderSlideOver
-          show={showTicketUserReminderSlideOver}
-          setShow={setShowTicketUserReminderSlideOver}
-          formData={formTicketUserReminder}
-          users={datas?.users}
-          setFormData={setFormTicketUserReminder}
-          handleSubmit={handleSubmitTicketUserReminder}
-          handleCancel={handleCancelTicketUserReminder}
-        />
-      </div>
-      <div className="mt-4 mb-4">
-        <HistoryView history={datas?.ticket?.ticket_histories} />
-      </div>
-    </div>
+    </>
   );
 };
 
