@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Login, resetAuth } from "../../stores/features/AuthSlice";
+import { GetMe, resetGetMe } from "../../stores/features/GetMeSlice";
 
 import logoWhite from "../../assets/images/logo/logo_kopkarla_white.png";
 import logoColor from "../../assets/images/logo/logo_kopkarla_color.png";
@@ -24,10 +25,28 @@ function LoginPage() {
     (state: any) => state.auth,
   );
 
+  const {
+    data: getMeData,
+    isLoading: isGetMeLoading,
+    isSuccess: isGetMeSuccess,
+    isError: isGetMeError,
+    message: getMeMessage,
+  } = useSelector((state: any) => state.getMe);
+
+  useEffect(() => {
+    if (getMeData && isGetMeSuccess && !isGetMeLoading) {
+      dispatch(resetGetMe());
+      navigate("/");
+    } else if (getMeMessage && isGetMeError && !isGetMeLoading) {
+      NewNotification(getMeMessage?.data?.message);
+      dispatch(resetGetMe());
+    }
+  }, [getMeData, isGetMeError, isGetMeLoading, isGetMeSuccess, getMeMessage]);
+
   useEffect(() => {
     if (message !== "" && isSuccess && !isLoading) {
       dispatch(resetAuth());
-      navigate("/");
+      dispatch(GetMe());
     }
     if (message !== "" && isError && !isLoading) {
       NewNotification(message?.data?.message);
