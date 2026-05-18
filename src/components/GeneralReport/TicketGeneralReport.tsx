@@ -1,8 +1,3 @@
-import Lucide from "../../base-components/Lucide";
-import clsx from "clsx";
-import Tippy from "../../base-components/Tippy";
-import faker from "../../utils/faker";
-
 const TicketGeneralReport = (props: any) => {
   const { handleClickStatus, meta, statuses, reports } = props;
 
