@@ -13,7 +13,6 @@ import {
 } from "../../stores/features/TicketExportSlice";
 import Button from "../../base-components/Button";
 import { FormSelect, FormInline } from "../../base-components/Form";
-import LoadingIcon from "../../base-components/LoadingIcon";
 
 const DataTicketPage = () => {
   const [ticketStatus, setTicketStatus] = useState<any>(null);
