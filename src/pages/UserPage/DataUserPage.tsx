@@ -109,12 +109,7 @@ const DataUserPage = () => {
 
   return (
     <>
-      {isLoading ? (
-        <div className="flex justify-center md:mt-32 mt-10">
-          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
-        </div>
-      ) : null}
-      <div className={`${isLoading && "hidden"}`}>
+      <div>
         <UserGeneralReport
           statuses={userStatus}
           reports={generalReport}
@@ -122,9 +117,10 @@ const DataUserPage = () => {
           meta={meta}
         />
       </div>
-      <div className={`${isLoading && "hidden"}`}>
+      <div>
         <UserTable
           datas={datas?.data}
+          isLoading={isLoading}
           page={datas?.meta?.page}
           pages={datas?.meta?.pages}
           limit={meta?.limit}

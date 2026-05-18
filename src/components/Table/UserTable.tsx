@@ -2,10 +2,12 @@ import Lucide from "../../base-components/Lucide";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import { FormInput } from "../../base-components/Form";
+import LoadingIcon from "../../base-components/LoadingIcon";
 
 const UserTable = (props: any) => {
   const {
     datas,
+    isLoading,
     handleCreate,
     handleNextPage,
     handlePrevPage,
@@ -18,8 +20,6 @@ const UserTable = (props: any) => {
     total,
     meta,
   } = props;
-
-  console.log(datas, "datas");
 
   return (
     <div className="grid grid-cols-12 mt-5 box text-xs">
@@ -41,6 +41,11 @@ const UserTable = (props: any) => {
           <div className="col-span-12 md:col-span-6 md:flex md:items-center md:justify-end gap-2">
             <div className="w-full flex gap-2 items-center mt-4 md:mt-0">
               <div className="flex items-center gap-2 ml-auto">
+                <LoadingIcon
+                  icon="bars"
+                  className={`w-4 ${isLoading ? "" : "hidden"}`}
+                  color="#02357d"
+                />
                 <FormInput
                   type="text"
                   formInputSize="sm"
@@ -100,35 +105,35 @@ const UserTable = (props: any) => {
                   onClick={() => handleView(data)}
                 >
                   <div className="flex px-5 py-3">
-                    <div className="flex items-center flex-none mr-5 w-8">
+                    <div className="flex items-center flex-none mr-5 w-8 md:w-6">
                       <div className="w-6">{index + 1}</div>
                     </div>
-                    <div className="w-64 truncate sm:w-64">
+                    <div className="w-48 truncate sm:w-48">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.name}
                       </span>
                     </div>
-                    <div className="w-64 truncate sm:w-96">
+                    <div className="w-48 truncate sm:w-48">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.email}
                       </span>
                     </div>
-                    <div className="w-64 truncate sm:w-64">
+                    <div className="w-48 truncate sm:w-48">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.phone_number}
                       </span>
                     </div>
-                    <div className="w-64 truncate sm:w-64">
+                    <div className="w-48 truncate sm:w-48">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.division?.name}
                       </span>
                     </div>
-                    <div className="w-64 truncate sm:w-64">
+                    <div className="w-48 truncate sm:w-48">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.location?.name}
                       </span>
                     </div>
-                    <div className="w-64 truncate sm:w-64">
+                    <div className="w-48 truncate sm:w-48">
                       <span className={clsx(["ml-3 truncate"])}>
                         {data?.company?.name}
                       </span>
