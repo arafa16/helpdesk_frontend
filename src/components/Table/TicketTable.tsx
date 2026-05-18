@@ -2,10 +2,12 @@ import Lucide from "../../base-components/Lucide";
 import clsx from "clsx";
 import { FormInput } from "../../base-components/Form";
 import dayjs from "dayjs";
+import LoadingIcon from "../../base-components/LoadingIcon";
 
 const TicketTable = (props: any) => {
   const {
     datas,
+    isLoading,
     handleCreate,
     handleNextPage,
     handlePrevPage,
@@ -47,6 +49,11 @@ const TicketTable = (props: any) => {
           <div className="col-span-12 md:col-span-6 md:flex md:items-center md:justify-end gap-2">
             <div className="w-full flex gap-2 items-center mt-4 md:mt-0">
               <div className="flex items-center gap-2 ml-auto">
+                <LoadingIcon
+                  icon="bars"
+                  className={`w-4 ${isLoading ? "" : "hidden"}`}
+                  color="#02357d"
+                />
                 <FormInput
                   type="text"
                   formInputSize="sm"

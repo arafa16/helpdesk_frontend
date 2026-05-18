@@ -171,12 +171,7 @@ const DataTicketPage = () => {
 
   return (
     <>
-      {isLoading ? (
-        <div className="flex justify-center md:mt-32 mt-10">
-          <LoadingIcon icon="bars" className="w-5" color="#02357d" />
-        </div>
-      ) : null}
-      <div className={`${isLoading && "hidden"}`}>
+      <div>
         <TicketGeneralReport
           statuses={ticketStatus}
           reports={generalReport}
@@ -184,7 +179,7 @@ const DataTicketPage = () => {
           meta={meta}
         />
       </div>
-      <div className={`mt-6 flex gap-4 justify-end ${isLoading && "hidden"}`}>
+      <div className={`mt-6 flex gap-4 justify-end`}>
         <FormInline>
           <FormSelect
             formSelectSize="sm"
@@ -229,9 +224,10 @@ const DataTicketPage = () => {
           {isLoadingExport ? "Loading..." : "Export Data Ticket"}
         </Button>
       </div>
-      <div className={`mb-20 ${isLoading && "hidden"}`}>
+      <div>
         <TicketTable
           datas={datas?.data}
+          isLoading={isLoading}
           page={datas?.meta?.page}
           pages={datas?.meta?.pages}
           limit={meta?.limit}
