@@ -1,4 +1,4 @@
-#### v1.3.0 - 2026-05-13
+#### v1.3.0 - 2026-05-19
 
 - build: update version 1.2.0 to 1.3.0 by [Ara Fa Adri](https://github.com/arafa16) in [#9d477ef](https://github.com/arafa16/helpdesk_frontend/commit/9d477eff8ad71d3059746050b163c63b1e39793e).
 
