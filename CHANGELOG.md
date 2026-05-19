@@ -1,3 +1,23 @@
+#### v1.3.0 - 2026-05-13
+
+- build: update version 1.2.0 to 1.3.0 by [Ara Fa Adri](https://github.com/arafa16) in [#9d477ef](https://github.com/arafa16/helpdesk_frontend/commit/9d477eff8ad71d3059746050b163c63b1e39793e).
+
+- build: make new loading and fixs user table by [Ara Fa Adri](https://github.com/arafa16) in [#b085cca](https://github.com/arafa16/helpdesk_frontend/commit/b085ccafc31d99f0fa19f108a839d31678815bd6).
+
+- build: make new loading in data ticket executor and customer by [Ara Fa Adri](https://github.com/arafa16) in [#927d726](https://github.com/arafa16/helpdesk_frontend/commit/927d72659cbd5311b8f0609c16329c27263b56f1).
+
+- fixs: delete import component not used by [Ara Fa Adri](https://github.com/arafa16) in [#a515f68](https://github.com/arafa16/helpdesk_frontend/commit/a515f680fa941067506dd21c196eb1725f959381).
+
+- build: make new loading in data ticket admin by [Ara Fa Adri](https://github.com/arafa16) in [#315bc03](https://github.com/arafa16/helpdesk_frontend/commit/315bc0303e910ea770ed223dc20f33bd5f7a6cf7).
+
+#### v1.2.0 - 2026-05-13
+
+- build: update version 1.1.0 to 1.2.0 by [Ara Fa Adri](https://github.com/arafa16) in [#b2d0837](https://github.com/arafa16/helpdesk_frontend/commit/b2d083731c348e4795776b9c94866b10e8113ce7).
+
+- build: make loading when load data by [Ara Fa Adri](https://github.com/arafa16) in [#89983e4](https://github.com/arafa16/helpdesk_frontend/commit/89983e462c8ce806efe557712f3eed25cd663d9a).
+
+- fixs: trouble about login cannot redirect to dashboard when successed login by [Ara Fa Adri](https://github.com/arafa16) in [#de8184d](https://github.com/arafa16/helpdesk_frontend/commit/de8184db4562c77de5abd59cde1b71edecd2ab1f).
+
 #### v1.1.0 - 2026-02-23
 
 - build: make new format printout ticket by [Ara Fa Adri](https://github.com/arafa16) in [#a6a9044](https://github.com/arafa16/helpdesk_frontend/commit/a6a9044fc62e791c0e84272f147d4016aae2571a).
