@@ -133,7 +133,7 @@ function LoginPage() {
                   </Button>
                 </div>
                 <div className="mt-10 flex justify-center text-gray-400">
-                  <p>V.1.2.0 - Created by Ara Fa Adri</p>
+                  <p>V.1.3.0 - Created by Ara Fa Adri</p>
                 </div>
               </div>
             </form>
