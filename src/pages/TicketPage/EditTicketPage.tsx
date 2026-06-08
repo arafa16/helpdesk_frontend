@@ -43,6 +43,7 @@ const EditTicketPage = () => {
     eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
+    ticket_trouble_couse_uuid: "",
     ticket_trouble_description: "",
     trouble_category: "",
     solution: "",
@@ -99,12 +100,14 @@ const EditTicketPage = () => {
           complaint_time:
             data?.data?.ticket?.complaint_time &&
             dayjs(data?.data?.ticket?.complaint_time).format(
-              "YYYY-MM-DD HH:mm:ss"
+              "YYYY-MM-DD HH:mm:ss",
             ),
           eta: data?.data?.ticket?.eta,
           priority_level: data?.data?.ticket?.priority_level,
           ticket_trouble_category_uuid:
             data?.data?.ticket?.ticket_trouble_category?.uuid,
+          ticket_trouble_couse_uuid:
+            data?.data?.ticket?.ticket_trouble_couse?.uuid,
           ticket_trouble_description:
             data?.data?.ticket?.ticket_trouble_description,
           solution: data?.data?.ticket?.solution,
@@ -225,6 +228,7 @@ const EditTicketPage = () => {
           area={datas?.area}
           ticket_category={datas?.ticket_category}
           ticket_trouble_category={datas?.ticket_trouble_category}
+          ticket_trouble_couse={datas?.ticket_trouble_couse}
           ticket_access={datas?.ticket_access}
           ticket_network_status={datas?.ticket_network_status}
           executor={datas?.executor}

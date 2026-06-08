@@ -249,10 +249,10 @@ const TicketDataView = (props: any) => {
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
-                Trouble Description
+                Trouble Couse
               </FormLabel>
               <div className="whitespace-pre-line">
-                : {datas?.ticket_trouble_description}
+                : {datas?.ticket_trouble_couse?.name}
               </div>
             </FormInline>
           </div>
@@ -262,6 +262,16 @@ const TicketDataView = (props: any) => {
                 Network Status
               </FormLabel>
               <div className="">: {datas?.ticket_network_status?.name}</div>
+            </FormInline>
+          </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="subject">
+                Trouble Description
+              </FormLabel>
+              <div className="whitespace-pre-line">
+                : {datas?.ticket_trouble_description}
+              </div>
             </FormInline>
           </div>
           <div className="bg-slate-50 p-1 rounded">

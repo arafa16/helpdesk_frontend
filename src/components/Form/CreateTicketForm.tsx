@@ -18,6 +18,7 @@ const CreateTicketForm = (props: any) => {
     area,
     ticket_category,
     ticket_trouble_category,
+    ticket_trouble_couse,
     ticket_network_status,
     ticket_access,
     executor,
@@ -575,20 +576,28 @@ const CreateTicketForm = (props: any) => {
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
-              <FormLabel className="" htmlFor="ticket_trouble_description">
-                Trouble Description
+              <FormLabel className="" htmlFor="ticket_trouble_couse_uuid">
+                Trouble Couse
               </FormLabel>
-              <FormTextarea
-                formTextareaSize="sm"
-                value={formData?.ticket_trouble_description}
-                name="ticket_trouble_description"
+              <FormSelect
+                formSelectSize="sm"
+                name="ticket_trouble_couse_uuid"
+                value={formData?.ticket_trouble_couse_uuid}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    ticket_trouble_description: e.target.value,
+                    ticket_trouble_couse_uuid: e.target.value,
                   })
                 }
-              />
+              >
+                <option value={""}></option>
+                {ticket_trouble_couse &&
+                  ticket_trouble_couse.map((data: any, index: any) => (
+                    <option key={index} value={data.uuid}>
+                      {data.name}
+                    </option>
+                  ))}
+              </FormSelect>
             </FormInline>
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
@@ -615,6 +624,24 @@ const CreateTicketForm = (props: any) => {
                     </option>
                   ))}
               </FormSelect>
+            </FormInline>
+          </div>
+          <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="ticket_trouble_description">
+                Trouble Description
+              </FormLabel>
+              <FormTextarea
+                formTextareaSize="sm"
+                value={formData?.ticket_trouble_description}
+                name="ticket_trouble_description"
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    ticket_trouble_description: e.target.value,
+                  })
+                }
+              />
             </FormInline>
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
