@@ -107,6 +107,12 @@ const initialState: SideMenuState = {
           pathname: "/area",
           privilege: "setting",
         },
+        {
+          icon: "Settings",
+          title: "ticket Trouble Couse",
+          pathname: "/ticket_trouble_couse",
+          privilege: "setting",
+        },
       ],
     },
   ],

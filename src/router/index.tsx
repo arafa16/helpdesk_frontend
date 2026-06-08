@@ -52,6 +52,10 @@ import DataCustomerPage from "../pages/Customer/DataCustomerPage";
 import ViewCustomerPage from "../pages/Customer/ViewCustomerPage";
 import EditCustomerPage from "../pages/Customer/EditCustomerPage";
 import CreateCustomerPage from "../pages/Customer/CreateCustomerPage";
+import CreateTicketTroubleCousePage from "../pages/TicketTroubleCouse/CreateTicketTroubleCousePage";
+import EditTicketTroubleCousePage from "../pages/TicketTroubleCouse/EditTicketTroubleCousePage";
+import ViewTicketTroubleCousePage from "../pages/TicketTroubleCouse/ViewTicketTroubleCousePage";
+import DataTicketTroubleCousePage from "../pages/TicketTroubleCouse/DataTicketTroubleCousePage";
 
 function Router() {
   const routes = [
@@ -265,6 +269,23 @@ function Router() {
         {
           path: "/customer/create",
           element: <CreateCustomerPage />,
+        },
+        //ticket_trouble_couse
+        {
+          path: "/ticket_trouble_couse",
+          element: <DataTicketTroubleCousePage />,
+        },
+        {
+          path: "/ticket_trouble_couse/view/:id",
+          element: <ViewTicketTroubleCousePage />,
+        },
+        {
+          path: "/ticket_trouble_couse/edit/:id",
+          element: <EditTicketTroubleCousePage />,
+        },
+        {
+          path: "/ticket_trouble_couse/create",
+          element: <CreateTicketTroubleCousePage />,
         },
       ],
     },
