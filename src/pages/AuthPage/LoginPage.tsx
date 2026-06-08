@@ -12,6 +12,7 @@ import DarkModeSwitcher from "../../components/DarkModeSwitcher";
 import LoadingIcon from "../../base-components/LoadingIcon";
 
 import { NewNotification } from "../../components/Notification/NewNotification";
+import packageJson from "../../../package.json";
 
 function LoginPage() {
   let [formData, setFormData] = useState<any>({
@@ -133,7 +134,7 @@ function LoginPage() {
                   </Button>
                 </div>
                 <div className="mt-10 flex justify-center text-gray-400">
-                  <p>V.1.3.0 - Created by Ara Fa Adri</p>
+                  <p>v{packageJson.version} - Created by Ara Fa Adri</p>
                 </div>
               </div>
             </form>
