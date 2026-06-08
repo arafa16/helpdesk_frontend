@@ -1,5 +1,7 @@
 #### v1.4.0 - 2026-06-08
 
+- build: set version in the login page by [Ara Fa Adri](https://github.com/arafa16) in [#ac390ae](https://github.com/arafa16/helpdesk_frontend/commit/ac390ae05915c652ab0a5764538b76a04246a07a).
+
 - build: update version 1.3.0 to 1.4.0 by [Ara Fa Adri](https://github.com/arafa16) in [#e529def](https://github.com/arafa16/helpdesk_frontend/commit/e529defe88ade64e6a73964c16f0af6ddb3ed8a5).
 
 - build: add field ticket trouble couse into data view, create data  and edit data by [Ara Fa Adri](https://github.com/arafa16) in [#747d2ae](https://github.com/arafa16/helpdesk_frontend/commit/747d2ae26833de7523892eee68443028568d9486).
