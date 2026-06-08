@@ -1,3 +1,13 @@
+#### v1.4.0 - 2026-06-08
+
+- build: update version 1.3.0 to 1.4.0 by [Ara Fa Adri](https://github.com/arafa16) in [#e529def](https://github.com/arafa16/helpdesk_frontend/commit/e529defe88ade64e6a73964c16f0af6ddb3ed8a5).
+
+- build: add field ticket trouble couse into data view, create data  and edit data by [Ara Fa Adri](https://github.com/arafa16) in [#747d2ae](https://github.com/arafa16/helpdesk_frontend/commit/747d2ae26833de7523892eee68443028568d9486).
+
+- build: make CRUD ticket trouble couse by [Ara Fa Adri](https://github.com/arafa16) in [#497326c](https://github.com/arafa16/helpdesk_frontend/commit/497326cabc4ab5d6d3cb8d3b03072cb84c07655e).
+
+- build: make slice and store ticket trouble couse by [Ara Fa Adri](https://github.com/arafa16) in [#b20e7ff](https://github.com/arafa16/helpdesk_frontend/commit/b20e7ffc31dbdc2dce95d4dcd19c329468976e55).
+
 #### v1.3.0 - 2026-05-19
 
 - build: update version 1.2.0 to 1.3.0 by [Ara Fa Adri](https://github.com/arafa16) in [#9d477ef](https://github.com/arafa16/helpdesk_frontend/commit/9d477eff8ad71d3059746050b163c63b1e39793e).
