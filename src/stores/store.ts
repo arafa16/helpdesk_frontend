@@ -22,6 +22,7 @@ import TicketAccessReducer from "./features/TicketAccessSlice";
 import AreaReducer from "./features/AreaSlice";
 import CustomerReducer from "./features/CustomerSlice";
 import TicketExportReducer from "./features/TicketExportSlice";
+import TicketTroubleCouseReducer from "./features/TicketTroubleCouseSlice";
 
 export const store = configureStore({
   reducer: {
@@ -48,6 +49,7 @@ export const store = configureStore({
     ticket_access: TicketAccessReducer,
     area: AreaReducer,
     customer: CustomerReducer,
+    ticket_trouble_couse: TicketTroubleCouseReducer,
   },
 });
 
