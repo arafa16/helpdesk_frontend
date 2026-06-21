@@ -136,6 +136,7 @@ const CreateTicketPage = () => {
           area={datas?.area}
           ticket_category={datas?.ticket_category}
           ticket_trouble_category={datas?.ticket_trouble_category}
+          ticket_trouble_consequence={datas?.ticket_trouble_consequence}
           ticket_access={datas?.ticket_access}
           ticket_network_status={datas?.ticket_network_status}
           executor={datas?.executor}
