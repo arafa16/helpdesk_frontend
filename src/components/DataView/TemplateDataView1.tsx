@@ -33,6 +33,16 @@ const TemplateDataView1 = (props: any) => {
               </div>
             </FormInline>
           </div>
+          <div className="bg-slate-50 p-1 rounded">
+            <FormInline>
+              <FormLabel className="" htmlFor="sequence">
+                Is Active
+              </FormLabel>
+              <div className="text-slate-700 lowercase">
+                : {datas?.is_active === true ? "Active" : "Inactive"}
+              </div>
+            </FormInline>
+          </div>
         </div>
       </div>
     </>
