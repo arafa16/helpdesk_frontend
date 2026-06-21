@@ -18,7 +18,7 @@ const CreateTicketForm = (props: any) => {
     area,
     ticket_category,
     ticket_trouble_category,
-    ticket_trouble_couse,
+    ticket_trouble_consequence,
     ticket_network_status,
     ticket_access,
     executor,
@@ -576,23 +576,23 @@ const CreateTicketForm = (props: any) => {
           </div>
           <div className="col-span-12 intro-y sm:col-span-6 bg-slate-50 p-1 rounded">
             <FormInline>
-              <FormLabel className="" htmlFor="ticket_trouble_couse_uuid">
-                Trouble Couse
+              <FormLabel className="" htmlFor="ticket_trouble_consequence_uuid">
+                Trouble Consequence
               </FormLabel>
               <FormSelect
                 formSelectSize="sm"
-                name="ticket_trouble_couse_uuid"
-                value={formData?.ticket_trouble_couse_uuid}
+                name="ticket_trouble_consequence_uuid"
+                value={formData?.ticket_trouble_consequence_uuid}
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    ticket_trouble_couse_uuid: e.target.value,
+                    ticket_trouble_consequence_uuid: e.target.value,
                   })
                 }
               >
                 <option value={""}></option>
-                {ticket_trouble_couse &&
-                  ticket_trouble_couse.map((data: any, index: any) => (
+                {ticket_trouble_consequence &&
+                  ticket_trouble_consequence.map((data: any, index: any) => (
                     <option key={index} value={data.uuid}>
                       {data.name}
                     </option>

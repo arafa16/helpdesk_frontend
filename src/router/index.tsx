@@ -52,10 +52,14 @@ import DataCustomerPage from "../pages/Customer/DataCustomerPage";
 import ViewCustomerPage from "../pages/Customer/ViewCustomerPage";
 import EditCustomerPage from "../pages/Customer/EditCustomerPage";
 import CreateCustomerPage from "../pages/Customer/CreateCustomerPage";
-import CreateTicketTroubleCousePage from "../pages/TicketTroubleCouse/CreateTicketTroubleCousePage";
-import EditTicketTroubleCousePage from "../pages/TicketTroubleCouse/EditTicketTroubleCousePage";
-import ViewTicketTroubleCousePage from "../pages/TicketTroubleCouse/ViewTicketTroubleCousePage";
-import DataTicketTroubleCousePage from "../pages/TicketTroubleCouse/DataTicketTroubleCousePage";
+import DataTicketTroubleConsequencePage from "../pages/TicketTroubleConsequence/DataTicketTroubleConsequencePage";
+import ViewTicketTroubleConsequencePage from "../pages/TicketTroubleConsequence/ViewTicketTroubleConsequencePage";
+import EditTicketTroubleConsequencePage from "../pages/TicketTroubleConsequence/EditTicketTroubleConsequencePage";
+import CreateTicketTroubleConsequencePage from "../pages/TicketTroubleConsequence/CreateTicketTroubleConsequencePage";
+import DataTicketTroubleCategoryPage from "../pages/TicketTroubleCategory/DataTicketTroubleCategoryPage";
+import ViewTicketTroubleCategoryPage from "../pages/TicketTroubleCategory/ViewTicketTroubleCategoryPage";
+import EditTicketTroubleCategoryPage from "../pages/TicketTroubleCategory/EditTicketTroubleCategoryPage";
+import CreateTicketTroubleCategoryPage from "../pages/TicketTroubleCategory/CreateTicketTroubleCategoryPage";
 
 function Router() {
   const routes = [
@@ -270,22 +274,39 @@ function Router() {
           path: "/customer/create",
           element: <CreateCustomerPage />,
         },
-        //ticket_trouble_couse
+        //ticket_trouble_consequence
         {
-          path: "/ticket_trouble_couse",
-          element: <DataTicketTroubleCousePage />,
+          path: "/ticket_trouble_consequence",
+          element: <DataTicketTroubleConsequencePage />,
         },
         {
-          path: "/ticket_trouble_couse/view/:id",
-          element: <ViewTicketTroubleCousePage />,
+          path: "/ticket_trouble_consequence/view/:id",
+          element: <ViewTicketTroubleConsequencePage />,
         },
         {
-          path: "/ticket_trouble_couse/edit/:id",
-          element: <EditTicketTroubleCousePage />,
+          path: "/ticket_trouble_consequence/edit/:id",
+          element: <EditTicketTroubleConsequencePage />,
         },
         {
-          path: "/ticket_trouble_couse/create",
-          element: <CreateTicketTroubleCousePage />,
+          path: "/ticket_trouble_consequence/create",
+          element: <CreateTicketTroubleConsequencePage />,
+        },
+        //ticket_trouble_category
+        {
+          path: "/ticket_trouble_category",
+          element: <DataTicketTroubleCategoryPage />,
+        },
+        {
+          path: "/ticket_trouble_category/view/:id",
+          element: <ViewTicketTroubleCategoryPage />,
+        },
+        {
+          path: "/ticket_trouble_category/edit/:id",
+          element: <EditTicketTroubleCategoryPage />,
+        },
+        {
+          path: "/ticket_trouble_category/create",
+          element: <CreateTicketTroubleCategoryPage />,
         },
       ],
     },

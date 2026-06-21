@@ -115,6 +115,11 @@ const TemplateTable1 = (props: any) => {
                         {data?.sequence}
                       </span>
                     </div>
+                    <div className="w-64 truncate sm:w-64">
+                      <span className={clsx(["ml-3 truncate"])}>
+                        {data?.is_active ? "Active" : "Inactive"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

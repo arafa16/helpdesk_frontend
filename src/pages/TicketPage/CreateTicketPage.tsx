@@ -38,6 +38,7 @@ const CreateTicketPage = () => {
     eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
+    ticket_trouble_consequence_uuid: "",
     ticket_trouble_description: "",
     solution: "",
     ticket_network_status_uuid: "",
@@ -63,7 +64,7 @@ const CreateTicketPage = () => {
   //get ticket attribute
 
   const { data, isError, isSuccess, isLoading, message } = useSelector(
-    (state: any) => state.ticket
+    (state: any) => state.ticket,
   );
 
   useEffect(() => {

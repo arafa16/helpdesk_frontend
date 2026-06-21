@@ -43,7 +43,7 @@ const EditTicketPage = () => {
     eta: 0,
     priority_level: "",
     ticket_trouble_category_uuid: "",
-    ticket_trouble_couse_uuid: "",
+    ticket_trouble_consequence_uuid: "",
     ticket_trouble_description: "",
     trouble_category: "",
     solution: "",
@@ -106,8 +106,8 @@ const EditTicketPage = () => {
           priority_level: data?.data?.ticket?.priority_level,
           ticket_trouble_category_uuid:
             data?.data?.ticket?.ticket_trouble_category?.uuid,
-          ticket_trouble_couse_uuid:
-            data?.data?.ticket?.ticket_trouble_couse?.uuid,
+          ticket_trouble_consequence_uuid:
+            data?.data?.ticket?.ticket_trouble_consequence?.uuid,
           ticket_trouble_description:
             data?.data?.ticket?.ticket_trouble_description,
           solution: data?.data?.ticket?.solution,
@@ -228,7 +228,7 @@ const EditTicketPage = () => {
           area={datas?.area}
           ticket_category={datas?.ticket_category}
           ticket_trouble_category={datas?.ticket_trouble_category}
-          ticket_trouble_couse={datas?.ticket_trouble_couse}
+          ticket_trouble_consequence={datas?.ticket_trouble_consequence}
           ticket_access={datas?.ticket_access}
           ticket_network_status={datas?.ticket_network_status}
           executor={datas?.executor}

@@ -249,10 +249,10 @@ const TicketDataView = (props: any) => {
           <div className="bg-slate-50 p-1 rounded">
             <FormInline>
               <FormLabel className="" htmlFor="subject">
-                Trouble Couse
+                Trouble Consequence
               </FormLabel>
               <div className="whitespace-pre-line">
-                : {datas?.ticket_trouble_couse?.name}
+                : {datas?.ticket_trouble_consequence?.name}
               </div>
             </FormInline>
           </div>
