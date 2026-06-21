@@ -3,13 +3,13 @@ import Button from "../../base-components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
-  UpdateTicketTroubleCouseData,
-  GetTicketTroubleCouseDataById,
-  resetTicketTroubleCouse,
-} from "../../stores/features/TicketTroubleCouseSlice";
+  UpdateTicketTroubleConsequenceData,
+  GetTicketTroubleConsequenceDataById,
+  resetTicketTroubleConsequence,
+} from "../../stores/features/TicketTroubleConsequenceSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
-const EditTicketTroubleCousePage = () => {
+const EditTicketTroubleConsequencePage = () => {
   const { id } = useParams();
   let [formData, setFormData] = useState<any>({
     name: "",
@@ -21,7 +21,7 @@ const EditTicketTroubleCousePage = () => {
   const navigate = useNavigate();
 
   const { data, isLoading, isError, isSuccess, message, messageUpdate } =
-    useSelector((state: any) => state.ticket_trouble_couse);
+    useSelector((state: any) => state.ticket_trouble_consequence);
 
   useEffect(() => {
     if (data !== null && isSuccess && !isLoading) {
@@ -30,36 +30,36 @@ const EditTicketTroubleCousePage = () => {
         code: data?.data?.code,
         sequence: data?.data?.sequence,
       });
-      dispatch(resetTicketTroubleCouse());
+      dispatch(resetTicketTroubleConsequence());
     } else if (isError && message && !isLoading) {
       console.log(message);
-      dispatch(resetTicketTroubleCouse());
+      dispatch(resetTicketTroubleConsequence());
     }
 
     if (messageUpdate !== "" && isSuccess && !isLoading) {
-      const back = `back=/ticket_trouble_couse`;
-      navigate(`/ticket_trouble_couse/view/${id}?${back}`);
-      dispatch(resetTicketTroubleCouse());
+      const back = `back=/ticket_trouble_consequence`;
+      navigate(`/ticket_trouble_consequence/view/${id}?${back}`);
+      dispatch(resetTicketTroubleConsequence());
     } else if (messageUpdate !== "" && isError && !isLoading) {
       console.log(messageUpdate, "error");
-      dispatch(resetTicketTroubleCouse());
+      dispatch(resetTicketTroubleConsequence());
     }
   }, [data, isLoading, isError, isSuccess, messageUpdate, message, dispatch]);
 
   useEffect(() => {
     if (id) {
-      dispatch(GetTicketTroubleCouseDataById({ uuid: id }));
+      dispatch(GetTicketTroubleConsequenceDataById({ uuid: id }));
     }
   }, [id, dispatch]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(UpdateTicketTroubleCouseData({ formData, uuid: id }));
+    dispatch(UpdateTicketTroubleConsequenceData({ formData, uuid: id }));
   };
 
   const handleDiscard = () => {
-    const back = `back=/ticket_trouble_couse`;
-    navigate(`/ticket_trouble_couse/view/${id}?${back}`);
+    const back = `back=/ticket_trouble_consequence`;
+    navigate(`/ticket_trouble_consequence/view/${id}?${back}`);
   };
 
   return (
@@ -88,4 +88,4 @@ const EditTicketTroubleCousePage = () => {
   );
 };
 
-export default EditTicketTroubleCousePage;
+export default EditTicketTroubleConsequencePage;

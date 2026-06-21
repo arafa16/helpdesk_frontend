@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
-  GetTicketTroubleCouseData,
-  resetTicketTroubleCouse,
-} from "../../stores/features/TicketTroubleCouseSlice";
+  GetTicketTroubleConsequenceData,
+  resetTicketTroubleConsequence,
+} from "../../stores/features/TicketTroubleConsequenceSlice";
 import { useNavigate } from "react-router-dom";
 import TemplateTable1 from "../../components/Table/TemplateTable1";
 
-const DataTicketTroubleCousePage = () => {
+const DataTicketTroubleConsequencePage = () => {
   const [datas, setDatas] = useState<any>();
   const [meta, setMeta] = useState<any>({
     page: 1,
@@ -19,16 +19,16 @@ const DataTicketTroubleCousePage = () => {
   const navigate = useNavigate();
 
   const { data, isLoading, isError, isSuccess, message } = useSelector(
-    (state: any) => state.ticket_trouble_couse,
+    (state: any) => state.ticket_trouble_consequence,
   );
 
   useEffect(() => {
     if (data !== null && isSuccess && !isLoading) {
       setDatas(data);
-      dispatch(resetTicketTroubleCouse());
+      dispatch(resetTicketTroubleConsequence());
     } else if (message !== "" && isError && !isLoading) {
       console.log(message, "error");
-      dispatch(resetTicketTroubleCouse());
+      dispatch(resetTicketTroubleConsequence());
     }
   }, [data, isLoading, isError, isSuccess, message, dispatch]);
 
@@ -39,7 +39,7 @@ const DataTicketTroubleCousePage = () => {
       search: meta.search,
     };
     const params_attributes = new URLSearchParams(paramsObj);
-    dispatch(GetTicketTroubleCouseData(params_attributes));
+    dispatch(GetTicketTroubleConsequenceData(params_attributes));
   }, [dispatch, meta]);
 
   const handleNextPage = () => {
@@ -76,20 +76,20 @@ const DataTicketTroubleCousePage = () => {
   };
 
   const handleView = (data: any) => {
-    const back = `back=/ticket_trouble_couse`;
-    navigate(`/ticket_trouble_couse/view/${data.uuid}?${back}`);
+    const back = `back=/ticket_trouble_consequence`;
+    navigate(`/ticket_trouble_consequence/view/${data.uuid}?${back}`);
   };
 
   const handleSearch = (search: string) => {
-    setMeta({ ...meta, ticket_trouble_couse_uuid: "", search });
+    setMeta({ ...meta, ticket_trouble_consequence_uuid: "", search });
     if (meta.page !== 1) {
       setMeta({ ...meta, page: 1, search });
     }
   };
 
   const handleCreate = () => {
-    const back = `back=/ticket_trouble_couse`;
-    navigate(`/ticket_trouble_couse/create?${back}`);
+    const back = `back=/ticket_trouble_category`;
+    navigate(`/ticket_trouble_category/create?${back}`);
   };
 
   return (
@@ -116,4 +116,4 @@ const DataTicketTroubleCousePage = () => {
   );
 };
 
-export default DataTicketTroubleCousePage;
+export default DataTicketTroubleConsequencePage;

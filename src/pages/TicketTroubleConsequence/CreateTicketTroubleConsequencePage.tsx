@@ -3,12 +3,12 @@ import Button from "../../base-components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
-  CreateTicketTroubleCouseData,
-  resetTicketTroubleCouse,
-} from "../../stores/features/TicketTroubleCouseSlice";
+  CreateTicketTroubleConsequenceData,
+  resetTicketTroubleConsequence,
+} from "../../stores/features/TicketTroubleConsequenceSlice";
 import { useNavigate } from "react-router-dom";
 
-const CreateTicketTroubleCousePage = () => {
+const CreateTicketTroubleConsequencePage = () => {
   let [formData, setFormData] = useState<any>({
     name: "",
     code: "",
@@ -19,29 +19,29 @@ const CreateTicketTroubleCousePage = () => {
   const navigate = useNavigate();
 
   const { data, isLoading, isError, isSuccess, messageCreate } = useSelector(
-    (state: any) => state.ticket_trouble_couse,
+    (state: any) => state.ticket_trouble_consequence,
   );
 
   useEffect(() => {
     if (messageCreate !== "" && isSuccess && !isLoading) {
-      const back = `back=/ticket_trouble_couse`;
+      const back = `back=/ticket_trouble_consequence`;
       navigate(
-        `/ticket_trouble_couse/view/${messageCreate?.data?.uuid}?${back}`,
+        `/ticket_trouble_consequence/view/${messageCreate?.data?.uuid}?${back}`,
       );
-      dispatch(resetTicketTroubleCouse());
+      dispatch(resetTicketTroubleConsequence());
     } else if (messageCreate !== "" && isError && !isLoading) {
       console.log(messageCreate, "error");
-      dispatch(resetTicketTroubleCouse());
+      dispatch(resetTicketTroubleConsequence());
     }
   }, [data, isLoading, isError, isSuccess, messageCreate, dispatch]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(CreateTicketTroubleCouseData({ formData }));
+    dispatch(CreateTicketTroubleConsequenceData({ formData }));
   };
 
   const handleDiscard = () => {
-    navigate("/ticket_trouble_couse");
+    navigate("/ticket_trouble_consequence");
   };
 
   return (
@@ -70,4 +70,4 @@ const CreateTicketTroubleCousePage = () => {
   );
 };
 
-export default CreateTicketTroubleCousePage;
+export default CreateTicketTroubleConsequencePage;
