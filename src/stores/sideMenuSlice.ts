@@ -109,8 +109,14 @@ const initialState: SideMenuState = {
         },
         {
           icon: "Settings",
-          title: "ticket Trouble Couse",
-          pathname: "/ticket_trouble_couse",
+          title: "ticket Trouble Category",
+          pathname: "/ticket_trouble_category",
+          privilege: "setting",
+        },
+        {
+          icon: "Settings",
+          title: "ticket Trouble Consequence",
+          pathname: "/ticket_trouble_consequence",
           privilege: "setting",
         },
       ],
