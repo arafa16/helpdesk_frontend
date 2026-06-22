@@ -1,4 +1,4 @@
-### [Unreleased](https://github.com/arafa16/helpdesk_frontend/compare/1.4.1...main)
+### [Unreleased](https://github.com/arafa16/helpdesk_frontend/compare/1.4.2...main)
 
 #### [v1.4.2](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.4.2) - 2026-06-22
 
