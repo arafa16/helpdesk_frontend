@@ -1,3 +1,19 @@
+- fixs: data select at consequence by [Ara Fa Adri](https://github.com/arafa16) in [#9662143](https://github.com/arafa16/helpdesk_frontend/commit/96621439cfe35a25bfe3747ea129323c98a89bc2).
+
+#### v1.4.1 - 2026-06-21
+
+- build: update version 1.4.0 to 1.4.1 by [Ara Fa Adri](https://github.com/arafa16) in [#32929df](https://github.com/arafa16/helpdesk_frontend/commit/32929dfe25524c62db892991bdbe117a7fdbae4a).
+
+- build: change couse to consequence and add active inactive row by [Ara Fa Adri](https://github.com/arafa16) in [#bb7244a](https://github.com/arafa16/helpdesk_frontend/commit/bb7244a9538f7379fb4e9372972bca23f8b8adc5).
+
+- build: make ticket CRUD ticket trouble category by [Ara Fa Adri](https://github.com/arafa16) in [#7137cf4](https://github.com/arafa16/helpdesk_frontend/commit/7137cf415d37c7ed2a67fb496d712cef09a84b49).
+
+- build: change couse to consequence by [Ara Fa Adri](https://github.com/arafa16) in [#50695b9](https://github.com/arafa16/helpdesk_frontend/commit/50695b954be07e62293bcec547b9862eea0500b1).
+
+- build: make category and consequence reducer by [Ara Fa Adri](https://github.com/arafa16) in [#5237420](https://github.com/arafa16/helpdesk_frontend/commit/52374203155de4769e8c92709124eea2c7d22454).
+
+- build: add active or inactive row by [Ara Fa Adri](https://github.com/arafa16) in [#0ebc10f](https://github.com/arafa16/helpdesk_frontend/commit/0ebc10fd0e3ed977e1235720781def2db7fb9589).
+
 #### v1.4.0 - 2026-06-08
 
 - build: set version in the login page by [Ara Fa Adri](https://github.com/arafa16) in [#ac390ae](https://github.com/arafa16/helpdesk_frontend/commit/ac390ae05915c652ab0a5764538b76a04246a07a).
