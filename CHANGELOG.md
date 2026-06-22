@@ -1,5 +1,9 @@
 ### [Unreleased](https://github.com/arafa16/helpdesk_frontend/compare/1.4.1...main)
 
+#### [v1.4.2](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.4.2) - 2026-06-22
+
+- docs: update version 1.4.1 to 1.4.2 by [Ara Fa Adri](https://github.com/arafa16) in [#a32917d](https://github.com/arafa16/helpdesk_frontend/commit/a32917d6247ba71c3b9750b21bb153801a2b419d).
+
 - fixs: data select at consequence by [Ara Fa Adri](https://github.com/arafa16) in [#9662143](https://github.com/arafa16/helpdesk_frontend/commit/96621439cfe35a25bfe3747ea129323c98a89bc2).
 
 #### [v1.4.1](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.4.1) - 2026-06-21
