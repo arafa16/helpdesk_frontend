@@ -1,6 +1,8 @@
+### [Unreleased](https://github.com/arafa16/helpdesk_frontend/compare/1.4.1...main)
+
 - fixs: data select at consequence by [Ara Fa Adri](https://github.com/arafa16) in [#9662143](https://github.com/arafa16/helpdesk_frontend/commit/96621439cfe35a25bfe3747ea129323c98a89bc2).
 
-#### v1.4.1 - 2026-06-21
+#### [v1.4.1](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.4.1) - 2026-06-21
 
 - build: update version 1.4.0 to 1.4.1 by [Ara Fa Adri](https://github.com/arafa16) in [#32929df](https://github.com/arafa16/helpdesk_frontend/commit/32929dfe25524c62db892991bdbe117a7fdbae4a).
 
@@ -14,7 +16,7 @@
 
 - build: add active or inactive row by [Ara Fa Adri](https://github.com/arafa16) in [#0ebc10f](https://github.com/arafa16/helpdesk_frontend/commit/0ebc10fd0e3ed977e1235720781def2db7fb9589).
 
-#### v1.4.0 - 2026-06-08
+#### [v1.4.0](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.4.0) - 2026-06-08
 
 - build: set version in the login page by [Ara Fa Adri](https://github.com/arafa16) in [#ac390ae](https://github.com/arafa16/helpdesk_frontend/commit/ac390ae05915c652ab0a5764538b76a04246a07a).
 
@@ -26,7 +28,7 @@
 
 - build: make slice and store ticket trouble couse by [Ara Fa Adri](https://github.com/arafa16) in [#b20e7ff](https://github.com/arafa16/helpdesk_frontend/commit/b20e7ffc31dbdc2dce95d4dcd19c329468976e55).
 
-#### v1.3.0 - 2026-05-19
+#### [v1.3.0](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.3.0) - 2026-05-19
 
 - build: update version 1.2.0 to 1.3.0 by [Ara Fa Adri](https://github.com/arafa16) in [#9d477ef](https://github.com/arafa16/helpdesk_frontend/commit/9d477eff8ad71d3059746050b163c63b1e39793e).
 
@@ -38,7 +40,7 @@
 
 - build: make new loading in data ticket admin by [Ara Fa Adri](https://github.com/arafa16) in [#315bc03](https://github.com/arafa16/helpdesk_frontend/commit/315bc0303e910ea770ed223dc20f33bd5f7a6cf7).
 
-#### v1.2.0 - 2026-05-13
+#### [v1.2.0](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.2.0) - 2026-05-13
 
 - build: update version 1.1.0 to 1.2.0 by [Ara Fa Adri](https://github.com/arafa16) in [#b2d0837](https://github.com/arafa16/helpdesk_frontend/commit/b2d083731c348e4795776b9c94866b10e8113ce7).
 
@@ -46,15 +48,15 @@
 
 - fixs: trouble about login cannot redirect to dashboard when successed login by [Ara Fa Adri](https://github.com/arafa16) in [#de8184d](https://github.com/arafa16/helpdesk_frontend/commit/de8184db4562c77de5abd59cde1b71edecd2ab1f).
 
-#### v1.1.0 - 2026-02-23
+#### [v1.1.0](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.1.0) - 2026-02-23
 
 - build: make new format printout ticket by [Ara Fa Adri](https://github.com/arafa16) in [#a6a9044](https://github.com/arafa16/helpdesk_frontend/commit/a6a9044fc62e791c0e84272f147d4016aae2571a).
 
-#### v1.0.0 - 2026-02-23
+#### [v1.0.0](https://github.com/arafa16/helpdesk_frontend/releases/tag/1.0.0) - 2026-02-23
 
 - docs: update changelog, readme, license and package.json by [Ara Fa Adri](https://github.com/arafa16) in [#c0588e0](https://github.com/arafa16/helpdesk_frontend/commit/c0588e009ffa39b90b3a3b15db0d56fa63239443).
 
-#### v0.0.0 - 2025-11-04
+#### [v0.0.0](https://github.com/arafa16/helpdesk_frontend/releases/tag/0.0.0) - 2025-11-04
 
 - build: make complaint time to the table by [Ara Fa Adri](https://github.com/arafa16) in [#b20faef](https://github.com/arafa16/helpdesk_frontend/commit/b20faef77dce890d27c4bd51fce15136484ef5b2).
 
